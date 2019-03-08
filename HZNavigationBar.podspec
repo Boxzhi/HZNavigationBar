@@ -17,9 +17,8 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/CoderZZHe/HZNavigationBar"
   s.license      = "MIT"
   s.author       = { "hezhizhi" => "coderhzz@163.com" }
-  s.platform     = :ios, '8.0'
+  s.platform     = :ios, '10.0'
   s.source       = { :git => "https://github.com/CoderZZHe/HZNavigationBar", :tag => s.version }
-  # s.public_header_files = "./*.h"
   s.source_files = "HZNavigationBar_Example/HZNavigationBar/*.swift"
   s.framework    = "UIKit"
   s.requires_arc = true
