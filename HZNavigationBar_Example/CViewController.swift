@@ -14,7 +14,13 @@ class CViewController: BaseViewController {
         super.viewDidLoad()
 
         nav.title = "C控制器"
-        nav.barBackgroundImage = #imageLiteral(resourceName: "aaaaaa")
+//        nav.barBackgroundImage = #imageLiteral(resourceName: "aaaaaa")
+        let button = UIButton(type: .custom)
+        button.setTitle("测试啊啊啊啊", for: .normal)
+        button.setTitleColor(.green, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        button.setImage(UIImage(named: "cccc"), for: .normal)
+        nav.hz_setTitleView(button)
         let rignta = HZNavigationBarItem.create( #imageLiteral(resourceName: "aaaa")) { (btn) in
             
         }

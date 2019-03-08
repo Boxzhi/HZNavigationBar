@@ -8,8 +8,7 @@
 
 import UIKit
 
-extension UINavigationBar:HZAwakeProtocol
-{
+extension UINavigationBar: HZAwakeProtocol {
     fileprivate struct AssociatedKeys {
         static var backgroundView: UIView = UIView()
         static var backgroundImageView: UIImageView = UIImageView()
@@ -40,8 +39,7 @@ extension UINavigationBar:HZAwakeProtocol
     }
     
     // set navigationBar backgroundImage
-    fileprivate func hz_setBackgroundImage(image:UIImage)
-    {
+    fileprivate func hz_setBackgroundImage(image:UIImage) {
         backgroundView?.removeFromSuperview()
         backgroundView = nil
         if (backgroundImageView == nil)
@@ -57,8 +55,7 @@ extension UINavigationBar:HZAwakeProtocol
     }
     
     // set navigationBar barTintColor
-    fileprivate func hz_setBackgroundColor(color:UIColor)
-    {
+    fileprivate func hz_setBackgroundColor(color:UIColor) {
         backgroundImageView?.removeFromSuperview()
         backgroundImageView = nil
         if (backgroundView == nil)
@@ -74,8 +71,7 @@ extension UINavigationBar:HZAwakeProtocol
     }
     
     // set _UIBarBackground alpha (_UIBarBackground subviews alpha <= _UIBarBackground alpha)
-    fileprivate func hz_setBackgroundAlpha(alpha:CGFloat)
-    {
+    fileprivate func hz_setBackgroundAlpha(alpha:CGFloat) {
         if let barBackgroundView = subviews.first
         {
             if #available(iOS 11.0, *)
@@ -90,8 +86,7 @@ extension UINavigationBar:HZAwakeProtocol
     }
     
     // 设置导航栏所有BarButtonItem的透明度
-    public func hz_setBarButtonItemsAlpha(alpha:CGFloat, hasSystemBackIndicator:Bool)
-    {
+    public func hz_setBarButtonItemsAlpha(alpha:CGFloat, hasSystemBackIndicator:Bool) {
         for view in subviews
         {
             if (hasSystemBackIndicator == true)
@@ -136,8 +131,7 @@ extension UINavigationBar:HZAwakeProtocol
     }
     
     /// 设置导航栏在垂直方向上平移多少距离
-    public func hz_setTranslationY(translationY:CGFloat)
-    {
+    public func hz_setTranslationY(translationY:CGFloat) {
         transform = CGAffineTransform.init(translationX: 0, y: translationY)
     }
     
@@ -148,10 +142,8 @@ extension UINavigationBar:HZAwakeProtocol
     
     // call swizzling methods active 主动调用交换方法
     private static let onceToken = UUID().uuidString
-    public static func hzAwake()
-    {
-        DispatchQueue.once(token: onceToken)
-        {
+    public static func hzAwake() {
+        DispatchQueue.once(token: onceToken) {
             let needSwizzleSelectorArr = [
                 #selector(setter: titleTextAttributes)
             ]
@@ -169,8 +161,7 @@ extension UINavigationBar:HZAwakeProtocol
     //==========================================================================
     // MARK: swizzling pop
     //==========================================================================
-    @objc func hz_setTitleTextAttributes(_ newTitleTextAttributes:[String : Any]?)
-    {
+    @objc func hz_setTitleTextAttributes(_ newTitleTextAttributes:[String : Any]?) {
         guard var attributes = newTitleTextAttributes else {
             return
         }
@@ -203,24 +194,20 @@ extension UINavigationBar:HZAwakeProtocol
 //==========================================================================
 // MARK: - UINavigationController
 //==========================================================================
-extension UINavigationController: HZFatherAwakeProtocol
-{
+extension UINavigationController: HZFatherAwakeProtocol {
     override open var preferredStatusBarStyle: UIStatusBarStyle {
         return topViewController?.statusBarStyle ?? HZNavigationBar.defaultStatusBarStyle
     }
     
-    fileprivate func setNeedsNavigationBarUpdate(backgroundImage: UIImage)
-    {
+    fileprivate func setNeedsNavigationBarUpdate(backgroundImage: UIImage) {
         navigationBar.hz_setBackgroundImage(image: backgroundImage)
     }
     
-    fileprivate func setNeedsNavigationBarUpdate(barTintColor: UIColor)
-    {
+    fileprivate func setNeedsNavigationBarUpdate(barTintColor: UIColor) {
         navigationBar.hz_setBackgroundColor(color: barTintColor)
     }
     
-    fileprivate func setNeedsNavigationBarUpdate(barBackgroundAlpha: CGFloat)
-    {
+    fileprivate func setNeedsNavigationBarUpdate(barBackgroundAlpha: CGFloat) {
         navigationBar.hz_setBackgroundAlpha(alpha: barBackgroundAlpha)
     }
     
@@ -228,13 +215,11 @@ extension UINavigationController: HZFatherAwakeProtocol
         navigationBar.tintColor = tintColor
     }
     
-    fileprivate func setNeedsNavigationBarUpdate(hideShadowImage: Bool)
-    {
+    fileprivate func setNeedsNavigationBarUpdate(hideShadowImage: Bool) {
         navigationBar.shadowImage = (hideShadowImage == true) ? UIImage() : nil
     }
     
-    fileprivate func setNeedsNavigationBarUpdate(titleColor: UIColor)
-    {
+    fileprivate func setNeedsNavigationBarUpdate(titleColor: UIColor) {
         guard let titleTextAttributes = navigationBar.titleTextAttributes else {
             navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:titleColor]
             return
@@ -245,8 +230,7 @@ extension UINavigationController: HZFatherAwakeProtocol
         navigationBar.titleTextAttributes = newTitleTextAttributes
     }
     
-    fileprivate func updateNavigationBar(fromVC: UIViewController?, toVC: UIViewController?, progress: CGFloat)
-    {
+    fileprivate func updateNavigationBar(fromVC: UIViewController?, toVC: UIViewController?, progress: CGFloat) {
         // change navBarBarTintColor
         let fromBarTintColor = fromVC?.navBarBarTintColor ?? HZNavigationBar.defaultNavBarBarTintColor
         let toBarTintColor   = toVC?.navBarBarTintColor ?? HZNavigationBar.defaultNavBarBarTintColor
@@ -274,8 +258,7 @@ extension UINavigationController: HZFatherAwakeProtocol
     
     // call swizzling methods active 主动调用交换方法
     private static let onceToken = UUID().uuidString
-    public static func fatherAwake()
-    {
+    public static func fatherAwake() {
         DispatchQueue.once(token: onceToken)
         {
             let needSwizzleSelectorArr = [
@@ -310,8 +293,7 @@ extension UINavigationController: HZFatherAwakeProtocol
     }
     
     // swizzling system method: popToViewController
-    @objc func hz_popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]?
-    {
+    @objc func hz_popToViewController(_ viewController: UIViewController, animated: Bool) -> [UIViewController]? {
         setNeedsNavigationBarUpdate(titleColor: viewController.navBarTitleColor)
         var displayLink:CADisplayLink? = CADisplayLink(target: self, selector: #selector(popNeedDisplay))
         // UITrackingRunLoopMode: 界面跟踪 Mode，用于 ScrollView 追踪触摸滑动，保证界面滑动时不受其他 Mode 影响
@@ -330,8 +312,7 @@ extension UINavigationController: HZFatherAwakeProtocol
     }
     
     // swizzling system method: popToRootViewControllerAnimated
-    @objc func hz_popToRootViewControllerAnimated(_ animated: Bool) -> [UIViewController]?
-    {
+    @objc func hz_popToRootViewControllerAnimated(_ animated: Bool) -> [UIViewController]? {
         var displayLink:CADisplayLink? = CADisplayLink(target: self, selector: #selector(popNeedDisplay))
         displayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
         CATransaction.setCompletionBlock {
@@ -347,8 +328,7 @@ extension UINavigationController: HZFatherAwakeProtocol
     }
     
     // change navigationBar barTintColor smooth before pop to current VC finished
-    @objc fileprivate func popNeedDisplay()
-    {
+    @objc fileprivate func popNeedDisplay() {
         guard let topViewController = topViewController,
             let coordinator       = topViewController.transitionCoordinator else {
                 return
@@ -377,8 +357,7 @@ extension UINavigationController: HZFatherAwakeProtocol
     }
     
     // swizzling system method: pushViewController
-    @objc func hz_pushViewController(_ viewController: UIViewController, animated: Bool)
-    {
+    @objc func hz_pushViewController(_ viewController: UIViewController, animated: Bool) {
         var displayLink:CADisplayLink? = CADisplayLink(target: self, selector: #selector(pushNeedDisplay))
         displayLink?.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
         CATransaction.setCompletionBlock {
@@ -394,8 +373,7 @@ extension UINavigationController: HZFatherAwakeProtocol
     }
     
     // change navigationBar barTintColor smooth before push to current VC finished or before pop to current VC finished
-    @objc fileprivate func pushNeedDisplay()
-    {
+    @objc fileprivate func pushNeedDisplay() {
         guard let topViewController = topViewController,
             let coordinator       = topViewController.transitionCoordinator else {
                 return
@@ -413,10 +391,8 @@ extension UINavigationController: HZFatherAwakeProtocol
 //==========================================================================
 // MARK: - deal the gesture of return
 //==========================================================================
-extension UINavigationController
-{
-    public func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool
-    {
+extension UINavigationController {
+    public func navigationBar(_ navigationBar: UINavigationBar, shouldPop item: UINavigationItem) -> Bool {
         if let topVC = topViewController,
             let coor = topVC.transitionCoordinator, coor.initiallyInteractive {
             if #available(iOS 10.0, *) {
@@ -440,8 +416,7 @@ extension UINavigationController
     }
     
     // deal the gesture of return break off
-    private func dealInteractionChanges(_ context: UIViewControllerTransitionCoordinatorContext)
-    {
+    private func dealInteractionChanges(_ context: UIViewControllerTransitionCoordinatorContext) {
         let animations: (UITransitionContextViewControllerKey) -> () = {
             let curColor = context.viewController(forKey: $0)?.navBarBarTintColor ?? HZNavigationBar.defaultNavBarBarTintColor
             let curAlpha = context.viewController(forKey: $0)?.navBarBackgroundAlpha ?? HZNavigationBar.defaultBackgroundAlpha
@@ -451,15 +426,12 @@ extension UINavigationController
         }
         
         // after that, cancel the gesture of return
-        if context.isCancelled
-        {
+        if context.isCancelled {
             let cancelDuration: TimeInterval = context.transitionDuration * Double(context.percentComplete)
             UIView.animate(withDuration: cancelDuration) {
                 animations(.from)
             }
-        }
-        else
-        {
+        }else {
             // after that, finish the gesture of return
             let finishDuration: TimeInterval = context.transitionDuration * Double(1 - context.percentComplete)
             UIView.animate(withDuration: finishDuration) {
@@ -469,8 +441,7 @@ extension UINavigationController
     }
     
     // swizzling system method: _updateInteractiveTransition
-    @objc func hz_updateInteractiveTransition(_ percentComplete: CGFloat)
-    {
+    @objc func hz_updateInteractiveTransition(_ percentComplete: CGFloat) {
         guard let topViewController = topViewController,
             let coordinator       = topViewController.transitionCoordinator else {
                 hz_updateInteractiveTransition(percentComplete)
@@ -488,10 +459,8 @@ extension UINavigationController
 //=============================================================================
 // MARK: - store navigationBar barTintColor and tintColor every viewController
 //=============================================================================
-extension UIViewController: HZAwakeProtocol
-{
-    fileprivate struct AssociatedKeys
-    {
+extension UIViewController: HZAwakeProtocol {
+    fileprivate struct AssociatedKeys {
         static var pushToCurrentVCFinished: Bool = false
         static var pushToNextVCFinished:Bool = false
         
@@ -534,8 +503,7 @@ extension UIViewController: HZAwakeProtocol
     }
     
     // you can set navigationBar backgroundImage
-    public var navBarBackgroundImage: UIImage?
-    {
+    public var navBarBackgroundImage: UIImage? {
         get {
             guard let bgImage = objc_getAssociatedObject(self, &AssociatedKeys.navBarBackgroundImage) as? UIImage else {
                 return HZNavigationBar.defaultNavBarBackgroundImage
@@ -700,8 +668,7 @@ extension UIViewController: HZAwakeProtocol
     
     // swizzling two system methods: viewWillAppear(_:) and viewWillDisappear(_:)
     private static let onceToken = UUID().uuidString
-    @objc public static func hzAwake()
-    {
+    @objc public static func hzAwake() {
         DispatchQueue.once(token: onceToken)
         {
             let needSwizzleSelectors = [
@@ -721,8 +688,7 @@ extension UIViewController: HZAwakeProtocol
         }
     }
     
-    @objc func hz_viewWillAppear(_ animated: Bool)
-    {
+    @objc func hz_viewWillAppear(_ animated: Bool) {
         if canUpdateNavigationBar() == true {
             pushToNextVCFinished = false
             navigationController?.setNeedsNavigationBarUpdate(tintColor: navBarTintColor)
@@ -731,16 +697,14 @@ extension UIViewController: HZAwakeProtocol
         hz_viewWillAppear(animated)
     }
     
-    @objc func hz_viewWillDisappear(_ animated: Bool)
-    {
+    @objc func hz_viewWillDisappear(_ animated: Bool) {
         if canUpdateNavigationBar() == true {
             pushToNextVCFinished = true
         }
         hz_viewWillDisappear(animated)
     }
     
-    @objc func hz_viewDidAppear(_ animated: Bool)
-    {
+    @objc func hz_viewDidAppear(_ animated: Bool) {
         
         if self.navigationController?.viewControllers.first != self {
             self.pushToCurrentVCFinished = true
@@ -760,8 +724,7 @@ extension UIViewController: HZAwakeProtocol
         hz_viewDidAppear(animated)
     }
     
-    public func canUpdateNavigationBar() -> Bool
-    {
+    public func canUpdateNavigationBar() -> Bool  {
         let viewFrame = view.frame
         let maxFrame = UIScreen.main.bounds
         let middleFrame = CGRect(x: 0, y: HZNavigationBar.navBarBottom(), width: HZNavigationBar.screenWidth(), height: HZNavigationBar.screenHeight()-HZNavigationBar.navBarBottom())
@@ -805,8 +768,7 @@ public extension DispatchQueue {
 //===========================================================================================
 // MARK: - default navigationBar barTintColor、tintColor and statusBarStyle YOU CAN CHANGE!!!
 //===========================================================================================
-public class HZNavigationBar
-{
+public class HZNavigationBar {
     fileprivate struct AssociatedKeys
     {   // default is system attributes
         static var defNavBarBarTintColor: UIColor = UIColor.white
@@ -896,8 +858,7 @@ public class HZNavigationBar
     }
     
     // Calculate the middle Color with translation percent
-    class fileprivate func middleColor(fromColor: UIColor, toColor: UIColor, percent: CGFloat) -> UIColor
-    {
+    class fileprivate func middleColor(fromColor: UIColor, toColor: UIColor, percent: CGFloat) -> UIColor {
         // get current color RGBA
         var fromRed: CGFloat = 0
         var fromGreen: CGFloat = 0
@@ -921,15 +882,13 @@ public class HZNavigationBar
     }
     
     // Calculate the middle alpha
-    class fileprivate func middleAlpha(fromAlpha: CGFloat, toAlpha: CGFloat, percent: CGFloat) -> CGFloat
-    {
+    class fileprivate func middleAlpha(fromAlpha: CGFloat, toAlpha: CGFloat, percent: CGFloat) -> CGFloat {
         let newAlpha = fromAlpha + (toAlpha - fromAlpha) * percent
         return newAlpha
     }
 }
 
-public extension HZNavigationBar
-{
+public extension HZNavigationBar {
     public class func isIphoneX() -> Bool {
         return UIScreen.main.bounds.equalTo(CGRect(x: 0, y: 0, width: 375, height: 812))
     }
@@ -952,14 +911,12 @@ public extension HZNavigationBar
 public protocol HZAwakeProtocol: class {
     static func hzAwake()
 }
-public protocol HZFatherAwakeProtocol: class
-{   // 1.1 定义 HZFatherAwakeProtocol ()
+public protocol HZFatherAwakeProtocol: class {   // 1.1 定义 HZFatherAwakeProtocol ()
     static func fatherAwake()
 }
 
-class NothingToSeeHere
-{
-    static func harmlessFunction(){
+class NothingToSeeHere {
+    static func harmlessFunction() {
         UINavigationBar.hzAwake()
         UIViewController.hzAwake()
         UINavigationController.fatherAwake()
@@ -967,8 +924,7 @@ class NothingToSeeHere
 }
 
 // 2. 让APP启动时只执行一次 harmlessFunction 方法
-extension UIApplication
-{
+extension UIApplication {
     private static let runOnce:Void = { //使用静态属性以保证只调用一次(该属性是个方法)
         NothingToSeeHere.harmlessFunction()
     }()

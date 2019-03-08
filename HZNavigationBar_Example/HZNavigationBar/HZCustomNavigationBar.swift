@@ -246,42 +246,51 @@ public extension HZCustomNavigationBar {
         self._titleView.isHidden = false
         self._titleLabel.isHidden = true
         
-        var newTitleViewSize: CGSize? = _view.frame.size
-        let _titleViewWidth: CGFloat = _titleView.bounds.width
-        let _titleViewHeight: CGFloat = _titleView.bounds.height
-        
-        if let _titleViewSize = titleViewSize {
-            if _titleViewSize.width == 0 && _titleViewSize.height == 0 {
-                newTitleViewSize = CGSize(width: _titleViewWidth, height: _titleViewHeight)
-            }else if _titleViewSize.width == 0 {
-                newTitleViewSize = CGSize(width: _titleViewWidth, height: _titleViewSize.height)
-            }else {
-                newTitleViewSize = CGSize(width: _titleViewSize.width, height: _titleViewHeight)
-            }
-        }else if let _newTitleViewSize = newTitleViewSize {
-            if _newTitleViewSize.width != 0 && _newTitleViewSize.height != 0 {
-                let height: CGFloat = _newTitleViewSize.height < _titleViewHeight ? _newTitleViewSize.height : _titleViewHeight
-                if _newTitleViewSize.width < _titleViewWidth {
-                    newTitleViewSize = CGSize(width: _newTitleViewSize.width, height: height)
-                }else {
-                    let width: CGFloat = _newTitleViewSize.width * height / _newTitleViewSize.height
-                    newTitleViewSize = CGSize(width: width < _titleViewWidth ? width : _titleViewWidth, height: height)
-                }
-            }else if _newTitleViewSize.width == 0 {
-                let height: CGFloat = _newTitleViewSize.height < _titleViewHeight ? _newTitleViewSize.height : _titleViewHeight
-                newTitleViewSize = CGSize(width: _titleViewWidth, height: height)
-            }else {
-                let width: CGFloat = _newTitleViewSize.width < _titleViewWidth ? _newTitleViewSize.width : _titleViewWidth
-                newTitleViewSize = CGSize(width: width, height: _titleViewHeight)
-            }
+        if _view.isKind(of: UIButton.self) {
+            let _button = _view as! UIButton
+            _titleView.addSubview(_button)
+            _titleView.constrainCenteredAutoWidth(_button)
+            
         }else {
-            newTitleViewSize = CGSize(width: _titleViewWidth, height: _titleViewHeight)
+            
+            var newTitleViewSize: CGSize? = _view.frame.size
+            let _titleViewWidth: CGFloat = _titleView.bounds.width
+            let _titleViewHeight: CGFloat = _titleView.bounds.height
+            
+            if let _titleViewSize = titleViewSize {
+                if _titleViewSize.width == 0 && _titleViewSize.height == 0 {
+                    newTitleViewSize = CGSize(width: _titleViewWidth, height: _titleViewHeight)
+                }else if _titleViewSize.width == 0 {
+                    newTitleViewSize = CGSize(width: _titleViewWidth, height: _titleViewSize.height)
+                }else {
+                    newTitleViewSize = CGSize(width: _titleViewSize.width, height: _titleViewHeight)
+                }
+            }else if let _newTitleViewSize = newTitleViewSize {
+                if _newTitleViewSize.width != 0 && _newTitleViewSize.height != 0 {
+                    let height: CGFloat = _newTitleViewSize.height < _titleViewHeight ? _newTitleViewSize.height : _titleViewHeight
+                    if _newTitleViewSize.width < _titleViewWidth {
+                        newTitleViewSize = CGSize(width: _newTitleViewSize.width, height: height)
+                    }else {
+                        let width: CGFloat = _newTitleViewSize.width * height / _newTitleViewSize.height
+                        newTitleViewSize = CGSize(width: width < _titleViewWidth ? width : _titleViewWidth, height: height)
+                    }
+                }else if _newTitleViewSize.width == 0 {
+                    let height: CGFloat = _newTitleViewSize.height < _titleViewHeight ? _newTitleViewSize.height : _titleViewHeight
+                    newTitleViewSize = CGSize(width: _titleViewWidth, height: height)
+                }else {
+                    let width: CGFloat = _newTitleViewSize.width < _titleViewWidth ? _newTitleViewSize.width : _titleViewWidth
+                    newTitleViewSize = CGSize(width: width, height: _titleViewHeight)
+                }
+            }else {
+                newTitleViewSize = CGSize(width: _titleViewWidth, height: _titleViewHeight)
+            }
+            
+            _titleView.frame = CGRect(x: (self.bounds.width - (newTitleViewSize?.width)!) / 2, y: HZStatusBarHeight, width: (newTitleViewSize?.width)!, height: HZNavigationBarHeight)
+            _view.frame = CGRect(x: 0, y: 0, width: (newTitleViewSize?.width)!, height: (newTitleViewSize?.height)!)
+            _titleView.addSubview(_view)
+            _titleView.constrainCentered(_view)
         }
         
-        _titleView.frame = CGRect(x: (self.bounds.width - (newTitleViewSize?.width)!) / 2, y: HZStatusBarHeight, width: (newTitleViewSize?.width)!, height: HZNavigationBarHeight)
-        _view.frame = CGRect(x: 0, y: 0, width: (newTitleViewSize?.width)!, height: (newTitleViewSize?.height)!)
-        _titleView.addSubview(_view)
-        _titleView.constrainCentered(_view)
     }
     
     /// 设置NavigationBar底部阴影

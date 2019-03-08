@@ -10,6 +10,7 @@ import UIKit
 
 extension UIView {
     
+    //MARK: UIView
     func constrainCentered(_ subview: UIView) {
         
         subview.translatesAutoresizingMaskIntoConstraints = false
@@ -218,6 +219,45 @@ extension UIView {
             topContraint,
             bottomConstraint,
             trailingContraint])
+    }
+    
+    //MARK: UIButton自适应宽度
+    func constrainCenteredAutoWidth(_ subview: UIButton) {
+        
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        
+        let verticalContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .centerY,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .centerY,
+            multiplier: 1.0,
+            constant: 0)
+        
+        let horizontalContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .centerX,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .centerX,
+            multiplier: 1.0,
+            constant: 0)
+        
+        let heightContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .height,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .height,
+            multiplier: 1.0,
+            constant: 0)
+        
+        addConstraints([
+            horizontalContraint,
+            verticalContraint,
+            heightContraint])
+        
     }
     
 }
