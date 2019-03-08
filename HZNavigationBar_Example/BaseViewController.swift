@@ -21,7 +21,7 @@ class BaseViewController: UIViewController {
         nav.isHiddenBottomLine = true
         nav.isShowBottomShadow = true
 
-        if self.navigationController?.childViewControllers.count != 1,
+        if self.navigationController?.children.count != 1,
             self.navigationController != nil {
             let left = HZNavigationBarItem.create( #imageLiteral(resourceName: "back")) { (btn) in
                 let currentVc = UIViewController.hz_currentViewController()
