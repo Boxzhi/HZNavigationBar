@@ -36,25 +36,25 @@ public class HZNavigationBarItem: UIButton {
     fileprivate var clickBarItemBlock: ((_ sender: UIButton) -> Void)?
     
     /// 快速创建HZNavigationBarItem
-    public class func create(_ normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, titleColor: UIColor? = .black, titleFont: UIFont? = UIFont.systemFont(ofSize: 16), style: HZButtonEdgeInsetsStyle = .left, space: CGFloat = 5, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) -> HZNavigationBarItem? {
+    public class func create(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, titleColor: UIColor? = .black, titleFont: UIFont? = UIFont.systemFont(ofSize: 16), style: HZButtonEdgeInsetsStyle = .left, space: CGFloat = 5, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) -> HZNavigationBarItem? {
         
         if normalTitle == nil, normalImage == nil {
             return nil
         }else {
-            return HZNavigationBarItem(normalImage, selectedImage: selectedImage, normalTitle: normalTitle, selectedTitle: selectedTitle, titleColor: titleColor, titleFont: titleFont, style: style, space: space, clickBarItemBlock: clickBarItemBlock)
+            return HZNavigationBarItem(normalImage: normalImage, selectedImage: selectedImage, normalTitle: normalTitle, selectedTitle: selectedTitle, titleColor: titleColor, titleFont: titleFont, style: style, space: space, clickBarItemBlock: clickBarItemBlock)
         }
     }
     
     /// 快速创建只有image的HZNavigationBarItem
-    public class func create(normalImage: UIImage?, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) -> HZNavigationBarItem? {
+    public class func create(_ normalImage: UIImage?, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) -> HZNavigationBarItem? {
         guard let _normalImage = normalImage else { return nil }
-        return HZNavigationBarItem(_normalImage, selectedImage: nil, normalTitle: nil, selectedTitle: nil, titleColor: .black, titleFont: UIFont.systemFont(ofSize: 16), style: .left, space: 5, clickBarItemBlock: clickBarItemBlock)
+        return HZNavigationBarItem(normalImage: _normalImage, selectedImage: nil, normalTitle: nil, selectedTitle: nil, titleColor: .black, titleFont: UIFont.systemFont(ofSize: 16), style: .left, space: 5, clickBarItemBlock: clickBarItemBlock)
     }
     
     /// 快速创建只有title的HZNavigationBarItem
-    public class func create(normalTitle: String?, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) -> HZNavigationBarItem? {
+    public class func create(_ normalTitle: String?, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) -> HZNavigationBarItem? {
         guard let _normalTitle = normalTitle else { return nil }
-        return HZNavigationBarItem(nil, selectedImage: nil, normalTitle: _normalTitle, selectedTitle: nil, titleColor: .black, titleFont: UIFont.systemFont(ofSize: 16), style: .left, space: 5, clickBarItemBlock: clickBarItemBlock)
+        return HZNavigationBarItem(normalImage: nil, selectedImage: nil, normalTitle: _normalTitle, selectedTitle: nil, titleColor: .black, titleFont: UIFont.systemFont(ofSize: 16), style: .left, space: 5, clickBarItemBlock: clickBarItemBlock)
     }
     
     /**
@@ -71,7 +71,7 @@ public class HZNavigationBarItem: UIButton {
      - parameter space:               图片文字之间间隙
      - parameter clickBarItemBlock:   点击回调
      */
-     fileprivate init(_ normalImage: UIImage?, selectedImage: UIImage?, normalTitle: String?, selectedTitle: String?, titleColor: UIColor?, titleFont: UIFont?, style: HZButtonEdgeInsetsStyle, space: CGFloat, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) {
+     fileprivate init(normalImage: UIImage?, selectedImage: UIImage?, normalTitle: String?, selectedTitle: String?, titleColor: UIColor?, titleFont: UIFont?, style: HZButtonEdgeInsetsStyle, space: CGFloat, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) {
         super.init(frame: .zero)
         
         self.normalTitle = normalTitle

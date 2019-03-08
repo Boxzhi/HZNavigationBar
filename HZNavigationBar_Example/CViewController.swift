@@ -65,7 +65,7 @@ class CViewController: BaseViewController {
     }
 
     @objc func goto() {
-        let item = HZNavigationBarItem.create(#imageLiteral(resourceName: "eeee"), normalTitle: "测试", titleColor: .red) { (btn) in
+        let item = HZNavigationBarItem.create(normalImage: #imageLiteral(resourceName: "eeee"), normalTitle: "测试", titleColor: .red) { (btn) in
             print("测试")
         }
 
