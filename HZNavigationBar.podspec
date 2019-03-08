@@ -8,19 +8,18 @@
 
 Pod::Spec.new do |s|
 
-  s.name         = "HZNavigationBar"
-  s.version      = "1.0.0"
-  s.summary      = "A Library for iOS to use for HZNavigationBar."
-  s.description  = <<-DESC
-       一个可高度自定义的NavigationBar的swift库，自定义程度高
-                   DESC
-  s.homepage     = "https://github.com/CoderZZHe/HZNavigationBar"
-  s.license      = "MIT"
-  s.author       = { "hezhizhi" => "coderhzz@163.com" }
-  s.platform     = :ios, '10.0'
-  s.source       = { :git => "https://github.com/CoderZZHe/HZNavigationBar", :tag => s.version }
-  s.source_files = "HZNavigationBar_Example/HZNavigationBar/*.swift"
-  s.framework    = "UIKit"
-  s.requires_arc = true
+  s.name = 'HZNavigationBar'
+  s.version = '1.0.0'
+  s.license = 'MIT'
+  s.summary = 'A very simple to use, can be completely customized navigation bar'
+  s.homepage = 'https://github.com/CoderZZHe/HZNavigationBar'
+  s.author = { 'HeZhizhi' => 'coderhzz@163.com' }
+  s.social_media_url = 'https://www.jianshu.com/u/9767e7dda727'
+  s.source = { :git => "https://github.com/CoderZZHe/HZNavigationBar", :tag => s.version }
+
+  s.ios.deployment_target = '8.0'
+  s.source_files = 'HZNavigationBar_Example/HZNavigationBar/*.swift'
+  s.framework = 'UIKit'
+  s.swift_version = '4.2'
 
 end
