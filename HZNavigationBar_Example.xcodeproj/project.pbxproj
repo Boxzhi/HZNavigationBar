@@ -8,20 +8,44 @@
 
 /* Begin PBXBuildFile section */
 		E4D2B2632232033D008AD70A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B2622232033D008AD70A /* AppDelegate.swift */; };
-		E4D2B2652232033D008AD70A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B2642232033D008AD70A /* ViewController.swift */; };
 		E4D2B2682232033D008AD70A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4D2B2662232033D008AD70A /* Main.storyboard */; };
 		E4D2B26A2232033E008AD70A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4D2B2692232033E008AD70A /* Assets.xcassets */; };
 		E4D2B26D2232033E008AD70A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4D2B26B2232033E008AD70A /* LaunchScreen.storyboard */; };
+		E4D2B27522320393008AD70A /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B27422320393008AD70A /* BaseNavigationController.swift */; };
+		E4D2B277223203AE008AD70A /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B276223203AE008AD70A /* BaseTabBarController.swift */; };
+		E4D2B27E223203DA008AD70A /* DViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B278223203D9008AD70A /* DViewController.swift */; };
+		E4D2B27F223203DA008AD70A /* EViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B279223203D9008AD70A /* EViewController.swift */; };
+		E4D2B280223203DA008AD70A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B27A223203D9008AD70A /* BaseViewController.swift */; };
+		E4D2B281223203DA008AD70A /* CViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B27B223203D9008AD70A /* CViewController.swift */; };
+		E4D2B282223203DA008AD70A /* BViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B27C223203DA008AD70A /* BViewController.swift */; };
+		E4D2B283223203DA008AD70A /* AViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B27D223203DA008AD70A /* AViewController.swift */; };
+		E4D2B2892232040E008AD70A /* HZNavigationBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B2852232040D008AD70A /* HZNavigationBarItem.swift */; };
+		E4D2B28A2232040E008AD70A /* HZNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B2862232040D008AD70A /* HZNavigationBar.swift */; };
+		E4D2B28B2232040E008AD70A /* UIView_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B2872232040D008AD70A /* UIView_Extension.swift */; };
+		E4D2B28C2232040E008AD70A /* HZCustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B2882232040E008AD70A /* HZCustomNavigationBar.swift */; };
+		E4D2B28E22320447008AD70A /* FViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B28D22320447008AD70A /* FViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		E4D2B25F2232033D008AD70A /* HZNavigationBar_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HZNavigationBar_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D2B2622232033D008AD70A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E4D2B2642232033D008AD70A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E4D2B2672232033D008AD70A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E4D2B2692232033E008AD70A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E4D2B26C2232033E008AD70A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4D2B26E2232033E008AD70A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E4D2B27422320393008AD70A /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		E4D2B276223203AE008AD70A /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
+		E4D2B278223203D9008AD70A /* DViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DViewController.swift; sourceTree = "<group>"; };
+		E4D2B279223203D9008AD70A /* EViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EViewController.swift; sourceTree = "<group>"; };
+		E4D2B27A223203D9008AD70A /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		E4D2B27B223203D9008AD70A /* CViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CViewController.swift; sourceTree = "<group>"; };
+		E4D2B27C223203DA008AD70A /* BViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BViewController.swift; sourceTree = "<group>"; };
+		E4D2B27D223203DA008AD70A /* AViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AViewController.swift; sourceTree = "<group>"; };
+		E4D2B2852232040D008AD70A /* HZNavigationBarItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HZNavigationBarItem.swift; sourceTree = "<group>"; };
+		E4D2B2862232040D008AD70A /* HZNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HZNavigationBar.swift; sourceTree = "<group>"; };
+		E4D2B2872232040D008AD70A /* UIView_Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIView_Extension.swift; sourceTree = "<group>"; };
+		E4D2B2882232040E008AD70A /* HZCustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HZCustomNavigationBar.swift; sourceTree = "<group>"; };
+		E4D2B28D22320447008AD70A /* FViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +78,34 @@
 		E4D2B2612232033D008AD70A /* HZNavigationBar_Example */ = {
 			isa = PBXGroup;
 			children = (
+				E4D2B284223203F1008AD70A /* HZNavigationBar */,
 				E4D2B2622232033D008AD70A /* AppDelegate.swift */,
-				E4D2B2642232033D008AD70A /* ViewController.swift */,
 				E4D2B2662232033D008AD70A /* Main.storyboard */,
 				E4D2B2692232033E008AD70A /* Assets.xcassets */,
 				E4D2B26B2232033E008AD70A /* LaunchScreen.storyboard */,
 				E4D2B26E2232033E008AD70A /* Info.plist */,
+				E4D2B27422320393008AD70A /* BaseNavigationController.swift */,
+				E4D2B276223203AE008AD70A /* BaseTabBarController.swift */,
+				E4D2B27D223203DA008AD70A /* AViewController.swift */,
+				E4D2B27A223203D9008AD70A /* BaseViewController.swift */,
+				E4D2B27C223203DA008AD70A /* BViewController.swift */,
+				E4D2B27B223203D9008AD70A /* CViewController.swift */,
+				E4D2B278223203D9008AD70A /* DViewController.swift */,
+				E4D2B279223203D9008AD70A /* EViewController.swift */,
+				E4D2B28D22320447008AD70A /* FViewController.swift */,
 			);
 			path = HZNavigationBar_Example;
+			sourceTree = "<group>";
+		};
+		E4D2B284223203F1008AD70A /* HZNavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				E4D2B2882232040E008AD70A /* HZCustomNavigationBar.swift */,
+				E4D2B2862232040D008AD70A /* HZNavigationBar.swift */,
+				E4D2B2852232040D008AD70A /* HZNavigationBarItem.swift */,
+				E4D2B2872232040D008AD70A /* UIView_Extension.swift */,
+			);
+			path = HZNavigationBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +179,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4D2B2652232033D008AD70A /* ViewController.swift in Sources */,
+				E4D2B27F223203DA008AD70A /* EViewController.swift in Sources */,
+				E4D2B28E22320447008AD70A /* FViewController.swift in Sources */,
+				E4D2B283223203DA008AD70A /* AViewController.swift in Sources */,
+				E4D2B28B2232040E008AD70A /* UIView_Extension.swift in Sources */,
+				E4D2B28C2232040E008AD70A /* HZCustomNavigationBar.swift in Sources */,
+				E4D2B282223203DA008AD70A /* BViewController.swift in Sources */,
+				E4D2B27522320393008AD70A /* BaseNavigationController.swift in Sources */,
+				E4D2B2892232040E008AD70A /* HZNavigationBarItem.swift in Sources */,
+				E4D2B281223203DA008AD70A /* CViewController.swift in Sources */,
 				E4D2B2632232033D008AD70A /* AppDelegate.swift in Sources */,
+				E4D2B277223203AE008AD70A /* BaseTabBarController.swift in Sources */,
+				E4D2B28A2232040E008AD70A /* HZNavigationBar.swift in Sources */,
+				E4D2B27E223203DA008AD70A /* DViewController.swift in Sources */,
+				E4D2B280223203DA008AD70A /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,16 +338,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = HZNavigationBar_Example/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hezhizhi.HZNavigationBar-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -299,16 +358,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = HZNavigationBar_Example/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hezhizhi.HZNavigationBar-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
