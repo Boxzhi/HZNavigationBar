@@ -251,7 +251,7 @@ public extension HZCustomNavigationBar {
         let _titleViewHeight: CGFloat = _titleView.bounds.height
         
         if let _titleViewSize = titleViewSize {
-            if _titleViewSize.width == 0, _titleViewSize.height == 0 {
+            if _titleViewSize.width == 0 && _titleViewSize.height == 0 {
                 newTitleViewSize = CGSize(width: _titleViewWidth, height: _titleViewHeight)
             }else if _titleViewSize.width == 0 {
                 newTitleViewSize = CGSize(width: _titleViewWidth, height: _titleViewSize.height)
@@ -259,7 +259,7 @@ public extension HZCustomNavigationBar {
                 newTitleViewSize = CGSize(width: _titleViewSize.width, height: _titleViewHeight)
             }
         }else if let _newTitleViewSize = newTitleViewSize {
-            if _newTitleViewSize.width != 0, _newTitleViewSize.height != 0 {
+            if _newTitleViewSize.width != 0 && _newTitleViewSize.height != 0 {
                 let height: CGFloat = _newTitleViewSize.height < _titleViewHeight ? _newTitleViewSize.height : _titleViewHeight
                 if _newTitleViewSize.width < _titleViewWidth {
                     newTitleViewSize = CGSize(width: _newTitleViewSize.width, height: height)
