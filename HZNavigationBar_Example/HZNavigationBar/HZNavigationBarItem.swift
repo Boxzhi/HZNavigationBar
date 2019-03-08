@@ -8,7 +8,7 @@
 
 import UIKit
 
-public enum HZButtonEdgeInsetsStyle: Int {
+public enum HZBarItemEdgeInsetsStyle: Int {
     case top = 0  // image在上，label在下
     case bottom = 1  // image在下，label在上
     case left = 2  // image在左，label在右
@@ -31,12 +31,12 @@ public class HZNavigationBarItem: UIButton {
     fileprivate var selectedImage: UIImage?
     fileprivate var titleColor: UIColor?
     fileprivate var titleFont: UIFont?
-    fileprivate var style: HZButtonEdgeInsetsStyle!
+    fileprivate var style: HZBarItemEdgeInsetsStyle!
     fileprivate var space: CGFloat!
     fileprivate var clickBarItemBlock: ((_ sender: UIButton) -> Void)?
     
     /// 快速创建HZNavigationBarItem
-    public class func create(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, titleColor: UIColor? = .black, titleFont: UIFont? = UIFont.systemFont(ofSize: 16), style: HZButtonEdgeInsetsStyle = .left, space: CGFloat = 5, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) -> HZNavigationBarItem? {
+    public class func create(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, titleColor: UIColor? = .black, titleFont: UIFont? = UIFont.systemFont(ofSize: 16), style: HZBarItemEdgeInsetsStyle = .left, space: CGFloat = 5, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) -> HZNavigationBarItem? {
         
         if normalTitle == nil, normalImage == nil {
             return nil
@@ -71,7 +71,7 @@ public class HZNavigationBarItem: UIButton {
      - parameter space:               图片文字之间间隙
      - parameter clickBarItemBlock:   点击回调
      */
-     fileprivate init(normalImage: UIImage?, selectedImage: UIImage?, normalTitle: String?, selectedTitle: String?, titleColor: UIColor?, titleFont: UIFont?, style: HZButtonEdgeInsetsStyle, space: CGFloat, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) {
+     fileprivate init(normalImage: UIImage?, selectedImage: UIImage?, normalTitle: String?, selectedTitle: String?, titleColor: UIColor?, titleFont: UIFont?, style: HZBarItemEdgeInsetsStyle, space: CGFloat, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) {
         super.init(frame: .zero)
         
         self.normalTitle = normalTitle
@@ -134,7 +134,7 @@ extension HZNavigationBarItem {
      - parameter style: 类型
      - parameter space: image与titleLabel的间距
      */
-    public func barItemButtonLayoutButtonWithEdgeInsetsStyle(style: HZButtonEdgeInsetsStyle, space: CGFloat) {
+    public func barItemButtonLayoutButtonWithEdgeInsetsStyle(style: HZBarItemEdgeInsetsStyle, space: CGFloat) {
         
         /**
          *  拿到imageView和titleLabel的宽、高

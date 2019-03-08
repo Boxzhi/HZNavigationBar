@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name = 'HZNavigationBar'
-  s.version = '1.0.6'
+  s.version = '1.0.7'
   s.license = 'MIT'
   s.summary = 'A very simple to use, can be completely customized navigation bar'
   s.homepage = 'https://github.com/CoderZZHe/HZNavigationBar'

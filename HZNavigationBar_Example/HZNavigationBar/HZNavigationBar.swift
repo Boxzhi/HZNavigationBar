@@ -28,9 +28,7 @@ extension UINavigationBar: HZAwakeProtocol {
     
     fileprivate var backgroundImageView:UIImageView? {
         get {
-            guard let bgImageView = objc_getAssociatedObject(self, &AssociatedKeys.backgroundImageView) as? UIImageView else {
-                return nil
-            }
+            guard let bgImageView = objc_getAssociatedObject(self, &AssociatedKeys.backgroundImageView) as? UIImageView else { return nil }
             return bgImageView
         }
         set {
@@ -105,9 +103,7 @@ extension UINavigationBar: HZAwakeProtocol {
                         view.alpha = alpha
                     }
                 }
-            }
-            else
-            {
+            } else {
                 // 这里如果不做判断的话，会显示 backIndicatorImage(系统返回按钮)
                 if let _UINavigationBarBackIndicatorViewClass = NSClassFromString("_UINavigationBarBackIndicatorView"),
                     view.isKind(of: _UINavigationBarBackIndicatorViewClass) == false
@@ -330,7 +326,7 @@ extension UINavigationController: HZFatherAwakeProtocol {
     // change navigationBar barTintColor smooth before pop to current VC finished
     @objc fileprivate func popNeedDisplay() {
         guard let topViewController = topViewController,
-            let coordinator       = topViewController.transitionCoordinator else {
+            let coordinator = topViewController.transitionCoordinator else {
                 return
         }
         
@@ -535,8 +531,7 @@ extension UIViewController: HZAwakeProtocol {
             if customNavBar.isKind(of: UINavigationBar.self) {
                 //                let navBar = customNavBar as! UINavigationBar
                 //                navBar.hz_setBackgroundColor(color: newValue)
-            }
-            else {
+            } else {
                 if canUpdateNavBarBarTintColorOrBackgroundAlpha == true {
                     navigationController?.setNeedsNavigationBarUpdate(barTintColor: newValue)
                 }
@@ -558,8 +553,7 @@ extension UIViewController: HZAwakeProtocol {
             if customNavBar.isKind(of: UINavigationBar.self) {
                 //                let navBar = customNavBar as! UINavigationBar
                 //                navBar.hz_setBackgroundAlpha(alpha: newValue)
-            }
-            else {
+            } else {
                 if canUpdateNavBarBarTintColorOrBackgroundAlpha == true {
                     navigationController?.setNeedsNavigationBarUpdate(barBackgroundAlpha: newValue)
                 }
@@ -591,9 +585,7 @@ extension UIViewController: HZAwakeProtocol {
             if customNavBar.isKind(of: UINavigationBar.self) {
                 //                let navBar = customNavBar as! UINavigationBar
                 //                navBar.tintColor = newValue
-            }
-            else
-            {
+            } else {
                 if pushToNextVCFinished == false {
                     navigationController?.setNeedsNavigationBarUpdate(tintColor: newValue)
                 }
@@ -615,9 +607,7 @@ extension UIViewController: HZAwakeProtocol {
             if customNavBar.isKind(of: UINavigationBar.self) {
                 //                let navBar = customNavBar as! UINavigationBar
                 //                navBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:newValue]
-            }
-            else
-            {
+            } else {
                 if pushToNextVCFinished == false {
                     navigationController?.setNeedsNavigationBarUpdate(titleColor: newValue)
                 }
@@ -890,10 +880,16 @@ public class HZNavigationBar {
 
 public extension HZNavigationBar {
     public class func isIphoneX() -> Bool {
-        return UIScreen.main.bounds.equalTo(CGRect(x: 0, y: 0, width: 375, height: 812))
+        return statusBarHeight() != 20
+    }
+    public class func statusBarHeight() -> Int {
+        return Int(UIApplication.shared.statusBarFrame.size.height)
+    }
+    public class func navBarHeight() -> Int {
+        return 44
     }
     public class func navBarBottom() -> Int {
-        return self.isIphoneX() ? 88 : 64;
+        return statusBarHeight() + navBarHeight()
     }
     public class func tabBarHeight() -> Int {
         return self.isIphoneX() ? 83 : 49;
@@ -906,7 +902,6 @@ public extension HZNavigationBar {
     }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // 1. 定义 HZAwakeProtocol 协议
 public protocol HZAwakeProtocol: class {
     static func hzAwake()

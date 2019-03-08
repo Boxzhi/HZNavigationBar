@@ -248,6 +248,7 @@ public extension HZCustomNavigationBar {
         
         if _view.isKind(of: UIButton.self) {
             let _button = _view as! UIButton
+            _button.contentMode = .center
             _titleView.addSubview(_button)
             _titleView.constrainCenteredAutoWidth(_button)
             
