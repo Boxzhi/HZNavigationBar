@@ -31,8 +31,8 @@ public class HZNavigationBarItem: UIButton {
     fileprivate var selectedImage: UIImage?
     fileprivate var titleColor: UIColor?
     fileprivate var titleFont: UIFont?
-    fileprivate var style: HZBarItemEdgeInsetsStyle!
-    fileprivate var space: CGFloat!
+    private(set) var style: HZBarItemEdgeInsetsStyle!
+    private(set) var space: CGFloat!
     fileprivate var clickBarItemBlock: ((_ sender: UIButton) -> Void)?
     
     /// 快速创建HZNavigationBarItem

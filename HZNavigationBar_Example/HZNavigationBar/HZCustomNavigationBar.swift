@@ -20,7 +20,6 @@ fileprivate let HZLeftBarItemSpace: CGFloat = 10.0
 fileprivate let HZRightBarItemSpace: CGFloat = 13.0
 fileprivate let HZBarItemWidth: CGFloat = 36.0
 
-
 public extension UIViewController {
     
     func hz_toLastViewController(animated: Bool) {
@@ -339,7 +338,33 @@ public extension HZCustomNavigationBar {
         _bottomLine.alpha = alpha
     }
     
-    /// 设置或新增左侧BarItem
+    /// 给navigationBar左侧设置batItem，该方法会将该侧已有的barItem全部移除，慎用！！
+    /// 若只是新增，请用hz_addItemsToLeft
+    public func hz_setAllItemsToLeft(leftItems: [HZNavigationBarItem?]) {
+    
+        let _leftItems = leftItems.compactMap({ return $0 })
+        if let _leftBarItems = self.leftBarItems {
+            for item in _leftBarItems {
+                item.removeFromSuperview()
+            }
+        }
+        self.setLeftBarItems(_leftItems)
+    }
+    
+    /// 给navigationBar右侧设置batItem，该方法会将该侧已有的barItem全部移除，慎用！！
+    /// 若只是新增，请用hz_addItemsToRight
+    public func hz_setAllItemsToRight(rightItems: [HZNavigationBarItem?]) {
+        
+        let _rightItems = rightItems.compactMap({ return $0 })
+        if let _rightBarItems = self.rightBarItems {
+            for item in _rightBarItems {
+                item.removeFromSuperview()
+            }
+        }
+        self.setLeftBarItems(_rightItems)
+    }
+    
+    /// 设置或新增左侧BarItem（以增量方式进行）
     public func hz_addItemsToLeft(leftItems: [HZNavigationBarItem?]) {
         
         let _leftItems = leftItems.compactMap({ return $0 })
@@ -350,7 +375,7 @@ public extension HZCustomNavigationBar {
         }
     }
     
-    /// 设置或新增右侧BarItem
+    /// 设置或新增右侧BarItem（以增量方式进行）
     public func hz_addItemsToRight(rightItems: [HZNavigationBarItem?]) {
         
         let _rightItems = rightItems.compactMap({ return $0 })
@@ -373,6 +398,7 @@ public extension HZCustomNavigationBar {
         }
         item.setImage(normalImage, for: .normal)
         item.newClickBarItemBlock = clickBarItemBlock
+        item.barItemButtonLayoutButtonWithEdgeInsetsStyle(style: item.style, space: item.space)
     }
     
     /// 更新右侧BarItem
@@ -387,27 +413,40 @@ public extension HZCustomNavigationBar {
         }
         item.setImage(normalImage, for: .normal)
         item.newClickBarItemBlock = clickBarItemBlock
+        item.barItemButtonLayoutButtonWithEdgeInsetsStyle(style: item.style, space: item.space)
     }
     
     /// 隐藏左侧BarItem
-    public func hz_setLeftBarItemHidden(hidden: Bool) {
+    public func hz_setLeftBarItemHidden(_ index: Int? = nil, hidden: Bool) {
         guard let _leftBarItems = self.leftBarItems else {
             return
         }
         
-        for barItem in _leftBarItems {
-            barItem.isHidden = hidden
+        if let _index = index, _index < _leftBarItems.count {
+            for _ in 0 ..< _leftBarItems.count {
+                _leftBarItems[_index].isHidden = hidden
+            }
+        }else {
+            for barItem in _leftBarItems {
+                barItem.isHidden = hidden
+            }
         }
     }
     
     /// 隐藏右侧BarItem
-    public func hz_setRightBarItemHidden(hidden: Bool) {
+    public func hz_setRightBarItemHidden(_ index: Int? = nil, hidden: Bool) {
         guard let _rightBarItems = self.rightBarItems else {
             return
         }
         
-        for barItem in _rightBarItems {
-            barItem.isHidden = hidden
+        if let _index = index, _index < _rightBarItems.count {
+            for _ in 0 ..< _rightBarItems.count {
+                _rightBarItems[_index].isHidden = hidden
+            }
+        }else {
+            for barItem in _rightBarItems {
+                barItem.isHidden = hidden
+            }
         }
     }
     

@@ -37,11 +37,10 @@ extension UINavigationBar: HZAwakeProtocol {
     }
     
     // set navigationBar backgroundImage
-    fileprivate func hz_setBackgroundImage(image:UIImage) {
+    public func hz_setBackgroundImage(image:UIImage) {
         backgroundView?.removeFromSuperview()
         backgroundView = nil
-        if (backgroundImageView == nil)
-        {
+        if (backgroundImageView == nil) {
             // add a image(nil color) to _UIBarBackground make it clear
             setBackgroundImage(UIImage(), for: .default)
             backgroundImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: Int(bounds.width), height: HZNavigationBar.navBarBottom()))
@@ -53,11 +52,10 @@ extension UINavigationBar: HZAwakeProtocol {
     }
     
     // set navigationBar barTintColor
-    fileprivate func hz_setBackgroundColor(color:UIColor) {
+    public func hz_setBackgroundColor(color:UIColor) {
         backgroundImageView?.removeFromSuperview()
         backgroundImageView = nil
-        if (backgroundView == nil)
-        {
+        if (backgroundView == nil) {
             // add a image(nil color) to _UIBarBackground make it clear
             setBackgroundImage(UIImage(), for: .default)
             backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: Int(bounds.width), height: HZNavigationBar.navBarBottom()))
@@ -69,11 +67,9 @@ extension UINavigationBar: HZAwakeProtocol {
     }
     
     // set _UIBarBackground alpha (_UIBarBackground subviews alpha <= _UIBarBackground alpha)
-    fileprivate func hz_setBackgroundAlpha(alpha:CGFloat) {
-        if let barBackgroundView = subviews.first
-        {
-            if #available(iOS 11.0, *)
-            {   // sometimes we can't change _UIBarBackground alpha
+    public func hz_setBackgroundAlpha(alpha:CGFloat) {
+        if let barBackgroundView = subviews.first  {
+            if #available(iOS 11.0, *) {   // sometimes we can't change _UIBarBackground alpha
                 for view in barBackgroundView.subviews {
                     view.alpha = alpha
                 }
@@ -131,8 +127,7 @@ extension UINavigationBar: HZAwakeProtocol {
         transform = CGAffineTransform.init(translationX: 0, y: translationY)
     }
     
-    func hz_getTranslationY() -> CGFloat
-    {
+    func hz_getTranslationY() -> CGFloat {
         return transform.ty
     }
     
@@ -506,15 +501,15 @@ extension UIViewController: HZAwakeProtocol {
             }
             return bgImage
         }
-        //        set {
-        //            if customNavBar.isKind(of: UINavigationBar.self) {
-        //                let navBar = customNavBar as! UINavigationBar
-        //                navBar.hz_setBackgroundImage(image: newValue!)
-        //            }
-        //            else {
-        //                objc_setAssociatedObject(self, &AssociatedKeys.navBarBackgroundImage, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        //            }
-        //        }
+        set {
+            if customNavBar.isKind(of: UINavigationBar.self) {
+                let navBar = customNavBar as! UINavigationBar
+                navBar.hz_setBackgroundImage(image: newValue!)
+            }
+            else {
+                objc_setAssociatedObject(self, &AssociatedKeys.navBarBackgroundImage, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
+        }
     }
     
     // navigationBar barTintColor
@@ -529,8 +524,8 @@ extension UIViewController: HZAwakeProtocol {
             objc_setAssociatedObject(self, &AssociatedKeys.navBarBarTintColor, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
             if customNavBar.isKind(of: UINavigationBar.self) {
-                //                let navBar = customNavBar as! UINavigationBar
-                //                navBar.hz_setBackgroundColor(color: newValue)
+                let navBar = customNavBar as! UINavigationBar
+                navBar.hz_setBackgroundColor(color: newValue)
             } else {
                 if canUpdateNavBarBarTintColorOrBackgroundAlpha == true {
                     navigationController?.setNeedsNavigationBarUpdate(barTintColor: newValue)
@@ -551,8 +546,8 @@ extension UIViewController: HZAwakeProtocol {
             objc_setAssociatedObject(self, &AssociatedKeys.navBarBackgroundAlpha, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
             if customNavBar.isKind(of: UINavigationBar.self) {
-                //                let navBar = customNavBar as! UINavigationBar
-                //                navBar.hz_setBackgroundAlpha(alpha: newValue)
+                let navBar = customNavBar as! UINavigationBar
+                navBar.hz_setBackgroundAlpha(alpha: newValue)
             } else {
                 if canUpdateNavBarBarTintColorOrBackgroundAlpha == true {
                     navigationController?.setNeedsNavigationBarUpdate(barBackgroundAlpha: newValue)
@@ -583,8 +578,8 @@ extension UIViewController: HZAwakeProtocol {
             objc_setAssociatedObject(self, &AssociatedKeys.navBarTintColor, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
             if customNavBar.isKind(of: UINavigationBar.self) {
-                //                let navBar = customNavBar as! UINavigationBar
-                //                navBar.tintColor = newValue
+                let navBar = customNavBar as! UINavigationBar
+                navBar.tintColor = newValue
             } else {
                 if pushToNextVCFinished == false {
                     navigationController?.setNeedsNavigationBarUpdate(tintColor: newValue)
@@ -605,8 +600,8 @@ extension UIViewController: HZAwakeProtocol {
             objc_setAssociatedObject(self, &AssociatedKeys.navBarTitleColor, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
             if customNavBar.isKind(of: UINavigationBar.self) {
-                //                let navBar = customNavBar as! UINavigationBar
-                //                navBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:newValue]
+                let navBar = customNavBar as! UINavigationBar
+                navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:newValue]
             } else {
                 if pushToNextVCFinished == false {
                     navigationController?.setNeedsNavigationBarUpdate(titleColor: newValue)
@@ -929,6 +924,3 @@ extension UIApplication {
         return super.next
     }
 }
-
-// 3. 自定义类实现 HZAwakeProtocol 协议，重写 hzAwake 方法
-//    自定义类实现 HZFatherAwakeProtocol 协议，重写 fatherAwake 方法

@@ -93,7 +93,7 @@ class CViewController: BaseViewController {
         let aaa = HZNavigationBarItem.create(normalTitle: "测试", titleColor: .green) { (btn) in
             
         }
-        nav.hz_addItemsToLeft(leftItems: [aaa])
+        nav.hz_setAllItemsToLeft(leftItems: [aaa])
 
     }
     
