@@ -321,12 +321,12 @@ public extension HZCustomNavigationBar {
     public func hz_setBarItemColor(color: UIColor) {
         if let _leftBarItems = self.leftBarItems {
             for barItem in _leftBarItems {
-                barItem._titleColor = color
+                barItem.titleColor = color
             }
         }
         if let _rightBarItems = self.rightBarItems {
             for barItem in _rightBarItems {
-                barItem._titleColor = color
+                barItem.titleColor = color
             }
         }
     }
@@ -529,7 +529,7 @@ extension HZCustomNavigationBar {
             }
             
             if themeColor != nil {
-                barItem._titleColor = themeColor
+                barItem.titleColor = themeColor
             }
         }
         self.leftBarItems?.removeAll()
@@ -549,7 +549,7 @@ extension HZCustomNavigationBar {
                 self.constrainToTrailingTopBottomWidth(barItem, targetView: rightItems[i - 1], width: barItem.title(for: .normal) == nil ? HZBarItemWidth : nil)
             }
             if themeColor != nil {
-                barItem._titleColor = themeColor
+                barItem.titleColor = themeColor
             }
         }
         self.rightBarItems?.removeAll()

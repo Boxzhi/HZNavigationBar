@@ -17,7 +17,7 @@ public enum HZBarItemEdgeInsetsStyle: Int {
 
 public class HZNavigationBarItem: UIButton {
     
-    public var _titleColor: UIColor? {
+    public var titleColor: UIColor? {
         willSet {
             self.setTitleColor(_titleColor, for: .normal)
         }
@@ -29,14 +29,15 @@ public class HZNavigationBarItem: UIButton {
     fileprivate var normalImage: UIImage?
     fileprivate var selectedTitle: String?
     fileprivate var selectedImage: UIImage?
-    fileprivate var titleColor: UIColor?
+    fileprivate var _titleColor: UIColor?
     fileprivate var titleFont: UIFont?
     private(set) var style: HZBarItemEdgeInsetsStyle!
     private(set) var space: CGFloat!
     fileprivate var clickBarItemBlock: ((_ sender: UIButton) -> Void)?
     
+    
     /// 快速创建HZNavigationBarItem
-    public class func create(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, titleColor: UIColor? = .black, titleFont: UIFont? = UIFont.systemFont(ofSize: 16), style: HZBarItemEdgeInsetsStyle = .left, space: CGFloat = 5, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) -> HZNavigationBarItem? {
+    public class func create(normalImage: UIImage? = nil, selectedImage: UIImage? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, titleColor: UIColor? = .black, titleFont: UIFont? = UIFont.systemFont(ofSize: 15), style: HZBarItemEdgeInsetsStyle = .left, space: CGFloat = 5, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) -> HZNavigationBarItem? {
         
         if normalTitle == nil, normalImage == nil {
             return nil
@@ -46,15 +47,14 @@ public class HZNavigationBarItem: UIButton {
     }
     
     /// 快速创建只有image的HZNavigationBarItem
-    public class func create(_ normalImage: UIImage?, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) -> HZNavigationBarItem? {
+    public class func create(_ normalImage: UIImage?, selectedImage: UIImage? = nil, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) -> HZNavigationBarItem? {
         guard let _normalImage = normalImage else { return nil }
-        return HZNavigationBarItem(normalImage: _normalImage, selectedImage: nil, normalTitle: nil, selectedTitle: nil, titleColor: .black, titleFont: UIFont.systemFont(ofSize: 16), style: .left, space: 5, clickBarItemBlock: clickBarItemBlock)
+        return HZNavigationBarItem(normalImage: _normalImage, selectedImage: selectedImage, normalTitle: nil, selectedTitle: nil, titleColor: .black, titleFont: UIFont.systemFont(ofSize: 15), style: .left, space: 5, clickBarItemBlock: clickBarItemBlock)
     }
     
     /// 快速创建只有title的HZNavigationBarItem
-    public class func create(_ normalTitle: String?, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) -> HZNavigationBarItem? {
-        guard let _normalTitle = normalTitle else { return nil }
-        return HZNavigationBarItem(normalImage: nil, selectedImage: nil, normalTitle: _normalTitle, selectedTitle: nil, titleColor: .black, titleFont: UIFont.systemFont(ofSize: 16), style: .left, space: 5, clickBarItemBlock: clickBarItemBlock)
+    public class func create(_ normalTitle: String, selectedTitle: String? = nil, titleColor: UIColor = .black, titleFont: UIFont = UIFont.systemFont(ofSize: 15), clickBarItemBlock: ((_ sender: UIButton) -> Void)?) -> HZNavigationBarItem? {
+        return HZNavigationBarItem(normalImage: nil, selectedImage: nil, normalTitle: normalTitle, selectedTitle: selectedTitle, titleColor: titleColor, titleFont: titleFont, style: .left, space: 5, clickBarItemBlock: clickBarItemBlock)
     }
     
     /**
@@ -78,7 +78,7 @@ public class HZNavigationBarItem: UIButton {
         self.normalImage = normalImage
         self.selectedTitle = selectedTitle
         self.selectedImage = selectedImage
-        self.titleColor = titleColor
+        self._titleColor = titleColor
         self.titleFont = titleFont
         self.style = style
         self.space = space
@@ -97,7 +97,7 @@ public class HZNavigationBarItem: UIButton {
         self.titleLabel?.font = titleFont
         self.contentMode = .center
         if normalTitle != nil {
-            self.setTitleColor(titleColor, for: .normal)
+            self.setTitleColor(_titleColor, for: .normal)
             self.setTitle(normalTitle, for: .normal)
         }
         if normalImage != nil {
