@@ -361,7 +361,7 @@ public extension HZCustomNavigationBar {
                 item.removeFromSuperview()
             }
         }
-        self.setLeftBarItems(_rightItems)
+        self.setRightBarItems(_rightItems)
     }
     
     /// 设置或新增左侧BarItem（以增量方式进行）

@@ -57,6 +57,11 @@ public class HZNavigationBarItem: UIButton {
         return HZNavigationBarItem(normalImage: nil, selectedImage: nil, normalTitle: normalTitle, selectedTitle: selectedTitle, titleColor: titleColor, titleFont: titleFont, style: .left, space: 5, clickBarItemBlock: clickBarItemBlock)
     }
     
+    /// 快速创建只有title的HZNavigationBarItem
+    public class func create(_ normalTitle: String, titleColor: UIColor, clickBarItemBlock: ((_ sender: UIButton) -> Void)?) -> HZNavigationBarItem? {
+        return HZNavigationBarItem(normalImage: nil, selectedImage: nil, normalTitle: normalTitle, selectedTitle: nil, titleColor: titleColor, titleFont: UIFont.systemFont(ofSize: 15), style: .left, space: 5, clickBarItemBlock: clickBarItemBlock)
+    }
+    
     /**
      初始化创建
      
