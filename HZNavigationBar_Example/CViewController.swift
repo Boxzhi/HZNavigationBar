@@ -90,11 +90,14 @@ class CViewController: BaseViewController {
     }
     
     @objc func gotocaaa() {
-        let aaa = HZNavigationBarItem.create(normalTitle: "测试", titleColor: .green) { (btn) in
+//        let aaa = HZNavigationBarItem.create(normalTitle: "测试", titleColor: .green) { (btn) in
+//
+//        }
+//        nav.hz_setAllItemsToLeft(leftItems: [aaa])
+        let a = HZNavigationBarItem.create("ceshi", titleColor: .red) { (btn) in
             
         }
-        nav.hz_setAllItemsToLeft(leftItems: [aaa])
-
+        nav.hz_setAllItemsToRight(rightItems: [a])
     }
     
     @objc func gotoab() {
