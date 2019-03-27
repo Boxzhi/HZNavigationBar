@@ -490,8 +490,8 @@ extension HZCustomNavigationBar {
         
         if let _color = color {
             _backgroundView.isHidden = false
-            _backgroundImageView.isHidden = true
             _backgroundView.backgroundColor = _color
+            _backgroundImageView.isHidden = true
         }else if let _backgroundImage = backgroundImage {
             _backgroundView.isHidden = true
             _backgroundImageView.isHidden = false
