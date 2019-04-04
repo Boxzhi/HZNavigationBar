@@ -18,7 +18,7 @@ fileprivate let HZStatusBarHeight: CGFloat = UIApplication.shared.statusBarFrame
 fileprivate let HZNavigationBarHeight: CGFloat = 44.0
 fileprivate let HZLeftBarItemSpace: CGFloat = 10.0
 fileprivate let HZRightBarItemSpace: CGFloat = 13.0
-fileprivate let HZBarItemWidth: CGFloat = 36.0
+fileprivate let HZBarItemWidth: CGFloat = 44.0
 
 public extension UIViewController {
     
@@ -338,7 +338,7 @@ public extension HZCustomNavigationBar {
         _bottomLine.alpha = alpha
     }
     
-    /// 给navigationBar左侧设置batItem，该方法会将该侧已有的barItem全部移除，慎用！！
+    /// 给navigationBar左侧设置batItem，该方法会先将该侧已有的barItem全部移除
     /// 若只是新增，请用hz_addItemsToLeft
     public func hz_setAllItemsToLeft(leftItems: [HZNavigationBarItem?]) {
     
@@ -351,7 +351,7 @@ public extension HZCustomNavigationBar {
         self.setLeftBarItems(_leftItems)
     }
     
-    /// 给navigationBar右侧设置batItem，该方法会将该侧已有的barItem全部移除，慎用！！
+    /// 给navigationBar右侧设置batItem，该方法会先将该侧已有的barItem全部移除
     /// 若只是新增，请用hz_addItemsToRight
     public func hz_setAllItemsToRight(rightItems: [HZNavigationBarItem?]) {
         
@@ -521,11 +521,19 @@ extension HZCustomNavigationBar {
             
             let barItem: HZNavigationBarItem = leftItems[i]
             self.addSubview(barItem)
+            
+            var barItemWidth: CGFloat? = nil
+            if let _barItemWidth = barItem.barItemWidth {
+                barItemWidth = _barItemWidth
+            }else {
+                barItemWidth = barItem.title(for: .normal) == nil ? HZBarItemWidth : nil
+            }
+            
             if i == 0 {
-                self.constrainToLeadingTopBottomWidth(barItem, leading: HZLeftBarItemSpace, top: HZStatusBarHeight, width: barItem.title(for: .normal) == nil ? HZBarItemWidth : nil)
+                self.constrainToLeadingTopBottomWidth(barItem, leading: HZLeftBarItemSpace, top: HZStatusBarHeight, width: barItemWidth)
 
             }else {
-                self.constrainToLeadingTopBottomWidth(barItem, targetView: leftItems[i - 1],  width: barItem.title(for: .normal) == nil ? HZBarItemWidth : nil)
+                self.constrainToLeadingTopBottomWidth(barItem, targetView: leftItems[i - 1],  width: barItemWidth)
             }
             
             if themeColor != nil {
@@ -543,10 +551,18 @@ extension HZCustomNavigationBar {
             
             let barItem: HZNavigationBarItem = rightItems[i]
             self.addSubview(barItem)
-            if i == 0 {
-                self.constrainToTrailingTopBottomWidth(barItem, trailing: -HZRightBarItemSpace, top: HZStatusBarHeight, width: barItem.title(for: .normal) == nil ? HZBarItemWidth : nil)
+            
+            var barItemWidth: CGFloat? = nil
+            if let _barItemWidth = barItem.barItemWidth {
+                barItemWidth = _barItemWidth
             }else {
-                self.constrainToTrailingTopBottomWidth(barItem, targetView: rightItems[i - 1], width: barItem.title(for: .normal) == nil ? HZBarItemWidth : nil)
+                barItemWidth = barItem.title(for: .normal) == nil ? HZBarItemWidth : nil
+            }
+            
+            if i == 0 {
+                self.constrainToTrailingTopBottomWidth(barItem, trailing: -HZRightBarItemSpace, top: HZStatusBarHeight, width: barItemWidth)
+            }else {
+                self.constrainToTrailingTopBottomWidth(barItem, targetView: rightItems[i - 1], width: barItemWidth)
             }
             if themeColor != nil {
                 barItem.titleColor = themeColor
