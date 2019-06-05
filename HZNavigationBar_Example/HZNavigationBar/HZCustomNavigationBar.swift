@@ -257,7 +257,9 @@ public extension HZCustomNavigationBar {
             let _titleViewWidth: CGFloat = _titleView.bounds.width
             let _titleViewHeight: CGFloat = _titleView.bounds.height
             
-            if let _titleViewSize = titleViewSize {
+            if newTitleViewSize?.width == 0 && newTitleViewSize?.height == 0 && titleViewSize == nil {
+                newTitleViewSize = CGSize(width: _titleViewWidth, height: _titleViewHeight)
+            }else if let _titleViewSize = titleViewSize {
                 if _titleViewSize.width == 0 && _titleViewSize.height == 0 {
                     newTitleViewSize = CGSize(width: _titleViewWidth, height: _titleViewHeight)
                 }else if _titleViewSize.width == 0 {
@@ -281,8 +283,6 @@ public extension HZCustomNavigationBar {
                     let width: CGFloat = _newTitleViewSize.width < _titleViewWidth ? _newTitleViewSize.width : _titleViewWidth
                     newTitleViewSize = CGSize(width: width, height: _titleViewHeight)
                 }
-            }else {
-                newTitleViewSize = CGSize(width: _titleViewWidth, height: _titleViewHeight)
             }
             
             _titleView.frame = CGRect(x: (self.bounds.width - (newTitleViewSize?.width)!) / 2, y: HZStatusBarHeight, width: (newTitleViewSize?.width)!, height: HZNavigationBarHeight)
@@ -521,7 +521,7 @@ extension HZCustomNavigationBar {
             
             let barItem: HZNavigationBarItem = leftItems[i]
             self.addSubview(barItem)
-            
+
             var barItemWidth: CGFloat? = nil
             if let _barItemWidth = barItem.barItemWidth {
                 barItemWidth = _barItemWidth

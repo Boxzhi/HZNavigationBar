@@ -46,6 +46,9 @@ class FViewController: BaseViewController {
 
         nav.title = "FViewController"
         view.backgroundColor = .green
+        nav.hz_setAllItemsToRight(rightItems: [HZNavigationBarItem.create("跳转", clickBarItemBlock: { (btn) in
+            self.navigationController?.pushViewController(GViewController(), animated: true)
+        })])
         
         self.playerView.addSubview(self.btn)
         view.addSubview(self.playerView)
@@ -67,12 +70,12 @@ class FViewController: BaseViewController {
         case .unknown:
             print("未知方向")
         case .landscapeLeft:
-            if !isFullScreen {
+            if !isFullScreen || UIApplication.shared.statusBarOrientation != .landscapeRight {
                 changeToFullScreen()
             }
             print("屏幕向左横置")
         case .landscapeRight:
-            if !isFullScreen {
+            if !isFullScreen || UIApplication.shared.statusBarOrientation != .landscapeLeft {
                 changeToFullScreen()
             }
             print("屏幕向右横置")
@@ -112,12 +115,14 @@ class FViewController: BaseViewController {
     }
     
     func changeToFullScreen() {   // 变为大屏
-        if isFullScreen {
-            return
-        }
+//        if isFullScreen {
+//            return
+//        }
         
-        self.playerSuperView = self.playerView.superview
-        self.playerFrame = self.playerView.frame
+        if !isFullScreen {
+            self.playerSuperView = self.playerView.superview
+            self.playerFrame = self.playerView.frame
+        }
         
         let rectInWindow = self.playerView.convert(self.playerView.bounds, to: UIApplication.shared.keyWindow)
         self.playerView.removeFromSuperview()

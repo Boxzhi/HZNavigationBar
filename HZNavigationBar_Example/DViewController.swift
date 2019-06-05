@@ -21,7 +21,7 @@ class DViewController: BaseViewController {
         view.backgroundColor = .white
         // Do any additional setup after loading the view.
         
-        nav.hz_setAllItemsToRight(rightItems: [HZNavigationBarItem.create(normalImage: UIImage(named: "dddd"), normalTitle: "哈哈哈", style: .left, space: 10, barItemWidth: 200, clickBarItemBlock: { (btn) in
+        nav.hz_setAllItemsToRight(rightItems: [HZNavigationBarItem.create(normalImage: UIImage(named: "dddd"), normalTitle: "哈哈哈", style: .left, space: 10, barItemWidth: 100, clickBarItemBlock: { (btn) in
             
         })])
         
