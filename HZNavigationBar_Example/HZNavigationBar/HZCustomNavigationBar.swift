@@ -236,7 +236,8 @@ public extension HZCustomNavigationBar {
     }
     
     /// 设置NavigationBar的titleView，若view有设置frame，则可不传titleViewSize，若两者都无，则默认占据整个NavigationBar
-    public func hz_setTitleView(_ view: UIView?, titleViewSize: CGSize? = nil) {
+    /// isCenter: view是否居中显示在titleView上
+    public func hz_setTitleView(_ view: UIView?, titleViewSize: CGSize? = nil, isCenter: Bool = true) {
         
         guard let _view = view else { return }
         for subView in _titleView.subviews {
@@ -252,43 +253,43 @@ public extension HZCustomNavigationBar {
             _titleView.constrainCenteredAutoWidth(_button)
             
         }else {
-            
-            var newTitleViewSize: CGSize? = _view.frame.size
+        
+            var _viewSize: CGSize = _view.frame.size
             let _titleViewWidth: CGFloat = _titleView.bounds.width
             let _titleViewHeight: CGFloat = _titleView.bounds.height
             
-            if newTitleViewSize?.width == 0 && newTitleViewSize?.height == 0 && titleViewSize == nil {
-                newTitleViewSize = CGSize(width: _titleViewWidth, height: _titleViewHeight)
+            if _viewSize.width == 0 && _viewSize.height == 0 && titleViewSize == nil {
+                _viewSize = CGSize(width: _titleViewWidth, height: _titleViewHeight)
             }else if let _titleViewSize = titleViewSize {
                 if _titleViewSize.width == 0 && _titleViewSize.height == 0 {
-                    newTitleViewSize = CGSize(width: _titleViewWidth, height: _titleViewHeight)
+                    _viewSize = CGSize(width: _titleViewWidth, height: _titleViewHeight)
                 }else if _titleViewSize.width == 0 {
-                    newTitleViewSize = CGSize(width: _titleViewWidth, height: _titleViewSize.height)
+                    _viewSize = CGSize(width: _titleViewWidth, height: _titleViewSize.height < _titleViewHeight ? _titleViewSize.height : _titleViewHeight)
                 }else {
-                    newTitleViewSize = CGSize(width: _titleViewSize.width, height: _titleViewHeight)
+                    _viewSize = CGSize(width: _titleViewSize.width < _titleViewWidth ? _titleViewSize.width : _titleViewWidth, height: _titleViewHeight)
                 }
-            }else if let _newTitleViewSize = newTitleViewSize {
-                if _newTitleViewSize.width != 0 && _newTitleViewSize.height != 0 {
-                    let height: CGFloat = _newTitleViewSize.height < _titleViewHeight ? _newTitleViewSize.height : _titleViewHeight
-                    if _newTitleViewSize.width < _titleViewWidth {
-                        newTitleViewSize = CGSize(width: _newTitleViewSize.width, height: height)
-                    }else {
-                        let width: CGFloat = _newTitleViewSize.width * height / _newTitleViewSize.height
-                        newTitleViewSize = CGSize(width: width < _titleViewWidth ? width : _titleViewWidth, height: height)
-                    }
-                }else if _newTitleViewSize.width == 0 {
-                    let height: CGFloat = _newTitleViewSize.height < _titleViewHeight ? _newTitleViewSize.height : _titleViewHeight
-                    newTitleViewSize = CGSize(width: _titleViewWidth, height: height)
+            }else {
+                let height: CGFloat = _viewSize.height < _titleViewHeight ? _viewSize.height : _titleViewHeight
+                if _viewSize.width == 0  {
+                    _viewSize = CGSize(width: _titleViewWidth, height: height)
+                }else if _viewSize.height == 0 {
+                    _viewSize = CGSize(width: _viewSize.width < _titleViewWidth ? _viewSize.width : _titleViewWidth, height: _titleViewHeight)
                 }else {
-                    let width: CGFloat = _newTitleViewSize.width < _titleViewWidth ? _newTitleViewSize.width : _titleViewWidth
-                    newTitleViewSize = CGSize(width: width, height: _titleViewHeight)
+                    let width: CGFloat = _viewSize.width * height / _viewSize.height
+                    _viewSize = CGSize(width: width, height: height)
                 }
             }
             
-            _titleView.frame = CGRect(x: (self.bounds.width - (newTitleViewSize?.width)!) / 2, y: HZStatusBarHeight, width: (newTitleViewSize?.width)!, height: HZNavigationBarHeight)
-            _view.frame = CGRect(x: 0, y: 0, width: (newTitleViewSize?.width)!, height: (newTitleViewSize?.height)!)
-            _titleView.addSubview(_view)
-            _titleView.constrainCentered(_view)
+            if isCenter {
+                _titleView.frame = CGRect(x: (self.bounds.width - _viewSize.width) / 2, y: HZStatusBarHeight, width: _viewSize.width, height: HZNavigationBarHeight)
+                _view.frame = CGRect(x: 0, y: 0, width: _viewSize.width, height: _viewSize.height)
+                _titleView.addSubview(_view)
+                _titleView.constrainCentered(_view)
+            }else {
+                _view.frame = CGRect(x: _view.frame.origin.x, y: _view.frame.origin.y, width: _viewSize.width, height: _viewSize.height)
+                _titleView.addSubview(_view)
+            }
+    
         }
         
     }
