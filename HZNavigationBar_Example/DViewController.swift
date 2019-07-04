@@ -16,12 +16,12 @@ class DViewController: BaseViewController {
 //        nav.titleImage = #imageLiteral(resourceName: "sasda")
         nav.barBackgroundColor = .white
 //        nav.hz_setBottomShadow(hidden: false)
-        nav.hz_setLeftBarItemHidden(hidden: true)
+        nav.hz_hiddenItemWithLeft(hidden: true)
         
         view.backgroundColor = .white
         // Do any additional setup after loading the view.
         
-        nav.hz_setAllItemsToRight(rightItems: [HZNavigationBarItem.create(normalImage: UIImage(named: "dddd"), normalTitle: "哈哈哈", style: .left, space: 10, barItemWidth: 100, clickBarItemBlock: { (btn) in
+        nav.hz_setItemsToRight(rightItems: [HZNavigationBarItem.create(normalImage: UIImage(named: "dddd"), normalTitle: "哈哈哈", style: .left, space: 10, barItemWidth: 100, clickBarItemBlock: { (btn) in
             
         })])
         

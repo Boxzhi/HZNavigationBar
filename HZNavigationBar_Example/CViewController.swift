@@ -97,7 +97,7 @@ class CViewController: BaseViewController {
         let a = HZNavigationBarItem.create("ceshi", titleColor: .red) { (btn) in
             
         }
-        nav.hz_setAllItemsToRight(rightItems: [a])
+        nav.hz_setItemsToRight(rightItems: [a])
     }
     
     @objc func gotoab() {
