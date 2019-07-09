@@ -7,6 +7,7 @@
 - Xcode 10.1+
 
 
+
 ### Demo
 
 ![](https://upload-images.jianshu.io/upload_images/1115226-e80ceb303c6356eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -18,7 +19,10 @@
 ![](https://upload-images.jianshu.io/upload_images/1115226-37b2196f64512ab8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
+
 ### How To Use
+具体用法可参考HZNavigationBarExample文件的Demo
+
 
 基础属性设置.
 ```
