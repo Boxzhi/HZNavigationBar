@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E40D8D20224B55BB00619223 /* UITabBarController_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40D8D1F224B55BB00619223 /* UITabBarController_Extension.swift */; };
 		E40D8D22224B55CD00619223 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E40D8D21224B55CD00619223 /* UINavigationController.swift */; };
+		E410090622D4822B009A2D43 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E410090522D4822B009A2D43 /* Extension.swift */; };
 		E45C8A51225DD30E003405C6 /* GViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C8A50225DD30E003405C6 /* GViewController.swift */; };
 		E45C8A54225DD680003405C6 /* GCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45C8A52225DD680003405C6 /* GCollectionViewCell.swift */; };
 		E45C8A55225DD680003405C6 /* GCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E45C8A53225DD680003405C6 /* GCollectionViewCell.xib */; };
@@ -32,8 +32,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E40D8D1F224B55BB00619223 /* UITabBarController_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITabBarController_Extension.swift; sourceTree = "<group>"; };
 		E40D8D21224B55CD00619223 /* UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationController.swift; sourceTree = "<group>"; };
+		E410090522D4822B009A2D43 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		E45C8A50225DD30E003405C6 /* GViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GViewController.swift; sourceTree = "<group>"; };
 		E45C8A52225DD680003405C6 /* GCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCollectionViewCell.swift; sourceTree = "<group>"; };
 		E45C8A53225DD680003405C6 /* GCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -72,9 +72,8 @@
 		E4D2B2562232033D008AD70A = {
 			isa = PBXGroup;
 			children = (
-				E45C8A52225DD680003405C6 /* GCollectionViewCell.swift */,
-				E45C8A53225DD680003405C6 /* GCollectionViewCell.xib */,
-				E4D2B2612232033D008AD70A /* HZNavigationBar_Example */,
+				E4D2B284223203F1008AD70A /* HZNavigationBar */,
+				E4D2B2612232033D008AD70A /* HZNavigationBarExample */,
 				E4D2B2602232033D008AD70A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,10 +86,9 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		E4D2B2612232033D008AD70A /* HZNavigationBar_Example */ = {
+		E4D2B2612232033D008AD70A /* HZNavigationBarExample */ = {
 			isa = PBXGroup;
 			children = (
-				E4D2B284223203F1008AD70A /* HZNavigationBar */,
 				E4D2B2622232033D008AD70A /* AppDelegate.swift */,
 				E4D2B2662232033D008AD70A /* Main.storyboard */,
 				E4D2B2692232033E008AD70A /* Assets.xcassets */,
@@ -98,18 +96,20 @@
 				E4D2B26E2232033E008AD70A /* Info.plist */,
 				E4D2B27422320393008AD70A /* BaseNavigationController.swift */,
 				E4D2B276223203AE008AD70A /* BaseTabBarController.swift */,
-				E4D2B27D223203DA008AD70A /* AViewController.swift */,
 				E4D2B27A223203D9008AD70A /* BaseViewController.swift */,
+				E4D2B27D223203DA008AD70A /* AViewController.swift */,
 				E4D2B27C223203DA008AD70A /* BViewController.swift */,
 				E4D2B27B223203D9008AD70A /* CViewController.swift */,
 				E4D2B278223203D9008AD70A /* DViewController.swift */,
 				E4D2B279223203D9008AD70A /* EViewController.swift */,
 				E4D2B28D22320447008AD70A /* FViewController.swift */,
 				E45C8A50225DD30E003405C6 /* GViewController.swift */,
-				E40D8D1F224B55BB00619223 /* UITabBarController_Extension.swift */,
+				E45C8A52225DD680003405C6 /* GCollectionViewCell.swift */,
+				E45C8A53225DD680003405C6 /* GCollectionViewCell.xib */,
 				E40D8D21224B55CD00619223 /* UINavigationController.swift */,
+				E410090522D4822B009A2D43 /* Extension.swift */,
 			);
-			path = HZNavigationBar_Example;
+			path = HZNavigationBarExample;
 			sourceTree = "<group>";
 		};
 		E4D2B284223203F1008AD70A /* HZNavigationBar */ = {
@@ -155,6 +155,7 @@
 				TargetAttributes = {
 					E4D2B25E2232033D008AD70A = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1020;
 					};
 				};
 			};
@@ -203,13 +204,13 @@
 				E4D2B28C2232040E008AD70A /* HZCustomNavigationBar.swift in Sources */,
 				E45C8A54225DD680003405C6 /* GCollectionViewCell.swift in Sources */,
 				E4D2B282223203DA008AD70A /* BViewController.swift in Sources */,
-				E40D8D20224B55BB00619223 /* UITabBarController_Extension.swift in Sources */,
 				E4D2B27522320393008AD70A /* BaseNavigationController.swift in Sources */,
 				E4D2B2892232040E008AD70A /* HZNavigationBarItem.swift in Sources */,
 				E40D8D22224B55CD00619223 /* UINavigationController.swift in Sources */,
 				E4D2B281223203DA008AD70A /* CViewController.swift in Sources */,
 				E4D2B2632232033D008AD70A /* AppDelegate.swift in Sources */,
 				E4D2B277223203AE008AD70A /* BaseTabBarController.swift in Sources */,
+				E410090622D4822B009A2D43 /* Extension.swift in Sources */,
 				E4D2B28A2232040E008AD70A /* HZNavigationBar.swift in Sources */,
 				E4D2B27E223203DA008AD70A /* DViewController.swift in Sources */,
 				E4D2B280223203DA008AD70A /* BaseViewController.swift in Sources */,
@@ -361,7 +362,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AVVHC4G6JC;
-				INFOPLIST_FILE = HZNavigationBar_Example/Info.plist;
+				INFOPLIST_FILE = HZNavigationBarExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -370,8 +371,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hezhizhi.HZNavigationBar-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/**";
 			};
 			name = Debug;
 		};
@@ -382,7 +384,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AVVHC4G6JC;
-				INFOPLIST_FILE = HZNavigationBar_Example/Info.plist;
+				INFOPLIST_FILE = HZNavigationBarExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -391,8 +393,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hezhizhi.HZNavigationBar-Example";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/**";
 			};
 			name = Release;
 		};
