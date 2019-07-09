@@ -80,7 +80,7 @@ public func hz_hiddenItemWithLeft(_ index: Int? = nil, hidden: Bool)
 public func hz_hiddenItemWithRight(_ index: Int? = nil, hidden: Bool)
 ```
 ------------------------------------------------------------
-点击BarItem.
+拦截BarItem点击方法.
 ```
 public func hz_clickLeftBarItem(_ index: Int = 0, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void)
 public func hz_clickRightBarItem(_ index: Int = 0, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void)
