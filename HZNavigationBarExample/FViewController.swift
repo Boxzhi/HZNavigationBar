@@ -46,6 +46,12 @@ class FViewController: BaseViewController {
 
         nav.title = "FViewController"
         view.backgroundColor = .green
+        nav.hz_setItemsToLeft(leftItems: [HZNavigationBarItem.create(normalTitle: "返回", clickBarItemBlock: { (item) in
+            
+        }), HZNavigationBarItem.create(normalImage: "addIcon", clickBarItemBlock: { (item) in
+            
+        })])
+        
         nav.hz_setItemsToRight(rightItems: [HZNavigationBarItem.create(normalTitle: "跳转", clickBarItemBlock: { (btn) in
             self.navigationController?.pushViewController(GViewController(), animated: true)
         })])
