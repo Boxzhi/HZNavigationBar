@@ -1,11 +1,14 @@
-#HZNavigationBar
+# HZNavigationBar
 一个可高度自定义的NavigationBar, 基于[WRNavigationBar](https://github.com/wangrui460/WRNavigationBar_swift)改造而来
 
-###Requirements
+
+### Requirements
 - iOS 10.0+
 - Xcode 10.1+
 
-###Demo
+
+### Demo
+
 ![](https://upload-images.jianshu.io/upload_images/1115226-e80ceb303c6356eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ![](https://upload-images.jianshu.io/upload_images/1115226-da72d3ed1d2f0ebe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -15,7 +18,7 @@
 ![](https://upload-images.jianshu.io/upload_images/1115226-37b2196f64512ab8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-###How To Use
+### How To Use
 
 基础属性设置.
 ```
