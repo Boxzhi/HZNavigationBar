@@ -19,7 +19,7 @@ class BaseViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(nav)
         nav.barBackgroundColor = .white
-        nav.isHiddenBottomLine = false
+        nav.shadowImageHidden = false
 //        nav.isShowBottomShadow = true
 
         if self.navigationController?.children.count != 1,
