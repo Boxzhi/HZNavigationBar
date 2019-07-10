@@ -43,7 +43,7 @@ nav.titleColor = .red  // 设置导航栏title的颜色
 nav.titleFont = UIFont.systemFont(ofSize: 15)   // 设置导航栏title的字体
 
 nav.themeColor = .white   // 设置导航栏主题颜色（含title和barItem的文字颜色）
-nav.isHiddenBottomLine = false  // 隐藏导航栏下划线
+nav.shadowImageHidden = false  // 隐藏导航栏下划线
 
 /* 注意：背景颜色和背景图片互斥，以最后的设置为准 */
 nav.barBackgroundColor = .white  // 设置导航栏背景颜色
