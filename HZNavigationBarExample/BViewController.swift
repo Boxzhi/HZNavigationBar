@@ -15,7 +15,6 @@ class BViewController: BaseViewController {
         
         view.backgroundColor = UIColor.random()
         nav.title = "B控制器"
-        navigationController?.tabBarItem.title = "B"
         
         // Do any additional setup after loading the view.
     }

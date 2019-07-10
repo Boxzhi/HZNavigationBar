@@ -16,7 +16,11 @@ class BaseTabBarController: UITabBarController {
         self.tabBar.backgroundColor = .gray
         self.tabBar.tintColor = .red
         
-        self.viewControllers = [BaseNavigationController(rootViewController: AViewController()), BaseNavigationController(rootViewController: BViewController())]
+        let aNav = BaseNavigationController(rootViewController: AViewController())
+        aNav.tabBarItem.title = "A控制器"
+        let bNav = BaseNavigationController(rootViewController: BViewController())
+        bNav.tabBarItem.title = "B控制器"
+        self.viewControllers = [aNav, bNav]
         
     }
     
