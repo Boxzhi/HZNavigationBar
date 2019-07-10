@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:HZNavigationBar_Example.xcodeproj">
+      location = "self:/Users/yantu/Desktop/HZNavigationBar_Example/HZNavigationBarExample.xcodeproj">
    </FileRef>
 </Workspace>

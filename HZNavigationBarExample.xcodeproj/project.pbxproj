@@ -37,7 +37,7 @@
 		E45C8A50225DD30E003405C6 /* GViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GViewController.swift; sourceTree = "<group>"; };
 		E45C8A52225DD680003405C6 /* GCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GCollectionViewCell.swift; sourceTree = "<group>"; };
 		E45C8A53225DD680003405C6 /* GCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GCollectionViewCell.xib; sourceTree = "<group>"; };
-		E4D2B25F2232033D008AD70A /* HZNavigationBar_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HZNavigationBar_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4D2B25F2232033D008AD70A /* HZNavigationBarExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HZNavigationBarExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4D2B2622232033D008AD70A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E4D2B2672232033D008AD70A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E4D2B2692232033E008AD70A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 		E4D2B2602232033D008AD70A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E4D2B25F2232033D008AD70A /* HZNavigationBar_Example.app */,
+				E4D2B25F2232033D008AD70A /* HZNavigationBarExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -126,9 +126,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E4D2B25E2232033D008AD70A /* HZNavigationBar_Example */ = {
+		E4D2B25E2232033D008AD70A /* HZNavigationBarExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E4D2B2712232033E008AD70A /* Build configuration list for PBXNativeTarget "HZNavigationBar_Example" */;
+			buildConfigurationList = E4D2B2712232033E008AD70A /* Build configuration list for PBXNativeTarget "HZNavigationBarExample" */;
 			buildPhases = (
 				E4D2B25B2232033D008AD70A /* Sources */,
 				E4D2B25C2232033D008AD70A /* Frameworks */,
@@ -138,9 +138,9 @@
 			);
 			dependencies = (
 			);
-			name = HZNavigationBar_Example;
+			name = HZNavigationBarExample;
 			productName = HZNavigationBar_Example;
-			productReference = E4D2B25F2232033D008AD70A /* HZNavigationBar_Example.app */;
+			productReference = E4D2B25F2232033D008AD70A /* HZNavigationBarExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -159,7 +159,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E4D2B25A2232033D008AD70A /* Build configuration list for PBXProject "HZNavigationBar_Example" */;
+			buildConfigurationList = E4D2B25A2232033D008AD70A /* Build configuration list for PBXProject "HZNavigationBarExample" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -172,7 +172,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E4D2B25E2232033D008AD70A /* HZNavigationBar_Example */,
+				E4D2B25E2232033D008AD70A /* HZNavigationBarExample */,
 			);
 		};
 /* End PBXProject section */
@@ -402,7 +402,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E4D2B25A2232033D008AD70A /* Build configuration list for PBXProject "HZNavigationBar_Example" */ = {
+		E4D2B25A2232033D008AD70A /* Build configuration list for PBXProject "HZNavigationBarExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4D2B26F2232033E008AD70A /* Debug */,
@@ -411,7 +411,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E4D2B2712232033E008AD70A /* Build configuration list for PBXNativeTarget "HZNavigationBar_Example" */ = {
+		E4D2B2712232033E008AD70A /* Build configuration list for PBXNativeTarget "HZNavigationBarExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E4D2B2722232033E008AD70A /* Debug */,
