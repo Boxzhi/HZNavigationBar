@@ -42,9 +42,18 @@ public extension UIViewController {
         }else if let presented = base?.presentedViewController {
             return hz_currentViewController(base: presented)
         }else {
-            return base
+            return subViewController(base)
         }
     }
+    
+    class func subViewController(_ baseVc: UIViewController?) -> UIViewController? {
+        if let count = baseVc?.children.count, count > 0 {
+            return subViewController(baseVc?.children.last)
+        }else {
+            return baseVc
+        }
+    }
+    
 }
 
 public class HZCustomNavigationBar: UIView {
