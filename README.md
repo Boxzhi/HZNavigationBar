@@ -1,5 +1,5 @@
 # HZNavigationBar
-一个可高度自定义的NavigationBar, 基于[WRNavigationBar](https://github.com/wangrui460/WRNavigationBar_swift)改造而来
+一个可高度自定义的NavigationBar.
 
 
 ### Requirements
