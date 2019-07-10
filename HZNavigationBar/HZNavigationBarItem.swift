@@ -8,6 +8,11 @@
 
 import UIKit
 
+public enum HZNavigationBarItemType: Int {
+    case left = 0     // 左侧
+    case right = 1     // 右侧
+}
+
 public enum HZBarItemEdgeInsetsStyle: Int {
     case top = 0  // image在上，label在下
     case bottom = 1  // image在下，label在上

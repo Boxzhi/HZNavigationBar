@@ -128,7 +128,7 @@ public class HZCustomNavigationBar: UIView {
     }
     
     /// 是否隐藏navigationBar底部的细横线
-    public var isHiddenBottomLine: Bool = false {
+    public var shadowImageHidden: Bool = false {
         willSet {
             hz_setBottomLineHidden(hidden: newValue)
         }
@@ -259,12 +259,11 @@ extension HZCustomNavigationBar {
         _bottomLine.isHidden = hidden
     }
     
-    /// 左侧BarItem具体添加及布局
-    fileprivate func hz_setLeftBarItems(_ leftItems: [HZNavigationBarItem]) {
-        
-        for i in 0 ..< leftItems.count {
+    /// BarItem具体添加及布局
+    fileprivate func hz_setBarItemsWithLayout(_ barItems: [HZNavigationBarItem], barItemType: HZNavigationBarItemType) {
+        for i in 0 ..< barItems.count {
             
-            let barItem: HZNavigationBarItem = leftItems[i]
+            let barItem: HZNavigationBarItem = barItems[i]
             self.addSubview(barItem)
             
             var barItemWidth: CGFloat? = nil
@@ -274,48 +273,141 @@ extension HZCustomNavigationBar {
                 barItemWidth = barItem.title(for: .normal) == nil ? HZBarItemWidth : nil
             }
             
-            if i == 0 {
-                self.constrainToLeadingTopBottomWidth(barItem, leading: HZLeftBarItemSpace, top: HZStatusBarHeight, width: barItemWidth)
-                
+            if barItemType == .left {
+                if i == 0 {
+                    self.constrainToLeadingTopBottomWidth(barItem, leading: HZLeftBarItemSpace, top: HZStatusBarHeight, width: barItemWidth)
+                }else {
+                    self.constrainToLeadingTopBottomWidth(barItem, targetView: barItems[i - 1],  width: barItemWidth)
+                }
             }else {
-                self.constrainToLeadingTopBottomWidth(barItem, targetView: leftItems[i - 1],  width: barItemWidth)
+                if i == 0 {
+                    self.constrainToTrailingTopBottomWidth(barItem, trailing: -HZRightBarItemSpace, top: HZStatusBarHeight, width: barItemWidth)
+                }else {
+                    self.constrainToTrailingTopBottomWidth(barItem, targetView: barItems[i - 1], width: barItemWidth)
+                }
             }
-            
             if themeColor != nil {
                 barItem.titleColor = themeColor
             }
         }
-        self.leftBarItems?.removeAll()
-        self.leftBarItems = leftItems
+        if barItemType == .left {
+            self.leftBarItems?.removeAll()
+            self.leftBarItems = barItems
+        }else {
+            self.rightBarItems?.removeAll()
+            self.rightBarItems = barItems
+        }
     }
     
-    /// 右侧BarItem具体添加及布局
-    fileprivate func hz_setRightBarItems(_ rightItems: [HZNavigationBarItem]) {
-        
-        for i in 0 ..< rightItems.count {
-            
-            let barItem: HZNavigationBarItem = rightItems[i]
-            self.addSubview(barItem)
-            
-            var barItemWidth: CGFloat? = nil
-            if let _barItemWidth = barItem.barItemWidth {
-                barItemWidth = _barItemWidth
-            }else {
-                barItemWidth = barItem.title(for: .normal) == nil ? HZBarItemWidth : nil
+    /// 设置BarItem
+    fileprivate func hz_setBarItems(_ barItems: [HZNavigationBarItem?], barItemType: HZNavigationBarItemType) {
+        let _barItems = barItems.compactMap({ return $0 })
+        if barItemType == .left {
+            if let _leftBarItems = self.leftBarItems {
+                for item in _leftBarItems {
+                    item.removeFromSuperview()
+                }
             }
-            
-            if i == 0 {
-                self.constrainToTrailingTopBottomWidth(barItem, trailing: -HZRightBarItemSpace, top: HZStatusBarHeight, width: barItemWidth)
-            }else {
-                self.constrainToTrailingTopBottomWidth(barItem, targetView: rightItems[i - 1], width: barItemWidth)
-            }
-            if themeColor != nil {
-                barItem.titleColor = themeColor
+        }else {
+            if let _rightBarItems = self.rightBarItems {
+                for item in _rightBarItems {
+                    item.removeFromSuperview()
+                }
             }
         }
-        self.rightBarItems?.removeAll()
-        self.rightBarItems = rightItems
+        self.hz_setBarItemsWithLayout(_barItems, barItemType: barItemType)
     }
+    
+    /// 新增BarItem
+    fileprivate func hz_addBarItems(_ barItems: [HZNavigationBarItem?], barItemType: HZNavigationBarItemType) {
+        let _barItems = barItems.compactMap({ return $0 })
+        if barItemType == .left {
+            if let _leftBarItems = self.leftBarItems {
+                self.hz_setBarItemsWithLayout(_leftBarItems + _barItems, barItemType: barItemType)
+            }else {
+                self.hz_setBarItemsWithLayout(_barItems, barItemType: barItemType)
+            }
+        }else {
+            if let _rightBarItems = self.rightBarItems {
+                self.hz_setBarItemsWithLayout(_rightBarItems + _barItems, barItemType: barItemType)
+            }else {
+                self.hz_setBarItemsWithLayout(_barItems, barItemType: barItemType)
+            }
+        }
+    }
+    
+    /// 更新BarItem
+    fileprivate func hz_updateBarItem(_ barItemType: HZNavigationBarItemType, atIndex: Int, normalTitle: String?, selectedTitle: String?, normalImage: UIImage?, selectedImage: UIImage?, clickBarItemBlock: ((_ sender: HZNavigationBarItem) -> Void)?) {
+        var barItems: [HZNavigationBarItem]? = nil
+        if barItemType == .left {
+            barItems = self.leftBarItems
+        }else {
+            barItems = self.rightBarItems
+        }
+        
+        guard let _barItems = barItems, atIndex < _barItems.count else {
+            return
+        }
+        let item: HZNavigationBarItem = _barItems[atIndex]
+        if normalTitle != nil {
+            item.setTitle(normalTitle, for: .normal)
+        }
+        if selectedTitle != nil {
+            item.setTitle(selectedTitle, for: .selected)
+        }
+        if normalImage != nil {
+            item.setImage(normalImage, for: .normal)
+        }
+        if selectedImage != nil {
+            item.setImage(selectedImage, for: .selected)
+        }
+        if let block = clickBarItemBlock {
+            item.newClickBarItemBlock = block
+        }
+        item.barItemButtonLayoutButtonWithEdgeInsetsStyle(style: item.style, space: item.space)
+    }
+    
+    /// 隐藏BarItem
+    fileprivate func hz_hiddenBarItem(_ barItemType: HZNavigationBarItemType, index: Int?, hidden: Bool) {
+        var barItems: [HZNavigationBarItem]? = nil
+        if barItemType == .left {
+            barItems = self.leftBarItems
+        }else {
+            barItems = self.rightBarItems
+        }
+        
+        guard let _barItems = barItems else {
+            return
+        }
+        if let _index = index, _index < _barItems.count {
+            for _ in 0 ..< _barItems.count {
+                _barItems[_index].isHidden = hidden
+            }
+        }else {
+            for barItem in _barItems {
+                barItem.isHidden = hidden
+            }
+        }
+    }
+    
+    /// 点击BarItem
+    fileprivate func hz_clickBarItem(_ barItemType: HZNavigationBarItemType, index: Int, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void) {
+        var barItems: [HZNavigationBarItem]? = nil
+        if barItemType == .left {
+            barItems = self.leftBarItems
+        }else {
+            barItems = self.rightBarItems
+        }
+        
+        guard let _barItems = barItems else {
+            return
+        }
+        if index < _barItems.count {
+            let barItem = _barItems[index]
+            barItem.newClickBarItemBlock = clickBlock
+        }
+    }
+    
 }
 
 //MARK: - 外部可调用方法
@@ -433,56 +525,30 @@ public extension HZCustomNavigationBar {
 }
 
 //MARK: - 供外部对BarItem设置调用的方法
-extension HZCustomNavigationBar {
+public extension HZCustomNavigationBar {
     
     /// 设置LeftBarItem、若之前已存在barItem、则会先移除后设置.
     /// - leftItems: barItem的数组.
-    public func hz_setItemsToLeft(leftItems: [HZNavigationBarItem?]) {
-        
-        let _leftItems = leftItems.compactMap({ return $0 })
-        if let _leftBarItems = self.leftBarItems {
-            for item in _leftBarItems {
-                item.removeFromSuperview()
-            }
-        }
-        self.hz_setLeftBarItems(_leftItems)
+    func hz_setItemsToLeft(leftItems: [HZNavigationBarItem?]) {
+        self.hz_setBarItems(leftItems, barItemType: .left)
     }
     
     /// 设置RightBarItem、若之前已存在barItem、则会先移除后设置.
     /// - rightItems: barItem的数组.
-    public func hz_setItemsToRight(rightItems: [HZNavigationBarItem?]) {
-        
-        let _rightItems = rightItems.compactMap({ return $0 })
-        if let _rightBarItems = self.rightBarItems {
-            for item in _rightBarItems {
-                item.removeFromSuperview()
-            }
-        }
-        self.hz_setRightBarItems(_rightItems)
+    func hz_setItemsToRight(rightItems: [HZNavigationBarItem?]) {
+        self.hz_setBarItems(rightItems, barItemType: .right)
     }
     
     /// 新增设置LeftBarItem、若之前已存在barItem、则在其基础上新增（以增量方式进行）.
     /// - leftItems: barItem的数组.
-    public func hz_addItemsToLeft(leftItems: [HZNavigationBarItem?]) {
-        
-        let _leftItems = leftItems.compactMap({ return $0 })
-        if let _leftBarItems = self.leftBarItems {
-            self.hz_setLeftBarItems( _leftBarItems + _leftItems)
-        }else {
-            self.hz_setLeftBarItems(_leftItems)
-        }
+    func hz_addItemsToLeft(leftItems: [HZNavigationBarItem?]) {
+        self.hz_addBarItems(leftItems, barItemType: .left)
     }
     
     /// 新增设置RightBarItem、若之前已存在barItem、则在其基础上新增（以增量方式进行）.
     /// - rightItems: barItem的数组.
-    public func hz_addItemsToRight(rightItems: [HZNavigationBarItem?]) {
-        
-        let _rightItems = rightItems.compactMap({ return $0 })
-        if let _rightBarItems = self.rightBarItems {
-            self.hz_setRightBarItems(_rightBarItems + _rightItems)
-        }else {
-            self.hz_setRightBarItems(_rightItems)
-        }
+    func hz_addItemsToRight(rightItems: [HZNavigationBarItem?]) {
+        self.hz_addBarItems(rightItems, barItemType: .right)
     }
     
     /// 更新LeftBarItem.
@@ -492,28 +558,8 @@ extension HZCustomNavigationBar {
     /// - normalImage: item默认image.
     /// - selectedImage: item选中image.
     /// - clickBarItemBlock: 替换barItem的点击方法 (可传nil).
-    public func hz_updateItemWithLeft(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, clickBarItemBlock: ((_ sender: HZNavigationBarItem) -> Void)? = nil) {
-        guard let _leftItems = self.leftBarItems, atIndex < _leftItems.count else {
-            return
-        }
-        
-        let item: HZNavigationBarItem = _leftItems[atIndex]
-        if normalTitle != nil {
-            item.setTitle(normalTitle, for: .normal)
-        }
-        if selectedTitle != nil {
-            item.setTitle(selectedTitle, for: .selected)
-        }
-        if normalImage != nil {
-            item.setImage(normalImage, for: .normal)
-        }
-        if selectedImage != nil {
-            item.setImage(selectedImage, for: .selected)
-        }
-        if let block = clickBarItemBlock {
-            item.newClickBarItemBlock = block
-        }
-        item.barItemButtonLayoutButtonWithEdgeInsetsStyle(style: item.style, space: item.space)
+    func hz_updateItemWithLeft(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, clickBarItemBlock: ((_ sender: HZNavigationBarItem) -> Void)? = nil) {
+        self.hz_updateBarItem(.left, atIndex: atIndex, normalTitle: normalTitle, selectedTitle: selectedTitle, normalImage: normalImage, selectedImage: selectedImage, clickBarItemBlock: clickBarItemBlock)
     }
     
     /// 更新RightBarItem.
@@ -523,96 +569,36 @@ extension HZCustomNavigationBar {
     /// - normalImage: item默认image.
     /// - selectedImage: item选中image.
     /// - clickBarItemBlock: 替换barItem的点击方法 (可传nil).
-    public func hz_updateItemWithRight(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, clickBarItemBlock: ((_ sender: HZNavigationBarItem) -> Void)? = nil) {
-        guard let _rightItems = self.rightBarItems, atIndex < _rightItems.count else {
-            return
-        }
-        
-        let item: HZNavigationBarItem = _rightItems[atIndex]
-        if normalTitle != nil {
-            item.setTitle(normalTitle, for: .normal)
-        }
-        if selectedTitle != nil {
-            item.setTitle(selectedTitle, for: .selected)
-        }
-        if normalImage != nil {
-            item.setImage(normalImage, for: .normal)
-        }
-        if selectedImage != nil {
-            item.setImage(selectedImage, for: .selected)
-        }
-        if let block = clickBarItemBlock {
-            item.newClickBarItemBlock = block
-        }
-        item.barItemButtonLayoutButtonWithEdgeInsetsStyle(style: item.style, space: item.space)
+    func hz_updateItemWithRight(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, clickBarItemBlock: ((_ sender: HZNavigationBarItem) -> Void)? = nil) {
+        self.hz_updateBarItem(.right, atIndex: atIndex, normalTitle: normalTitle, selectedTitle: selectedTitle, normalImage: normalImage, selectedImage: selectedImage, clickBarItemBlock: clickBarItemBlock)
     }
     
     /// 隐藏LeftBarItem.
     /// - index: 需要隐藏的barItem角标，不传默认全隐藏.
     /// - hidden: 隐藏还是显示.
-    public func hz_hiddenItemWithLeft(_ index: Int? = nil, hidden: Bool) {
-        guard let _leftBarItems = self.leftBarItems else {
-            return
-        }
-        
-        if let _index = index, _index < _leftBarItems.count {
-            for _ in 0 ..< _leftBarItems.count {
-                _leftBarItems[_index].isHidden = hidden
-            }
-        }else {
-            for barItem in _leftBarItems {
-                barItem.isHidden = hidden
-            }
-        }
+    func hz_hiddenItemWithLeft(_ index: Int? = nil, hidden: Bool) {
+        self.hz_hiddenBarItem(.left, index: index, hidden: hidden)
     }
     
     /// 隐藏RightBarItem.
     /// - index: 需要隐藏的barItem角标，不传默认全隐藏.
     /// - hidden: 隐藏还是显示.
-    public func hz_hiddenItemWithRight(_ index: Int? = nil, hidden: Bool) {
-        guard let _rightBarItems = self.rightBarItems else {
-            return
-        }
-        
-        if let _index = index, _index < _rightBarItems.count {
-            for _ in 0 ..< _rightBarItems.count {
-                _rightBarItems[_index].isHidden = hidden
-            }
-        }else {
-            for barItem in _rightBarItems {
-                barItem.isHidden = hidden
-            }
-        }
+    func hz_hiddenItemWithRight(_ index: Int? = nil, hidden: Bool) {
+        self.hz_hiddenBarItem(.right, index: index, hidden: hidden)
     }
     
     /// 点击LeftBarItem.
     /// - index: 点击barItem的角标.
     /// - clickBlock: 点击的block回调.
-    public func hz_clickLeftBarItem(_ index: Int = 0, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void) {
-        
-        guard let _leftBarItems = self.leftBarItems else {
-            return
-        }
-        
-        if index < _leftBarItems.count {
-            let barItem = _leftBarItems[index]
-            barItem.newClickBarItemBlock = clickBlock
-        }
+    func hz_clickLeftBarItem(_ index: Int = 0, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void) {
+        self.hz_clickBarItem(.left, index: index, clickBlock: clickBlock)
     }
     
     /// 点击RightBarItem.
     /// - index: 点击barItem的角标.
     /// - clickBlock: 点击的block回调.
-    public func hz_clickRightBarItem(_ index: Int = 0, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void) {
-        
-        guard let _rightBarItems = self.rightBarItems else {
-            return
-        }
-        
-        if index < _rightBarItems.count {
-            let barItem = _rightBarItems[index]
-            barItem.newClickBarItemBlock = clickBlock
-        }
+    func hz_clickRightBarItem(_ index: Int = 0, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void) {
+        self.hz_clickBarItem(.right, index: index, clickBlock: clickBlock)
     }
     
 }
