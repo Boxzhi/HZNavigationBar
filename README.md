@@ -5,6 +5,7 @@
 ### Requirements
 - iOS 10.0+
 - Xcode 10.1+
+- Swift 4.2+
 
 
 
@@ -18,6 +19,15 @@
 
 ![](https://upload-images.jianshu.io/upload_images/1115226-37b2196f64512ab8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
+![](https://upload-images.jianshu.io/upload_images/1115226-7aa11625b21fff6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](https://upload-images.jianshu.io/upload_images/1115226-5f42424a50151710.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](https://upload-images.jianshu.io/upload_images/1115226-a5e34a9827dee22f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](https://upload-images.jianshu.io/upload_images/1115226-39490f3cbe0a3f3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![](https://upload-images.jianshu.io/upload_images/1115226-3cb510e17181ff5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 ### How To Use
@@ -43,7 +53,7 @@ nav.barBackgroundImage = UIImage(named: "updateIcon")  // 设置导航栏背景�
 /// 设置NavigationBar的titleView，若view有设置frame，则可不传titleViewSize，若两者都 
 无，则默认占据整个NavigationBar
 /// titleViewSize：titleView的Size
-/// isCenter：view是否要居中显示在titleView上
+/// isCenter：view是否要居中显示在titleView上，默认居中，不居中则以左边对齐
 func hz_setTitleView(_ view: UIView?, titleViewSize: CGSize? = nil, isCenter: Bool = true)
 
 /// 设置主题颜色（title和BarItem）
@@ -80,7 +90,7 @@ public func hz_hiddenItemWithLeft(_ index: Int? = nil, hidden: Bool)
 public func hz_hiddenItemWithRight(_ index: Int? = nil, hidden: Bool)
 ```
 ------------------------------------------------------------
-拦截BarItem点击方法.
+点击BarItem.
 ```
 public func hz_clickLeftBarItem(_ index: Int = 0, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void)
 public func hz_clickRightBarItem(_ index: Int = 0, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void)
