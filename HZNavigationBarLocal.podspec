@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
 
   s.name = 'HZNavigationBar'
-  s.version = '1.1.6'
+  s.version = '1.2.0'
   s.license = 'MIT'
   s.summary = 'A very simple to use, can be completely customized navigation bar'
   s.homepage = 'https://github.com/CoderZZHe/HZNavigationBar'
@@ -20,6 +20,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '10.0'
   s.source_files = 'HZNavigationBar/*.swift'
   s.framework = 'UIKit'
-  s.swift_version = '4.2'
+  s.swift_version = '5.0'
 
 end
