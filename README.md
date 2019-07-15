@@ -1,36 +1,38 @@
-# HZNavigationBar
-一个可高度自定义的NavigationBar
+HZNavigationBar
+=============
+[![Version](https://img.shields.io/badge/pod-v1.2.0-blue.svg)](https://github.com/CoderZZHe/HZNavigationBar) [![Build Status](https://img.shields.io/badge/build-passing-green.svg)]() ![](https://img.shields.io/badge/platform-iOS%2010.0%2B-yellowgreen.svg) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/CoderZZHe/HZNavigationBar/blob/master/LICENSE)
 
 
-### Requirements
+
+# Requirements
 - iOS 10.0+
 - Xcode 10.1+
 - Swift 4.2+
 
 
-### Installation
-`pod 'HZNavigationBar', '~> 1.2.0'`
+# Installation
+打开 Podfile，在您项目的 target 下加入以下内容。（此处示例可能是旧版本，使用时请替换为最新版，最新版信息可以从这里获取：<a href="https://github.com/CoderZZHe/HZNavigationBar/blob/master/HZNavigationBar.podspec"><img src="https://img.shields.io/badge/Pod-GetLatestVersion-green.svg?style=flat"></a>）
+
+在文件 `Podfile` 中加入以下内容：
+
+```
+pod 'HZNavigationBar', '~> 1.2.0'
+```
+
+然后在终端中运行以下命令：
+
+```
+pod install
+```
 
 
 ### Demo
-
-![](https://upload-images.jianshu.io/upload_images/1115226-e80ceb303c6356eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![](https://upload-images.jianshu.io/upload_images/1115226-da72d3ed1d2f0ebe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![](https://upload-images.jianshu.io/upload_images/1115226-a50d020d79b35d4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![](https://upload-images.jianshu.io/upload_images/1115226-37b2196f64512ab8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![](https://upload-images.jianshu.io/upload_images/1115226-7aa11625b21fff6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![](https://upload-images.jianshu.io/upload_images/1115226-5f42424a50151710.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![](https://upload-images.jianshu.io/upload_images/1115226-a5e34a9827dee22f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![](https://upload-images.jianshu.io/upload_images/1115226-39490f3cbe0a3f3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![](https://upload-images.jianshu.io/upload_images/1115226-3cb510e17181ff5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+-------------|------------
+![](https://upload-images.jianshu.io/upload_images/1115226-e80ceb303c6356eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)| ![](https://upload-images.jianshu.io/upload_images/1115226-da72d3ed1d2f0ebe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/1115226-a50d020d79b35d4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)| ![](https://upload-images.jianshu.io/upload_images/1115226-37b2196f64512ab8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/1115226-7aa11625b21fff6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)| ![](https://upload-images.jianshu.io/upload_images/1115226-5f42424a50151710.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/1115226-a5e34a9827dee22f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)| ![](https://upload-images.jianshu.io/upload_images/1115226-39490f3cbe0a3f3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/1115226-3cb510e17181ff5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)| ![](https://upload-images.jianshu.io/upload_images/1115226-c4076c75dfa0ffb3.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 ### How To Use
