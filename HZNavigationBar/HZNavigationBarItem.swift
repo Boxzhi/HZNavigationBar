@@ -24,7 +24,8 @@ public class HZNavigationBarItem: UIButton {
     
     public var titleColor: UIColor? {
         willSet {
-            self.setTitleColor(_titleColor, for: .normal)
+            self._titleColor = newValue
+            self.setTitleColor(newValue, for: .normal)
         }
     }
     
