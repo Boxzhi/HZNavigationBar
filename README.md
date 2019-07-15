@@ -1,6 +1,6 @@
 HZNavigationBar
 =============
-[![Version](https://img.shields.io/badge/pod-v1.2.0-blue.svg)](https://github.com/CoderZZHe/HZNavigationBar) [![Build Status](https://img.shields.io/badge/build-passing-green.svg)]() ![](https://img.shields.io/badge/platform-iOS%2010.0%2B-yellowgreen.svg) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/CoderZZHe/HZNavigationBar/blob/master/LICENSE)
+[![Version](https://img.shields.io/badge/pod-v1.1.6-blue.svg)](https://github.com/CoderZZHe/HZNavigationBar) [![Build Status](https://img.shields.io/badge/build-passing-green.svg)]() ![](https://img.shields.io/badge/platform-iOS%2010.0%2B-yellowgreen.svg) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/CoderZZHe/HZNavigationBar/blob/master/LICENSE)
 
 
 
@@ -11,7 +11,7 @@ HZNavigationBar
 
 
 # Installation
-打开 Podfile，在您项目的 target 下加入以下内容。（此处示例可能是旧版本，使用时请替换为最新版，最新版信息可以从这里获取：<a href="https://github.com/CoderZZHe/HZNavigationBar/blob/master/HZNavigationBar.podspec"><img src="https://img.shields.io/badge/Pod-GetLatestVersion-green.svg?style=flat"></a>）
+打开 Podfile，在您项目的 target 下加入以下内容。（此处示例可能是旧版本，使用时请替换为最新版，最新版信息可以从这里获取：<a href="https://github.com/CoderZZHe/HZNavigationBar/blob/master/HZNavigationBar.podspec"><img src="https://img.shields.io/badge/pod-GetLatestVersion-blue.svg?style=flat"></a>）
 
 在文件 `Podfile` 中加入以下内容：
 
@@ -26,7 +26,7 @@ pod install
 ```
 
 
-# Demo
+# Demo Image
 
 ![](https://upload-images.jianshu.io/upload_images/1115226-e80ceb303c6356eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/1115226-da72d3ed1d2f0ebe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![](https://upload-images.jianshu.io/upload_images/1115226-a50d020d79b35d4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/1115226-37b2196f64512ab8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -112,13 +112,13 @@ func hz_clickRightBarItem(_ atIndex: Int = 0, clickBlock: @escaping (_ sender: H
 ------------------------------------------------------------
 - 设置barItem的badge（大小默认为8*8）.
 
-- 自定义颜色.
+ - 自定义颜色.
 ```
 func hz_showLeftBarItemBadge(atIndex: Int = 0, size: CGSize = .zero, color: UIColor = UIColor(red: 245/255, green: 73/255, blue: 102/255, alpha: 1), offset: CGPoint = .zero)
 func hz_showRightBarItemBadge(atIndex: Int = 0, size: CGSize = .zero, color: UIColor = UIColor(red: 245/255, green: 73/255, blue: 102/255, alpha: 1), offset: CGPoint = .zero)
 ```
      
-- 自定义图片.
+ - 自定义图片.
 ```
 func hz_showLeftBarItemBadgeImage(atIndex: Int = 0,  size: CGSize = .zero, image: Any, offset: CGPoint = .zero)
 func hz_showRightBarItemBadgeImage(atIndex: Int = 0,  size: CGSize = .zero, image: Any, offset: CGPoint = .zero)
