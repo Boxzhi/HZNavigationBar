@@ -39,7 +39,7 @@ pod install
 具体用法可参考HZNavigationBarExample文件的Demo
 
 
-- 基础属性设置.
+### 基础属性设置.
 ```
 /* 注意：title和titleView互斥，以最后的设置为准 */
 nav.titleView = UIImageView(image: UIImage(named: "titleViewImage"))
@@ -72,57 +72,59 @@ func hz_setBackgroundAlpha(alpha: CGFloat)
 ```
 ------------------------------------------------------------
 
-- 基本常用方法.
+### 基本常用方法.
 
-设置barItem，若之前已存在barItem，则会先移除后设置.
+- 设置barItem，若之前已存在barItem，则会先移除后设置.
 ```
 func hz_setItemsToLeft(leftItems: [HZNavigationBarItem?]) 
 func hz_setItemsToRight(rightItems: [HZNavigationBarItem?])
 ```
 ------------------------------------------------------------
-新增设置barItem，若之前已存在barItem，则在其基础上新增（以增量方式进行）.
+- 新增设置barItem，若之前已存在barItem，则在其基础上新增（以增量方式进行）.
 ```
 func hz_addItemsToLeft(leftItems: [HZNavigationBarItem?])
 func hz_addItemsToRight(rightItems: [HZNavigationBarItem?])
 ```
 ------------------------------------------------------------
-移除barItem.
+- 移除barItem.
 ```
 func hz_removeItemWithLeft(indexs: [Int]? = nil)
 func hz_removeItemWithRight(indexs: [Int]? = nil)
 ```
 ------------------------------------------------------------
-更新barItem.
+- 更新barItem.
 ```
 func hz_updateItemWithLeft(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, clickBarItemBlock: ((_ sender: HZNavigationBarItem) -> Void)? = nil)
 func hz_updateItemWithRight(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, clickBarItemBlock: ((_ sender: HZNavigationBarItem) -> Void)? = nil)
 ```
 ------------------------------------------------------------
-隐藏barItem.
+- 隐藏barItem.
 ```
 func hz_hiddenItemWithLeft(_ atIndex: Int? = nil, hidden: Bool)
 func hz_hiddenItemWithRight(_ atIndex: Int? = nil, hidden: Bool)
 ```
 ------------------------------------------------------------
-更新barItem点击事件方法.（之前的点击方法会失效）.
+- 更新barItem点击事件方法.（之前的点击方法会失效）.
 ```
 func hz_clickLeftBarItem(_ atIndex: Int = 0, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void)
 func hz_clickRightBarItem(_ atIndex: Int = 0, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void)
 ```
 ------------------------------------------------------------
-设置barItem的badge（大小默认为8*8）.
-- 自定义颜色
+- 设置barItem的badge（大小默认为8*8）.
+
+    - 自定义颜色
 ```
 func hz_showLeftBarItemBadge(atIndex: Int = 0, size: CGSize = .zero, color: UIColor = UIColor(red: 245/255, green: 73/255, blue: 102/255, alpha: 1), offset: CGPoint = .zero)
 func hz_showRightBarItemBadge(atIndex: Int = 0, size: CGSize = .zero, color: UIColor = UIColor(red: 245/255, green: 73/255, blue: 102/255, alpha: 1), offset: CGPoint = .zero)
 ```
-- 自定义图片
+    
+    - 自定义图片
 ```
 func hz_showLeftBarItemBadgeImage(atIndex: Int = 0,  size: CGSize = .zero, image: Any, offset: CGPoint = .zero)
 func hz_showRightBarItemBadgeImage(atIndex: Int = 0,  size: CGSize = .zero, image: Any, offset: CGPoint = .zero)
 ```
 ------------------------------------------------------------
-隐藏（移除）barItem的badge.
+- 隐藏（移除）barItem的badge.
 ```
 func hz_hiddenLeftBarItemBadge(_ atIndex: Int? = nil)
 func hz_hiddenRightBarItemBadge(_ atIndex: Int? = nil)
