@@ -26,24 +26,25 @@ pod install
 ```
 
 
-### Demo
--------------|------------
-![](https://upload-images.jianshu.io/upload_images/1115226-e80ceb303c6356eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)| ![](https://upload-images.jianshu.io/upload_images/1115226-da72d3ed1d2f0ebe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![](https://upload-images.jianshu.io/upload_images/1115226-a50d020d79b35d4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)| ![](https://upload-images.jianshu.io/upload_images/1115226-37b2196f64512ab8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![](https://upload-images.jianshu.io/upload_images/1115226-7aa11625b21fff6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)| ![](https://upload-images.jianshu.io/upload_images/1115226-5f42424a50151710.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![](https://upload-images.jianshu.io/upload_images/1115226-a5e34a9827dee22f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)| ![](https://upload-images.jianshu.io/upload_images/1115226-39490f3cbe0a3f3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![](https://upload-images.jianshu.io/upload_images/1115226-3cb510e17181ff5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)| ![](https://upload-images.jianshu.io/upload_images/1115226-c4076c75dfa0ffb3.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+# Demo
+
+![](https://upload-images.jianshu.io/upload_images/1115226-e80ceb303c6356eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/1115226-da72d3ed1d2f0ebe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/1115226-a50d020d79b35d4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/1115226-37b2196f64512ab8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/1115226-7aa11625b21fff6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/1115226-5f42424a50151710.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/1115226-a5e34a9827dee22f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/1115226-39490f3cbe0a3f3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://upload-images.jianshu.io/upload_images/1115226-3cb510e17181ff5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/1115226-c4076c75dfa0ffb3.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-### How To Use
+# Usage
 具体用法可参考HZNavigationBarExample文件的Demo
 
 
-基础属性设置.
+- 基础属性设置.
 ```
 /* 注意：title和titleView互斥，以最后的设置为准 */
 nav.titleView = UIImageView(image: UIImage(named: "titleViewImage"))
 nav.title = "主页"  // 设置导航栏title
+
 nav.titleColor = .red  // 设置导航栏title的颜色
 nav.titleFont = UIFont.systemFont(ofSize: 15)   // 设置导航栏title的字体
 
@@ -53,7 +54,6 @@ nav.shadowImageHidden = false  // 隐藏导航栏下划线
 /* 注意：背景颜色和背景图片互斥，以最后的设置为准 */
 nav.barBackgroundColor = .white  // 设置导航栏背景颜色
 nav.barBackgroundImage = UIImage(named: "updateIcon")  // 设置导航栏背景图
-
 
 /// 设置NavigationBar的titleView.
 /// - view: titleView.
@@ -71,6 +71,9 @@ func hz_setBarItemColor(color: UIColor)
 func hz_setBackgroundAlpha(alpha: CGFloat)
 ```
 ------------------------------------------------------------
+
+- 基本常用方法.
+
 设置barItem，若之前已存在barItem，则会先移除后设置.
 ```
 func hz_setItemsToLeft(leftItems: [HZNavigationBarItem?]) 
@@ -124,3 +127,6 @@ func hz_showRightBarItemBadgeImage(atIndex: Int = 0,  size: CGSize = .zero, imag
 func hz_hiddenLeftBarItemBadge(_ atIndex: Int? = nil)
 func hz_hiddenRightBarItemBadge(_ atIndex: Int? = nil)
 ```
+
+# License
+HZNavigationBar是在MIT许可下发布的。 有关详细信息，请参阅LICENSE。
