@@ -112,13 +112,14 @@ func hz_clickRightBarItem(_ atIndex: Int = 0, clickBlock: @escaping (_ sender: H
 ------------------------------------------------------------
 - 设置barItem的badge（大小默认为8*8）.
 
-    - 自定义颜色
+
+   - 自定义颜色
 ```
 func hz_showLeftBarItemBadge(atIndex: Int = 0, size: CGSize = .zero, color: UIColor = UIColor(red: 245/255, green: 73/255, blue: 102/255, alpha: 1), offset: CGPoint = .zero)
 func hz_showRightBarItemBadge(atIndex: Int = 0, size: CGSize = .zero, color: UIColor = UIColor(red: 245/255, green: 73/255, blue: 102/255, alpha: 1), offset: CGPoint = .zero)
 ```
-    
-    - 自定义图片
+  
+   - 自定义图片
 ```
 func hz_showLeftBarItemBadgeImage(atIndex: Int = 0,  size: CGSize = .zero, image: Any, offset: CGPoint = .zero)
 func hz_showRightBarItemBadgeImage(atIndex: Int = 0,  size: CGSize = .zero, image: Any, offset: CGPoint = .zero)
