@@ -16,7 +16,7 @@ HZNavigationBar
 在文件 `Podfile` 中加入以下内容：
 
 ```
-pod 'HZNavigationBar', '~> 1.2.0'
+pod 'HZNavigationBar'
 ```
 
 然后在终端中运行以下命令：
@@ -131,4 +131,4 @@ func hz_hiddenRightBarItemBadge(_ atIndex: Int? = nil)
 ```
 
 # License
-HZNavigationBar是在MIT许可下发布的。 有关详细信息，请参阅LICENSE。
+HZNavigationBar是在MIT许可下发布的。 有关详细信息，请参阅 [LICENSE](https://opensource.org/licenses/mit-license.php)。
