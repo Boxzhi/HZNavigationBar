@@ -4,13 +4,13 @@ HZNavigationBar
 
 
 
-# Requirements
+# 要求
 - iOS 10.0+
 - Xcode 10.1+
 - Swift 4.2+
 
 
-# Installation
+# 安装
 打开 Podfile，在您项目的 target 下加入以下内容。（此处示例可能是旧版本，使用时请替换为最新版，最新版信息可以从这里获取：<a href="https://github.com/CoderZZHe/HZNavigationBar/blob/master/HZNavigationBar.podspec"><img src="https://img.shields.io/badge/pod-GetLatestVersion-blue.svg?style=flat"></a>）
 
 在文件 `Podfile` 中加入以下内容：
@@ -26,7 +26,7 @@ pod install
 ```
 
 
-# Demo Image
+# Demo图片
 
 ![](https://upload-images.jianshu.io/upload_images/1115226-e80ceb303c6356eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/1115226-da72d3ed1d2f0ebe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![](https://upload-images.jianshu.io/upload_images/1115226-a50d020d79b35d4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/1115226-37b2196f64512ab8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -35,7 +35,7 @@ pod install
 ![](https://upload-images.jianshu.io/upload_images/1115226-3cb510e17181ff5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/1115226-c4076c75dfa0ffb3.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-# Usage
+# 用法
 具体用法可参考HZNavigationBarExample文件的Demo
 
 
@@ -130,5 +130,5 @@ func hz_hiddenLeftBarItemBadge(_ atIndex: Int? = nil)
 func hz_hiddenRightBarItemBadge(_ atIndex: Int? = nil)
 ```
 
-# License
+# 许可
 HZNavigationBar是在MIT许可下发布的。 有关详细信息，请参阅 [LICENSE](https://opensource.org/licenses/mit-license.php)。
