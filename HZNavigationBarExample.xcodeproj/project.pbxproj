@@ -17,7 +17,6 @@
 		E4D2B26A2232033E008AD70A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4D2B2692232033E008AD70A /* Assets.xcassets */; };
 		E4D2B26D2232033E008AD70A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4D2B26B2232033E008AD70A /* LaunchScreen.storyboard */; };
 		E4D2B27522320393008AD70A /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B27422320393008AD70A /* BaseNavigationController.swift */; };
-		E4D2B277223203AE008AD70A /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B276223203AE008AD70A /* BaseTabBarController.swift */; };
 		E4D2B27E223203DA008AD70A /* DViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B278223203D9008AD70A /* DViewController.swift */; };
 		E4D2B27F223203DA008AD70A /* EViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B279223203D9008AD70A /* EViewController.swift */; };
 		E4D2B280223203DA008AD70A /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D2B27A223203D9008AD70A /* BaseViewController.swift */; };
@@ -44,7 +43,6 @@
 		E4D2B26C2232033E008AD70A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E4D2B26E2232033E008AD70A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4D2B27422320393008AD70A /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
-		E4D2B276223203AE008AD70A /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		E4D2B278223203D9008AD70A /* DViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DViewController.swift; sourceTree = "<group>"; };
 		E4D2B279223203D9008AD70A /* EViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EViewController.swift; sourceTree = "<group>"; };
 		E4D2B27A223203D9008AD70A /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -95,7 +93,6 @@
 				E4D2B26B2232033E008AD70A /* LaunchScreen.storyboard */,
 				E4D2B26E2232033E008AD70A /* Info.plist */,
 				E4D2B27422320393008AD70A /* BaseNavigationController.swift */,
-				E4D2B276223203AE008AD70A /* BaseTabBarController.swift */,
 				E4D2B27A223203D9008AD70A /* BaseViewController.swift */,
 				E4D2B27D223203DA008AD70A /* AViewController.swift */,
 				E4D2B27C223203DA008AD70A /* BViewController.swift */,
@@ -209,7 +206,6 @@
 				E40D8D22224B55CD00619223 /* UINavigationController.swift in Sources */,
 				E4D2B281223203DA008AD70A /* CViewController.swift in Sources */,
 				E4D2B2632232033D008AD70A /* AppDelegate.swift in Sources */,
-				E4D2B277223203AE008AD70A /* BaseTabBarController.swift in Sources */,
 				E410090622D4822B009A2D43 /* Extension.swift in Sources */,
 				E4D2B28A2232040E008AD70A /* HZNavigationBar.swift in Sources */,
 				E4D2B27E223203DA008AD70A /* DViewController.swift in Sources */,
