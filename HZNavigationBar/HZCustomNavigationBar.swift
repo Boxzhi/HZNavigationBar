@@ -8,6 +8,8 @@
 
 import UIKit
 
+public typealias HZNavigationBarItemClickHandler = ((HZNavigationBarItem) -> Void)
+
 fileprivate let HZDefaultBackgroundColor: UIColor = .white
 fileprivate let HZDefaultButtonTitleSize: CGFloat = 16.0
 fileprivate let HZDefaultTitleSize: CGFloat = 18.0
@@ -416,7 +418,7 @@ private extension HZCustomNavigationBar {
     }
     
     /// 更新barItem
-    func hz_updateBarItem(_ barItemType: HZNavigationBarItemType, atIndex: Int, normalTitle: String?, selectedTitle: String?, normalImage: UIImage?, selectedImage: UIImage?, clickBarItemBlock: ((_ sender: HZNavigationBarItem) -> Void)?) {
+    func hz_updateBarItem(_ barItemType: HZNavigationBarItemType, atIndex: Int, normalTitle: String?, selectedTitle: String?, normalImage: UIImage?, selectedImage: UIImage?, barItemClickHandler: HZNavigationBarItemClickHandler?) {
         var barItems: [HZNavigationBarItem]? = nil
         if barItemType == .left {
             barItems = self.leftBarItems
@@ -440,8 +442,8 @@ private extension HZCustomNavigationBar {
         if selectedImage != nil {
             item.setImage(selectedImage, for: .selected)
         }
-        if let block = clickBarItemBlock {
-            item.newClickBarItemBlock = block
+        if let block = barItemClickHandler {
+            item.barItemNewClickHandler = block
         }
         item.barItemButtonLayoutButtonWithEdgeInsetsStyle(style: item.style, space: item.space)
     }
@@ -477,7 +479,7 @@ private extension HZCustomNavigationBar {
     }
     
     /// 点击barItem
-    func hz_clickBarItem(_ barItemType: HZNavigationBarItemType, atIndex: Int, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void) {
+    func hz_clickBarItem(_ barItemType: HZNavigationBarItemType, atIndex: Int, barItemClickHandler: @escaping HZNavigationBarItemClickHandler) {
         var barItems: [HZNavigationBarItem]? = nil
         if barItemType == .left {
             barItems = self.leftBarItems
@@ -490,7 +492,7 @@ private extension HZCustomNavigationBar {
         }
         if atIndex < _barItems.count {
             let barItem = _barItems[atIndex]
-            barItem.newClickBarItemBlock = clickBlock
+            barItem.barItemNewClickHandler = barItemClickHandler
         }
     }
     
@@ -721,9 +723,9 @@ public extension HZCustomNavigationBar {
     /// - selectedTitle: item选中title.
     /// - normalImage: item默认image.
     /// - selectedImage: item选中image.
-    /// - clickBarItemBlock: 替换barItem的点击方法 (可传nil).
-    func hz_updateItemWithLeft(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, clickBarItemBlock: ((_ sender: HZNavigationBarItem) -> Void)? = nil) {
-        self.hz_updateBarItem(.left, atIndex: atIndex, normalTitle: normalTitle, selectedTitle: selectedTitle, normalImage: normalImage, selectedImage: selectedImage, clickBarItemBlock: clickBarItemBlock)
+    /// - barItemClickHandler: 替换barItem的点击方法 (可传nil).
+    func hz_updateItemWithLeft(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, barItemClickHandler: HZNavigationBarItemClickHandler? = nil) {
+        self.hz_updateBarItem(.left, atIndex: atIndex, normalTitle: normalTitle, selectedTitle: selectedTitle, normalImage: normalImage, selectedImage: selectedImage, barItemClickHandler: barItemClickHandler)
     }
     
     /// 更新RightBarItem.
@@ -732,9 +734,9 @@ public extension HZCustomNavigationBar {
     /// - selectedTitle: item选中title.
     /// - normalImage: item默认image.
     /// - selectedImage: item选中image.
-    /// - clickBarItemBlock: 替换barItem的点击方法 (可传nil).
-    func hz_updateItemWithRight(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, clickBarItemBlock: ((_ sender: HZNavigationBarItem) -> Void)? = nil) {
-        self.hz_updateBarItem(.right, atIndex: atIndex, normalTitle: normalTitle, selectedTitle: selectedTitle, normalImage: normalImage, selectedImage: selectedImage, clickBarItemBlock: clickBarItemBlock)
+    /// - barItemClickHandler: 替换barItem的点击方法 (可传nil).
+    func hz_updateItemWithRight(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, barItemClickHandler: HZNavigationBarItemClickHandler? = nil) {
+        self.hz_updateBarItem(.right, atIndex: atIndex, normalTitle: normalTitle, selectedTitle: selectedTitle, normalImage: normalImage, selectedImage: selectedImage, barItemClickHandler: barItemClickHandler)
     }
     
     /// 隐藏LeftBarItem.
@@ -753,16 +755,16 @@ public extension HZCustomNavigationBar {
     
     /// 更新LeftBarItem点击事件方法.
     /// - atIndex: 点击barItem的角标.
-    /// - clickBlock: 点击的block回调.
-    func hz_clickLeftBarItem(_ atIndex: Int = 0, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void) {
-        self.hz_clickBarItem(.left, atIndex: atIndex, clickBlock: clickBlock)
+    /// - barItemClickHandler: 点击的block回调.
+    func hz_clickLeftBarItem(_ atIndex: Int = 0, barItemClickHandler: @escaping HZNavigationBarItemClickHandler) {
+        self.hz_clickBarItem(.left, atIndex: atIndex, barItemClickHandler: barItemClickHandler)
     }
     
     /// 更新RightBarItem点击事件方法.
     /// - atIndex: 点击barItem的角标.
-    /// - clickBlock: 点击的block回调.
-    func hz_clickRightBarItem(_ atIndex: Int = 0, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void) {
-        self.hz_clickBarItem(.right, atIndex: atIndex, clickBlock: clickBlock)
+    /// - barItemClickHandler: 点击的block回调.
+    func hz_clickRightBarItem(_ atIndex: Int = 0, barItemClickHandler: @escaping HZNavigationBarItemClickHandler) {
+        self.hz_clickBarItem(.right, atIndex: atIndex, barItemClickHandler: barItemClickHandler)
     }
     
     /// 设置LeftBarItem的badge (自定义颜色).

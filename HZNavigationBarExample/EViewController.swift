@@ -17,10 +17,10 @@ class EViewController: BaseViewController {
         nav.hz_clickLeftBarItem { _ in
             print("拦截返回按钮")
         }
-        let rightFirst = HZNavigationBarItem.create(normalImage: "delegateIcon", clickBarItemBlock: { (item) in
+        let rightFirst = HZNavigationBarItem.create(normalImage: "delegateIcon", barItemClickHandler: { (item) in
             print("删除按钮")
         })
-        let rightSecond = HZNavigationBarItem.create(normalImage: "updateIcon", clickBarItemBlock: { (item) in
+        let rightSecond = HZNavigationBarItem.create(normalImage: "updateIcon", barItemClickHandler: { (item) in
             print("更新按钮")
         })
         let rightButtons = [rightFirst, rightSecond]
