@@ -527,7 +527,7 @@ private extension HZCustomNavigationBar {
                 badgeView = imageView
             }else {
                 badgeView.backgroundColor = color
-                badgeView.layer.cornerRadius = (_size.width > _size.height ? _size.height : _size.width) / 2.0
+                badgeView.layer.cornerRadius = min(_size.width, _size.height) / 2.0
             }
             self.addSubview(badgeView)
             let barItem = _barItems[atIndex]
