@@ -45,15 +45,15 @@ pod install
 nav.titleView = UIImageView(image: UIImage(named: "titleViewImage"))
 nav.title = "主页"  // 设置导航栏title
 
+/* 注意：背景颜色和背景图片互斥，以最后的设置为准 */
+nav.barBackgroundColor = .white  // 设置导航栏背景颜色
+nav.barBackgroundImage = UIImage(named: "updateIcon")  // 设置导航栏背景图
+
 nav.titleColor = .red  // 设置导航栏title的颜色
 nav.titleFont = UIFont.systemFont(ofSize: 15)   // 设置导航栏title的字体
 
 nav.themeTextColor = .white   // 设置导航栏主题颜色（含title和barItem的文字颜色）
-nav.shadowImageHidden = false  // 隐藏导航栏下划线
-
-/* 注意：背景颜色和背景图片互斥，以最后的设置为准 */
-nav.barBackgroundColor = .white  // 设置导航栏背景颜色
-nav.barBackgroundImage = UIImage(named: "updateIcon")  // 设置导航栏背景图
+nav.shadowImageHidden = false  // 是否隐藏导航栏下划线
 
 /// 设置NavigationBar的titleView.
 /// - view: titleView.
@@ -86,16 +86,16 @@ func hz_addItemsToLeft(leftItems: [HZNavigationBarItem?])
 func hz_addItemsToRight(rightItems: [HZNavigationBarItem?])
 ```
 ------------------------------------------------------------
-- 移除barItem.
-```
-func hz_removeItemWithLeft(indexs: [Int]? = nil)
-func hz_removeItemWithRight(indexs: [Int]? = nil)
-```
-------------------------------------------------------------
 - 更新barItem.
 ```
 func hz_updateItemWithLeft(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, clickBarItemBlock: ((_ sender: HZNavigationBarItem) -> Void)? = nil)
 func hz_updateItemWithRight(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, clickBarItemBlock: ((_ sender: HZNavigationBarItem) -> Void)? = nil)
+```
+------------------------------------------------------------
+- 移除barItem.
+```
+func hz_removeItemWithLeft(indexs: [Int]? = nil)
+func hz_removeItemWithRight(indexs: [Int]? = nil)
 ```
 ------------------------------------------------------------
 - 隐藏barItem.
