@@ -88,8 +88,8 @@ func hz_addItemsToRight(rightItems: [HZNavigationBarItem?])
 ------------------------------------------------------------
 - 更新barItem.
 ```
-func hz_updateItemWithLeft(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, clickBarItemBlock: ((_ sender: HZNavigationBarItem) -> Void)? = nil)
-func hz_updateItemWithRight(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, clickBarItemBlock: ((_ sender: HZNavigationBarItem) -> Void)? = nil)
+func hz_updateItemWithLeft(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, barItemClickHandler: HZNavigationBarItemClickHandler? = nil)
+func hz_updateItemWithRight(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: UIImage? = nil, selectedImage: UIImage? = nil, barItemClickHandler: HZNavigationBarItemClickHandler? = nil)
 ```
 ------------------------------------------------------------
 - 移除barItem.
@@ -106,8 +106,8 @@ func hz_hiddenItemWithRight(_ atIndex: Int? = nil, hidden: Bool)
 ------------------------------------------------------------
 - 更新barItem点击事件方法.（之前的点击方法会失效）.
 ```
-func hz_clickLeftBarItem(_ atIndex: Int = 0, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void)
-func hz_clickRightBarItem(_ atIndex: Int = 0, clickBlock: @escaping (_ sender: HZNavigationBarItem) -> Void)
+func hz_clickLeftBarItem(_ atIndex: Int = 0, barItemClickHandler: @escaping HZNavigationBarItemClickHandler)
+func hz_clickRightBarItem(_ atIndex: Int = 0, barItemClickHandler: @escaping HZNavigationBarItemClickHandler)
 ```
 ------------------------------------------------------------
 - 设置barItem的badge（大小默认为8*8）.
