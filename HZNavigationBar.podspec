@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name = 'HZNavigationBar'
-  s.version = '1.1.7'
+  s.version = '1.1.8'
   s.summary = 'A very simple to use, can be completely customized navigation bar'
   s.homepage = 'https://github.com/Boxzhi/HZNavigationBar'
   s.author = { 'HeZhizhi' => 'coderhzz@163.com' }
