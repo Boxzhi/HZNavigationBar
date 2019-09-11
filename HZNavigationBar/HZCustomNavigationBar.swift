@@ -241,7 +241,7 @@ public class HZCustomNavigationBar: UIView {
     
     fileprivate func updateFrame() {
         
-        _titleView.frame = CGRect(x: 0, y: HZStatusBarHeight, width: bounds.size.width, height: HZNavigationBarHeight)
+//        _titleView.frame = CGRect(x: 0, y: HZStatusBarHeight, width: bounds.size.width, height: HZNavigationBarHeight)
         
         self.constrainSubview(_backgroundView)
         self.constrainSubview(_backgroundImageView)
@@ -694,38 +694,26 @@ public extension HZCustomNavigationBar {
     
     /// 设置LeftBarItem，若之前已存在barItem，则会先移除后设置.
     /// - leftItems: barItem的数组.
-    func hz_setItemsToLeft(leftItems: [HZNavigationBarItem?]) {
+    func hz_setItemsToLeft(_ leftItems: [HZNavigationBarItem?]) {
         self.hz_setBarItems(leftItems, barItemType: .left)
     }
     
     /// 设置RightBarItem，若之前已存在barItem，则会先移除后设置.
     /// - rightItems: barItem的数组.
-    func hz_setItemsToRight(rightItems: [HZNavigationBarItem?]) {
+    func hz_setItemsToRight(_ rightItems: [HZNavigationBarItem?]) {
         self.hz_setBarItems(rightItems, barItemType: .right)
     }
     
     /// 新增设置LeftBarItem，若之前已存在barItem，则在其基础上新增（以增量方式进行）.
     /// - leftItems: barItem的数组.
-    func hz_addItemsToLeft(leftItems: [HZNavigationBarItem?]) {
+    func hz_addItemsToLeft(_ leftItems: [HZNavigationBarItem?]) {
         self.hz_addBarItems(leftItems, barItemType: .left)
     }
     
     /// 新增设置RightBarItem，若之前已存在barItem，则在其基础上新增（以增量方式进行）.
     /// - rightItems: barItem的数组.
-    func hz_addItemsToRight(rightItems: [HZNavigationBarItem?]) {
+    func hz_addItemsToRight(_ rightItems: [HZNavigationBarItem?]) {
         self.hz_addBarItems(rightItems, barItemType: .right)
-    }
-    
-    /// 移除LeftBarItem.
-    /// - indexs: barItem的角标(从左到右)数组，不传默认全移除.
-    func hz_removeItemWithLeft(indexs: [Int]? = nil) {
-        self.hz_removeBarItems(.left, barItemIndexs: indexs)
-    }
-    
-    /// 移除RightBarItem.
-    /// - indexs: barItem的角标(从右到左)数组，不传默认全移除.
-    func hz_removeItemWithRight(indexs: [Int]? = nil) {
-        self.hz_removeBarItems(.right, barItemIndexs: indexs)
     }
     
     /// 更新LeftBarItem.
@@ -735,7 +723,7 @@ public extension HZCustomNavigationBar {
     /// - normalImage: item默认image.
     /// - selectedImage: item选中image.
     /// - barItemClickHandler: 替换barItem的点击方法 (可传nil).
-    func hz_updateItemWithLeft(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: Any? = nil, selectedImage: Any? = nil, barItemClickHandler: HZNavigationBarItemClickHandler? = nil) {
+    func hz_updateItemWithLeft(_ atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: Any? = nil, selectedImage: Any? = nil, barItemClickHandler: HZNavigationBarItemClickHandler? = nil) {
         self.hz_updateBarItem(.left, atIndex: atIndex, normalTitle: normalTitle, selectedTitle: selectedTitle, normalImage: normalImage, selectedImage: selectedImage, barItemClickHandler: barItemClickHandler)
     }
     
@@ -746,8 +734,20 @@ public extension HZCustomNavigationBar {
     /// - normalImage: item默认image.
     /// - selectedImage: item选中image.
     /// - barItemClickHandler: 替换barItem的点击方法 (可传nil).
-    func hz_updateItemWithRight(atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: Any? = nil, selectedImage: Any? = nil, barItemClickHandler: HZNavigationBarItemClickHandler? = nil) {
+    func hz_updateItemWithRight(_ atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: Any? = nil, selectedImage: Any? = nil, barItemClickHandler: HZNavigationBarItemClickHandler? = nil) {
         self.hz_updateBarItem(.right, atIndex: atIndex, normalTitle: normalTitle, selectedTitle: selectedTitle, normalImage: normalImage, selectedImage: selectedImage, barItemClickHandler: barItemClickHandler)
+    }
+    
+    /// 移除LeftBarItem.
+    /// - indexs: barItem的角标(从左到右)数组，不传默认全移除.
+    func hz_removeItemsWithLeft(_ indexs: [Int]? = nil) {
+        self.hz_removeBarItems(.left, barItemIndexs: indexs)
+    }
+    
+    /// 移除RightBarItem.
+    /// - indexs: barItem的角标(从右到左)数组，不传默认全移除.
+    func hz_removeItemsWithRight(_ indexs: [Int]? = nil) {
+        self.hz_removeBarItems(.right, barItemIndexs: indexs)
     }
     
     /// 隐藏LeftBarItem.
@@ -782,7 +782,7 @@ public extension HZCustomNavigationBar {
     /// - atIndex: barItem的角标.
     /// - size: badge的尺寸 (默认为CGSize(width: 8.0, height: 8.0)).
     /// - color: badge的颜色.
-    func hz_showLeftBarItemBadge(atIndex: Int = 0, size: CGSize = .zero, color: UIColor = UIColor(red: 245/255, green: 73/255, blue: 102/255, alpha: 1), offset: CGPoint = .zero) {
+    func hz_showLeftBarItemBadge(_ atIndex: Int = 0, size: CGSize = .zero, color: UIColor = UIColor(red: 245/255, green: 73/255, blue: 102/255, alpha: 1), offset: CGPoint = .zero) {
         self.hz_showBarItemBadge(.left, atIndex: atIndex, color: color, size: size, offset: offset)
     }
     
@@ -790,7 +790,7 @@ public extension HZCustomNavigationBar {
     /// - atIndex: barItem的角标.
     /// - size: badge的尺寸 (默认为CGSize(width: 8.0, height: 8.0)).
     /// - color: badge的颜色.
-    func hz_showRightBarItemBadge(atIndex: Int = 0, size: CGSize = .zero, color: UIColor = UIColor(red: 245/255, green: 73/255, blue: 102/255, alpha: 1), offset: CGPoint = .zero) {
+    func hz_showRightBarItemBadge(_ atIndex: Int = 0, size: CGSize = .zero, color: UIColor = UIColor(red: 245/255, green: 73/255, blue: 102/255, alpha: 1), offset: CGPoint = .zero) {
         self.hz_showBarItemBadge(.right, atIndex: atIndex, color: color, size: size, offset: offset)
     }
     
@@ -798,7 +798,7 @@ public extension HZCustomNavigationBar {
     /// - atIndex: barItem的角标.
     /// - size: badge的尺寸 (默认为CGSize(width: 8.0, height: 8.0)).
     /// - image: badge的图片.
-    func hz_showLeftBarItemBadgeImage(atIndex: Int = 0,  size: CGSize = .zero, image: Any, offset: CGPoint = .zero) {
+    func hz_showLeftBarItemBadgeImage(_ atIndex: Int = 0,  size: CGSize = .zero, image: Any, offset: CGPoint = .zero) {
         self.hz_showBarItemBadge(.left, atIndex: atIndex, badgeImage: image, size: size, offset: offset)
     }
     
@@ -806,7 +806,7 @@ public extension HZCustomNavigationBar {
     /// - atIndex: barItem的角标.
     /// - size: badge的尺寸 (默认为CGSize(width: 8.0, height: 8.0)).
     /// - image: badge的图片.
-    func hz_showRightBarItemBadgeImage(atIndex: Int = 0,  size: CGSize = .zero, image: Any, offset: CGPoint = .zero) {
+    func hz_showRightBarItemBadgeImage(_ atIndex: Int = 0,  size: CGSize = .zero, image: Any, offset: CGPoint = .zero) {
         self.hz_showBarItemBadge(.right, atIndex: atIndex, badgeImage: image, size: size, offset: offset)
     }
     
