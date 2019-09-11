@@ -18,9 +18,8 @@ fileprivate let HZTitleLabelMaxWidth: CGFloat = 180.0
 fileprivate let HZScreenWidth: CGFloat = UIScreen.main.bounds.size.width
 fileprivate let HZStatusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
 fileprivate let HZNavigationBarHeight: CGFloat = 44.0
-fileprivate let HZLeftBarItemSpace: CGFloat = 10.0
-fileprivate let HZRightBarItemSpace: CGFloat = 13.0
 fileprivate let HZBarItemWidth: CGFloat = 44.0
+fileprivate let isFullScreen: Bool = (UIApplication.shared.statusBarOrientation == .landscapeLeft || UIApplication.shared.statusBarOrientation == .landscapeRight)
 
 public extension UIViewController {
     
@@ -155,6 +154,12 @@ public class HZCustomNavigationBar: UIView {
         }
     }
     
+    /// 第一个leftBarItem距离左边边缘的间距
+    public var leftBarItemSpace: CGFloat = 10.0
+    
+    /// 第一个rightBarItem距离右边边缘的间距
+    public var rightBarItemSpace: CGFloat = 13.0
+    
     
     //MARK: - 内部存储使用的属性
     /// leftBarItem数组
@@ -236,12 +241,13 @@ public class HZCustomNavigationBar: UIView {
     
     fileprivate func updateFrame() {
         
-        _backgroundView.frame = bounds
-        _backgroundImageView.frame = bounds
         _titleView.frame = CGRect(x: 0, y: HZStatusBarHeight, width: bounds.size.width, height: HZNavigationBarHeight)
-        _titleLabel.frame = CGRect(x: (HZScreenWidth - HZTitleLabelMaxWidth) / 2.0, y: HZStatusBarHeight, width: HZTitleLabelMaxWidth, height: HZNavigationBarHeight)
-        _bottomLine.frame = CGRect(x: 0, y: bounds.height - 0.5, width: HZScreenWidth, height: 0.5)
         
+        self.constrainSubview(_backgroundView)
+        self.constrainSubview(_backgroundImageView)
+        self.constrainSubviewHeight(_titleView, height: HZNavigationBarHeight)
+        self.constrainSubviewHeight(_titleLabel, left: (HZScreenWidth - HZTitleLabelMaxWidth) / 2.0, right:  -(HZScreenWidth - HZTitleLabelMaxWidth) / 2.0, height: HZNavigationBarHeight)
+        self.constrainSubviewHeight(_bottomLine, height: 0.5)
     }
     
 }
@@ -306,13 +312,13 @@ private extension HZCustomNavigationBar {
             
             if barItemType == .left {
                 if i == 0 {
-                    self.constrainToLeadingTopBottomWidth(barItem, leading: HZLeftBarItemSpace, top: HZStatusBarHeight, width: barItemWidth)
+                    self.constrainToLeadingTopBottomWidth(barItem, leading: leftBarItemSpace, top: HZStatusBarHeight, width: barItemWidth)
                 }else {
                     self.constrainToLeadingTopBottomWidth(barItem, targetView: barItems[i - 1],  width: barItemWidth)
                 }
             }else {
                 if i == 0 {
-                    self.constrainToTrailingTopBottomWidth(barItem, trailing: -HZRightBarItemSpace, top: HZStatusBarHeight, width: barItemWidth)
+                    self.constrainToTrailingTopBottomWidth(barItem, trailing: -rightBarItemSpace, top: HZStatusBarHeight, width: barItemWidth)
                 }else {
                     self.constrainToTrailingTopBottomWidth(barItem, targetView: barItems[i - 1], width: barItemWidth)
                 }
@@ -629,6 +635,7 @@ public extension HZCustomNavigationBar {
             
             if isCenter {
                 _titleView.frame = CGRect(x: (self.bounds.width - viewSize.width) / 2, y: HZStatusBarHeight, width: viewSize.width, height: HZNavigationBarHeight)
+                self.constrainFrameWidthHeight(_titleView)
                 view.frame = CGRect(x: 0, y: 0, width: viewSize.width, height: viewSize.height)
                 _titleView.addSubview(view)
                 _titleView.constrainCentered(view)

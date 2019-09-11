@@ -260,6 +260,143 @@ extension UIView {
         
     }
     
+    /// 上下左右约束
+    func constrainSubview(_ subview: UIView, top: CGFloat = 0, bottom: CGFloat = 0, left: CGFloat = 0, right: CGFloat = 0) {
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        
+        let topContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .top,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .top,
+            multiplier: 1.0,
+            constant: top)
+        
+        let bottomContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .bottom,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .bottom,
+            multiplier: 1.0,
+            constant: bottom)
+        
+        let leftContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .left,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .left,
+            multiplier: 1.0,
+            constant: left)
+        
+        let rightContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .right,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .right,
+            multiplier: 1.0,
+            constant: right)
+        
+        addConstraints([topContraint, bottomContraint, leftContraint, rightContraint])
+        
+    }
+    
+    /// 左右下高约束
+    func constrainSubviewHeight(_ subview: UIView, left: CGFloat = 0, right: CGFloat = 0, bottom: CGFloat = 0, height: CGFloat) {
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        
+        let leftContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .left,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .left,
+            multiplier: 1.0,
+            constant: left)
+        
+        let rightContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .right,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .right,
+            multiplier: 1.0,
+            constant: right)
+        
+        let bottomContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .bottom,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .bottom,
+            multiplier: 1.0,
+            constant: bottom)
+        
+        let heightContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .height,
+            relatedBy: .equal,
+            toItem: nil,
+            attribute: .notAnAttribute,
+            multiplier: 1.0,
+            constant: height)
+        
+        addConstraints([leftContraint, rightContraint, bottomContraint, heightContraint])
+        
+    }
+    
+    /// titleView自适应居中
+    func constrainFrameWidthHeight(_ subview: UIView) {
+        
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        
+        let horizontalContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .centerX,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .centerX,
+            multiplier: 1.0,
+            constant: 0)
+        
+        let topContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .top,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .top,
+            multiplier: 1.0,
+            constant: subview.frame.origin.y)
+        
+        let widthContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .width,
+            relatedBy: .equal,
+            toItem: nil,
+            attribute: .notAnAttribute,
+            multiplier: 1.0,
+            constant: subview.frame.size.width)
+        
+        let heightContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .height,
+            relatedBy: .equal,
+            toItem: nil,
+            attribute: .notAnAttribute,
+            multiplier: 1.0,
+            constant: subview.frame.size.height)
+        
+        addConstraints([
+            horizontalContraint,
+            topContraint,
+            widthContraint,
+            heightContraint])
+        
+    }
+    
     /// badgeView的约束
     func constrainBadgeView(_ subview: UIView, targetView: HZNavigationBarItem, size: CGSize, offset: CGPoint) {
         
