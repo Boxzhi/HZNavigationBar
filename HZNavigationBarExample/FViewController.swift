@@ -49,13 +49,13 @@ class FViewController: BaseViewController {
         let item = HZNavigationBarItem.create(normalTitle: "ahah") { (item) in
             
         }
-        nav.hz_setItemsToLeft(leftItems: [HZNavigationBarItem.create(normalTitle: "返回", barItemClickHandler: { (item) in
+        nav.hz_setItemsToLeft([HZNavigationBarItem.create(normalTitle: "返回", barItemClickHandler: { (item) in
             
         }), HZNavigationBarItem.create(normalImage: "addIcon", barItemClickHandler: { (item) in
             
         })])
         
-        nav.hz_setItemsToRight(rightItems: [HZNavigationBarItem.create(normalTitle: "跳转", barItemClickHandler: { (btn) in
+        nav.hz_setItemsToRight([HZNavigationBarItem.create(normalTitle: "跳转", barItemClickHandler: { (btn) in
             self.navigationController?.pushViewController(GViewController(), animated: true)
         })])
         

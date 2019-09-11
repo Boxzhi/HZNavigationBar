@@ -24,7 +24,7 @@ class EViewController: BaseViewController {
             print("更新按钮")
         })
         let rightButtons = [rightFirst, rightSecond]
-        nav.hz_setItemsToRight(rightItems: rightButtons)
+        nav.hz_setItemsToRight(rightButtons)
 
         let btn = UIButton.setJumpButton(self, action: #selector(jumpToNext(_:)))
         view.addSubview(btn)

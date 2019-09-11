@@ -17,7 +17,7 @@ class DViewController: BaseViewController {
         nav.barBackgroundColor = .orange
         statusBarStyle = .lightContent
         nav.hz_hiddenItemWithLeft(hidden: true)
-        nav.hz_setItemsToRight(rightItems: [HZNavigationBarItem.create(normalImage: "releaseIcon", barItemClickHandler: { (item) in
+        nav.hz_setItemsToRight([HZNavigationBarItem.create(normalImage: "releaseIcon", barItemClickHandler: { (item) in
             
         })])
         
