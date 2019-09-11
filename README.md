@@ -29,11 +29,11 @@ pod install
 
 # Demo图片
 
-![](https://upload-images.jianshu.io/upload_images/1115226-e80ceb303c6356eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/1115226-da72d3ed1d2f0ebe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![](https://upload-images.jianshu.io/upload_images/1115226-a50d020d79b35d4b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/1115226-37b2196f64512ab8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![](https://upload-images.jianshu.io/upload_images/1115226-7aa11625b21fff6c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/1115226-5f42424a50151710.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![](https://upload-images.jianshu.io/upload_images/1115226-a5e34a9827dee22f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/1115226-39490f3cbe0a3f3c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-![](https://upload-images.jianshu.io/upload_images/1115226-3cb510e17181ff5c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)![](https://upload-images.jianshu.io/upload_images/1115226-c4076c75dfa0ffb3.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_1.png)![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_2.png)
+![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_3.png)![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_4.png)
+![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_5.png)![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_6.png)
+![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_7.png)![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_8.png)
+![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_9.png)![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_10.jpeg)
 
 
 # 用法
