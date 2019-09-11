@@ -241,7 +241,7 @@ public class HZCustomNavigationBar: UIView {
     
     fileprivate func updateFrame() {
         
-//        _titleView.frame = CGRect(x: 0, y: HZStatusBarHeight, width: bounds.size.width, height: HZNavigationBarHeight)
+        _titleView.frame = CGRect(x: 0, y: HZStatusBarHeight, width: bounds.size.width, height: HZNavigationBarHeight)
         
         self.constrainSubview(_backgroundView)
         self.constrainSubview(_backgroundImageView)
