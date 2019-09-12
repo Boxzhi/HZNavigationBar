@@ -349,11 +349,17 @@ extension UIView {
     }
     
     /// titleView自适应居中
-    func constrainFrameWidthHeight(_ subview: UIView) {
-        
+    func constrainTitleview(_ subview: UIView, width: CGFloat, height: CGFloat) {
         subview.translatesAutoresizingMaskIntoConstraints = false
         
-        let horizontalContraint = NSLayoutConstraint(
+        let constraintsArr = self.constraints
+        for constranit in constraintsArr {
+            if let item = constranit.firstItem as? UIView, item == subview {
+                removeConstraint(constranit)
+            }
+        }
+        
+        let centerXContraint = NSLayoutConstraint(
             item: subview,
             attribute: .centerX,
             relatedBy: .equal,
@@ -362,14 +368,14 @@ extension UIView {
             multiplier: 1.0,
             constant: 0)
         
-        let topContraint = NSLayoutConstraint(
+        let bottomContraint = NSLayoutConstraint(
             item: subview,
-            attribute: .top,
+            attribute: .bottom,
             relatedBy: .equal,
             toItem: self,
-            attribute: .top,
+            attribute: .bottom,
             multiplier: 1.0,
-            constant: subview.frame.origin.y)
+            constant: 0)
         
         let widthContraint = NSLayoutConstraint(
             item: subview,
@@ -378,7 +384,7 @@ extension UIView {
             toItem: nil,
             attribute: .notAnAttribute,
             multiplier: 1.0,
-            constant: subview.frame.size.width)
+            constant: width)
         
         let heightContraint = NSLayoutConstraint(
             item: subview,
@@ -387,11 +393,58 @@ extension UIView {
             toItem: nil,
             attribute: .notAnAttribute,
             multiplier: 1.0,
-            constant: subview.frame.size.height)
+            constant: height)
         
         addConstraints([
-            horizontalContraint,
-            topContraint,
+            centerXContraint,
+            bottomContraint,
+            widthContraint,
+            heightContraint])
+    }
+    
+    func constrainSubviewWidthHeight(_ subview: UIView, width: CGFloat, height: CGFloat) {
+        
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        
+        let centerXContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .centerX,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .centerX,
+            multiplier: 1.0,
+            constant: 0)
+        
+        let centerYContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .centerY,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .centerY,
+            multiplier: 1.0,
+            constant: 0)
+        
+        let widthContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .width,
+            relatedBy: .equal,
+            toItem: nil,
+            attribute: .notAnAttribute,
+            multiplier: 1.0,
+            constant: width)
+        
+        let heightContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .height,
+            relatedBy: .equal,
+            toItem: nil,
+            attribute: .notAnAttribute,
+            multiplier: 1.0,
+            constant: height)
+        
+        addConstraints([
+            centerXContraint,
+            centerYContraint,
             widthContraint,
             heightContraint])
         
