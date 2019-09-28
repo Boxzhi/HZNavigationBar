@@ -562,7 +562,7 @@ private extension HZCustomNavigationBar {
         if let _atIndex = atIndex {
             if let badgeView = barItemBadgeDic[_atIndex] {
                 badgeView.removeFromSuperview()
-                barItemBadgeDic = barItemBadgeDic.filter({ $0.key != _atIndex })
+                barItemBadgeDic.removeValue(forKey: _atIndex)
             }
         }else {
             if barItemBadgeDic.count > 0 {
@@ -571,6 +571,11 @@ private extension HZCustomNavigationBar {
                 }
                 barItemBadgeDic.removeAll()
             }
+        }
+        if barItemType == .left {
+            leftBarItemBadgeDic = barItemBadgeDic
+        }else {
+            rightBarItemBadgeDic = barItemBadgeDic
         }
     }
     
