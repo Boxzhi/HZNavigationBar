@@ -16,7 +16,13 @@ fileprivate let HZDefaultTitleSize: CGFloat = 18.0
 fileprivate let HZDefaultTitleColor: UIColor = UIColor(red: 37.0/255.0, green: 43.0/255.0, blue: 51.0/255.0, alpha: 1)
 fileprivate let HZTitleLabelMaxWidth: CGFloat = 180.0
 fileprivate let HZScreenWidth: CGFloat = UIScreen.main.bounds.size.width
-fileprivate let HZStatusBarHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
+fileprivate var HZStatusBarHeight: CGFloat {
+    if #available(iOS 13.0, *) {
+        return (UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame.size.height)!
+    }else {
+        return UIApplication.shared.statusBarFrame.size.height
+    }
+}
 fileprivate let HZNavigationBarHeight: CGFloat = 44.0
 fileprivate let HZBarItemWidth: CGFloat = 44.0
 fileprivate let isFullScreen: Bool = (UIApplication.shared.statusBarOrientation == .landscapeLeft || UIApplication.shared.statusBarOrientation == .landscapeRight)
