@@ -14,7 +14,7 @@ class EViewController: BaseViewController {
         super.viewDidLoad()
 
         nav.title = "EViewController"
-        nav.hz_clickLeftBarItem { _ in
+        nav.hz.clickLeftBarItem { _ in
             print("拦截返回按钮")
         }
         let rightFirst = HZNavigationBarItem.create(normalImage: "delegateIcon", barItemClickHandler: { (item) in
@@ -24,7 +24,7 @@ class EViewController: BaseViewController {
             print("更新按钮")
         })
         let rightButtons = [rightFirst, rightSecond]
-        nav.hz_setItemsToRight(rightButtons)
+        nav.hz.setItemsToRight(rightButtons)
 
         let btn = UIButton.setJumpButton(self, action: #selector(jumpToNext(_:)))
         view.addSubview(btn)

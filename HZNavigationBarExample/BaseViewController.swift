@@ -28,7 +28,7 @@ class BaseViewController: UIViewController {
                 let currentVc = UIViewController.hz_currentViewController()
                 currentVc?.hz_toLastViewController(animated: true)
             }
-            nav.hz_addItemsToLeft([left])
+            nav.hz.addItemsToLeft([left])
         }
         
     }
