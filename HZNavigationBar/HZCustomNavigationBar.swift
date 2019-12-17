@@ -64,7 +64,26 @@ public extension UIViewController {
     
 }
 
-public class HZCustomNavigationBar: UIView {
+public struct HZCustomNavigationBarWrapper<Base> {
+    public let base: Base
+    public init(_ base: Base) {
+        self.base = base
+    }
+}
+
+public protocol HZCustomNavigationBarCompatible: AnyObject { }
+
+extension HZCustomNavigationBarCompatible {
+    /// Gets a namespace holder for Kingfisher compatible types.
+    public var hz: HZCustomNavigationBarWrapper<Self> {
+        get { return HZCustomNavigationBarWrapper(self) }
+        set { }
+    }
+}
+
+extension HZCustomNavigationBar: HZCustomNavigationBarCompatible {}
+
+open class HZCustomNavigationBar: UIView {
     
     //MARK: - 供外部设置NavigationBar的一些基本属性
     /// 是否显示navigationBar底部阴影，默认false
@@ -224,12 +243,12 @@ public class HZCustomNavigationBar: UIView {
     }()
     
     //MARK: 初始化
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupUI()
     }
@@ -587,13 +606,8 @@ private extension HZCustomNavigationBar {
     
 }
 
-//MARK: - 外部可调用方法来设置一些属性
-public extension HZCustomNavigationBar {
-    
-    /// 外部快速创建方法
-    class func customNavigationBar() -> HZCustomNavigationBar {
-        return HZCustomNavigationBar(frame: CGRect(x: 0, y: 0, width: HZScreenWidth, height: statusNavigationBarHeight))
-    }
+//MARK: - 调用方法来设置一些属性
+private extension HZCustomNavigationBar {
     
     /// 设置NavigationBar的titleView.
     /// - view: titleView.
@@ -737,31 +751,67 @@ public extension HZCustomNavigationBar {
     
 }
 
-//MARK: - 供外部对BarItem设置调用的方法
+//MARK: - 外部快速创建方法
 public extension HZCustomNavigationBar {
+    class func customNavigationBar() -> HZCustomNavigationBar {
+        return HZCustomNavigationBar(frame: CGRect(x: 0, y: 0, width: HZScreenWidth, height: statusNavigationBarHeight))
+    }
+}
+
+//MARK: - 外部可调用方法来设置一些属性
+public extension HZCustomNavigationBarWrapper where Base: HZCustomNavigationBar {
+    
+    /// 设置NavigationBar的titleView.
+    /// - view: titleView.
+    /// - titleViewSize: titleView的size (优先传值的size, 若没有则用view自身size).
+    /// - isCenter: 是否在bar上居中显示 (默认居中).
+    func setTitleView(_ view: UIView, size: CGSize? = nil, isCenter: Bool = true) {
+        base.hz_setTitleView(view, size: size, isCenter: isCenter)
+    }
+    
+    /// 设置NavigationBar底部阴影
+    func setBottomShadow(_ isShow: Bool = false, shadowColor: UIColor? = nil, shadowOffset: CGSize? = nil, shadowOpacity: Float = 1, shadowRadius: CGFloat? = nil) {
+        base.hz_setBottomShadow(isShow, shadowColor: shadowColor, shadowOffset: shadowOffset, shadowOpacity: shadowOpacity, shadowRadius: shadowRadius)
+    }
+    
+    /// 设置BarItem按钮颜色
+    func setBarItemColor(_ color: UIColor) {
+        base.hz_setBarItemColor(color: color)
+    }
+    
+    /// 设置背景透明度
+    func setBackgroundAlpha(_ alpha: CGFloat) {
+        base.hz_setBackgroundAlpha(alpha: alpha)
+    }
+    
+}
+
+//MARK: - 供外部对BarItem设置调用的方法
+public extension HZCustomNavigationBarWrapper where Base: HZCustomNavigationBar {
     
     /// 设置LeftBarItem，若之前已存在barItem，则会先移除后设置.
     /// - leftItems: barItem的数组.
-    func hz_setItemsToLeft(_ leftItems: [HZNavigationBarItem?]) {
-        self.hz_setBarItems(leftItems, barItemType: .left)
+    func setItemsToLeft(_ leftItems: [HZNavigationBarItem?]) {
+//        self.hz_setBarItems(leftItems, barItemType: .left)
+        base.hz_setBarItems(leftItems, barItemType: .left)
     }
     
     /// 设置RightBarItem，若之前已存在barItem，则会先移除后设置.
     /// - rightItems: barItem的数组.
-    func hz_setItemsToRight(_ rightItems: [HZNavigationBarItem?]) {
-        self.hz_setBarItems(rightItems, barItemType: .right)
+    func setItemsToRight(_ rightItems: [HZNavigationBarItem?]) {
+        base.hz_setBarItems(rightItems, barItemType: .right)
     }
     
     /// 新增设置LeftBarItem，若之前已存在barItem，则在其基础上新增（以增量方式进行）.
     /// - leftItems: barItem的数组.
-    func hz_addItemsToLeft(_ leftItems: [HZNavigationBarItem?]) {
-        self.hz_addBarItems(leftItems, barItemType: .left)
+    func addItemsToLeft(_ leftItems: [HZNavigationBarItem?]) {
+        base.hz_addBarItems(leftItems, barItemType: .left)
     }
     
     /// 新增设置RightBarItem，若之前已存在barItem，则在其基础上新增（以增量方式进行）.
     /// - rightItems: barItem的数组.
-    func hz_addItemsToRight(_ rightItems: [HZNavigationBarItem?]) {
-        self.hz_addBarItems(rightItems, barItemType: .right)
+    func addItemsToRight(_ rightItems: [HZNavigationBarItem?]) {
+        base.hz_addBarItems(rightItems, barItemType: .right)
     }
     
     /// 更新LeftBarItem.
@@ -771,8 +821,8 @@ public extension HZCustomNavigationBar {
     /// - normalImage: item默认image.
     /// - selectedImage: item选中image.
     /// - barItemClickHandler: 替换barItem的点击方法 (可传nil).
-    func hz_updateItemWithLeft(_ atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: Any? = nil, selectedImage: Any? = nil, barItemClickHandler: HZNavigationBarItemClickHandler? = nil) {
-        self.hz_updateBarItem(.left, atIndex: atIndex, normalTitle: normalTitle, selectedTitle: selectedTitle, normalImage: normalImage, selectedImage: selectedImage, barItemClickHandler: barItemClickHandler)
+    func updateItemWithLeft(_ atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: Any? = nil, selectedImage: Any? = nil, barItemClickHandler: HZNavigationBarItemClickHandler? = nil) {
+        base.hz_updateBarItem(.left, atIndex: atIndex, normalTitle: normalTitle, selectedTitle: selectedTitle, normalImage: normalImage, selectedImage: selectedImage, barItemClickHandler: barItemClickHandler)
     }
     
     /// 更新RightBarItem.
@@ -782,92 +832,92 @@ public extension HZCustomNavigationBar {
     /// - normalImage: item默认image.
     /// - selectedImage: item选中image.
     /// - barItemClickHandler: 替换barItem的点击方法 (可传nil).
-    func hz_updateItemWithRight(_ atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: Any? = nil, selectedImage: Any? = nil, barItemClickHandler: HZNavigationBarItemClickHandler? = nil) {
-        self.hz_updateBarItem(.right, atIndex: atIndex, normalTitle: normalTitle, selectedTitle: selectedTitle, normalImage: normalImage, selectedImage: selectedImage, barItemClickHandler: barItemClickHandler)
+    func updateItemWithRight(_ atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: Any? = nil, selectedImage: Any? = nil, barItemClickHandler: HZNavigationBarItemClickHandler? = nil) {
+        base.hz_updateBarItem(.right, atIndex: atIndex, normalTitle: normalTitle, selectedTitle: selectedTitle, normalImage: normalImage, selectedImage: selectedImage, barItemClickHandler: barItemClickHandler)
     }
     
     /// 移除LeftBarItem.
     /// - indexs: barItem的角标(从左到右)数组，不传默认全移除.
-    func hz_removeItemsWithLeft(_ indexs: [Int]? = nil) {
-        self.hz_removeBarItems(.left, barItemIndexs: indexs)
+    func removeItemsWithLeft(_ indexs: [Int]? = nil) {
+        base.hz_removeBarItems(.left, barItemIndexs: indexs)
     }
     
     /// 移除RightBarItem.
     /// - indexs: barItem的角标(从右到左)数组，不传默认全移除.
-    func hz_removeItemsWithRight(_ indexs: [Int]? = nil) {
-        self.hz_removeBarItems(.right, barItemIndexs: indexs)
+    func removeItemsWithRight(_ indexs: [Int]? = nil) {
+        base.hz_removeBarItems(.right, barItemIndexs: indexs)
     }
     
     /// 隐藏LeftBarItem.
     /// - atIndex: 需要隐藏的barItem角标，不传默认全隐藏.
     /// - hidden: 隐藏还是显示.
-    func hz_hiddenItemWithLeft(_ atIndex: Int? = nil, hidden: Bool) {
-        self.hz_hiddenBarItem(.left, atIndex: atIndex, hidden: hidden)
+    func hiddenItemWithLeft(_ atIndex: Int? = nil, hidden: Bool) {
+        base.hz_hiddenBarItem(.left, atIndex: atIndex, hidden: hidden)
     }
     
     /// 隐藏RightBarItem.
     /// - atIndex: 需要隐藏的barItem角标，不传默认全隐藏.
     /// - hidden: 隐藏还是显示.
-    func hz_hiddenItemWithRight(_ atIndex: Int? = nil, hidden: Bool) {
-        self.hz_hiddenBarItem(.right, atIndex: atIndex, hidden: hidden)
+    func hiddenItemWithRight(_ atIndex: Int? = nil, hidden: Bool) {
+        base.hz_hiddenBarItem(.right, atIndex: atIndex, hidden: hidden)
     }
     
     /// 更新LeftBarItem点击事件方法.
     /// - atIndex: 点击barItem的角标.
     /// - barItemClickHandler: 点击的block回调.
-    func hz_clickLeftBarItem(_ atIndex: Int = 0, barItemClickHandler: @escaping HZNavigationBarItemClickHandler) {
-        self.hz_clickBarItem(.left, atIndex: atIndex, barItemClickHandler: barItemClickHandler)
+    func clickLeftBarItem(_ atIndex: Int = 0, barItemClickHandler: @escaping HZNavigationBarItemClickHandler) {
+        base.hz_clickBarItem(.left, atIndex: atIndex, barItemClickHandler: barItemClickHandler)
     }
     
     /// 更新RightBarItem点击事件方法.
     /// - atIndex: 点击barItem的角标.
     /// - barItemClickHandler: 点击的block回调.
-    func hz_clickRightBarItem(_ atIndex: Int = 0, barItemClickHandler: @escaping HZNavigationBarItemClickHandler) {
-        self.hz_clickBarItem(.right, atIndex: atIndex, barItemClickHandler: barItemClickHandler)
+    func clickRightBarItem(_ atIndex: Int = 0, barItemClickHandler: @escaping HZNavigationBarItemClickHandler) {
+        base.hz_clickBarItem(.right, atIndex: atIndex, barItemClickHandler: barItemClickHandler)
     }
     
     /// 设置LeftBarItem的badge (自定义颜色).
     /// - atIndex: barItem的角标.
     /// - size: badge的尺寸 (默认为CGSize(width: 8.0, height: 8.0)).
     /// - color: badge的颜色.
-    func hz_showLeftBarItemBadge(_ atIndex: Int = 0, size: CGSize = .zero, color: UIColor = UIColor(red: 245/255, green: 73/255, blue: 102/255, alpha: 1), offset: CGPoint = .zero) {
-        self.hz_showBarItemBadge(.left, atIndex: atIndex, color: color, size: size, offset: offset)
+    func showLeftBarItemBadge(_ atIndex: Int = 0, size: CGSize = .zero, color: UIColor = UIColor(red: 245/255, green: 73/255, blue: 102/255, alpha: 1), offset: CGPoint = .zero) {
+        base.hz_showBarItemBadge(.left, atIndex: atIndex, color: color, size: size, offset: offset)
     }
     
     /// 设置RightBarItem的badge (自定义颜色).
     /// - atIndex: barItem的角标.
     /// - size: badge的尺寸 (默认为CGSize(width: 8.0, height: 8.0)).
     /// - color: badge的颜色.
-    func hz_showRightBarItemBadge(_ atIndex: Int = 0, size: CGSize = .zero, color: UIColor = UIColor(red: 245/255, green: 73/255, blue: 102/255, alpha: 1), offset: CGPoint = .zero) {
-        self.hz_showBarItemBadge(.right, atIndex: atIndex, color: color, size: size, offset: offset)
+    func showRightBarItemBadge(_ atIndex: Int = 0, size: CGSize = .zero, color: UIColor = UIColor(red: 245/255, green: 73/255, blue: 102/255, alpha: 1), offset: CGPoint = .zero) {
+        base.hz_showBarItemBadge(.right, atIndex: atIndex, color: color, size: size, offset: offset)
     }
     
     /// 设置LeftBarItem的badge (自定义图片).
     /// - atIndex: barItem的角标.
     /// - size: badge的尺寸 (默认为CGSize(width: 8.0, height: 8.0)).
     /// - image: badge的图片.
-    func hz_showLeftBarItemBadgeImage(_ atIndex: Int = 0,  size: CGSize = .zero, image: Any, offset: CGPoint = .zero) {
-        self.hz_showBarItemBadge(.left, atIndex: atIndex, badgeImage: image, size: size, offset: offset)
+    func showLeftBarItemBadgeImage(_ atIndex: Int = 0,  size: CGSize = .zero, image: Any, offset: CGPoint = .zero) {
+        base.hz_showBarItemBadge(.left, atIndex: atIndex, badgeImage: image, size: size, offset: offset)
     }
     
     /// 设置RightBarItem的badge (自定义图片).
     /// - atIndex: barItem的角标.
     /// - size: badge的尺寸 (默认为CGSize(width: 8.0, height: 8.0)).
     /// - image: badge的图片.
-    func hz_showRightBarItemBadgeImage(_ atIndex: Int = 0,  size: CGSize = .zero, image: Any, offset: CGPoint = .zero) {
-        self.hz_showBarItemBadge(.right, atIndex: atIndex, badgeImage: image, size: size, offset: offset)
+    func showRightBarItemBadgeImage(_ atIndex: Int = 0,  size: CGSize = .zero, image: Any, offset: CGPoint = .zero) {
+        base.hz_showBarItemBadge(.right, atIndex: atIndex, badgeImage: image, size: size, offset: offset)
     }
     
     /// 隐藏（移除）LeftBarItem的badge.
     /// - atIndex: barItem的角标 (不传默认左侧badge全隐藏).
-    func hz_hiddenLeftBarItemBadge(_ atIndex: Int? = nil) {
-        self.hz_hiddenBarItemBadge(.left, atIndex: atIndex)
+    func hiddenLeftBarItemBadge(_ atIndex: Int? = nil) {
+        base.hz_hiddenBarItemBadge(.left, atIndex: atIndex)
     }
     
     /// 隐藏（移除）LeftBarItem的badge.
     /// - atIndex: barItem的角标 (不传默认右侧badge全隐藏).
-    func hz_hiddenRightBarItemBadge(_ atIndex: Int? = nil) {
-        self.hz_hiddenBarItemBadge(.right, atIndex: atIndex)
+    func hiddenRightBarItemBadge(_ atIndex: Int? = nil) {
+        base.hz_hiddenBarItemBadge(.right, atIndex: atIndex)
     }
     
 }
