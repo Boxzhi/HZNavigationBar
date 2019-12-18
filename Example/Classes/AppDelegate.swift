@@ -7,6 +7,7 @@
 //
 
 import UIKit
+@_exported import HZNavigationBar
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HZNavigationBar
 
 class BaseViewController: UIViewController {
 
