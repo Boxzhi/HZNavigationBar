@@ -1,6 +1,0 @@
-framework module HZNavigationBar {
-  umbrella header "HZNavigationBar-umbrella.h"
-
-  export *
-  module * { export * }
-}
