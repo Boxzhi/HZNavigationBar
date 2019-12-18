@@ -15,17 +15,25 @@ fileprivate let HZDefaultButtonTitleSize: CGFloat = 16.0
 fileprivate let HZDefaultTitleSize: CGFloat = 18.0
 fileprivate let HZDefaultTitleColor: UIColor = UIColor(red: 37.0/255.0, green: 43.0/255.0, blue: 51.0/255.0, alpha: 1)
 fileprivate let HZTitleLabelMaxWidth: CGFloat = 180.0
-fileprivate let HZScreenWidth: CGFloat = UIScreen.main.bounds.size.width
+fileprivate var HZScreenWidth: CGFloat = UIScreen.main.bounds.size.width
 fileprivate var HZStatusBarHeight: CGFloat {
+    /// UIApplication.shared.isStatusBarHidden = true时获取的状态栏高度为0
     if #available(iOS 13.0, *) {
-        return (UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame.size.height)!
+        return UIApplication.shared.isStatusBarHidden ? (HZIsIphoneX ? 44.0 : 20.0) : (UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame.size.height)!
     }else {
-        return UIApplication.shared.statusBarFrame.size.height
+        return UIApplication.shared.isStatusBarHidden ? (HZIsIphoneX ? 44.0 : 20.0) : UIApplication.shared.statusBarFrame.size.height
     }
 }
 fileprivate let HZNavigationBarHeight: CGFloat = 44.0
 fileprivate let HZBarItemWidth: CGFloat = 44.0
 fileprivate let isFullScreen: Bool = (UIApplication.shared.statusBarOrientation == .landscapeLeft || UIApplication.shared.statusBarOrientation == .landscapeRight)
+fileprivate var HZIsIphoneX: Bool {
+    var tmp = false
+    if #available(iOS 11.0, *), let safeBottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom, safeBottom > 0 {
+        tmp = true
+    }
+    return tmp
+}
 fileprivate let HZTitleViewFrame: CGRect = CGRect(x: 0, y: HZStatusBarHeight, width: HZScreenWidth, height: HZNavigationBarHeight)   // titleView初始默认高度
 
 public extension UIViewController {
@@ -84,6 +92,10 @@ extension HZCustomNavigationBarCompatible {
 extension HZCustomNavigationBar: HZCustomNavigationBarCompatible {}
 
 open class HZCustomNavigationBar: UIView {
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     //MARK: - 供外部设置NavigationBar的一些基本属性
     /// 是否显示navigationBar底部阴影，默认false
@@ -255,6 +267,8 @@ open class HZCustomNavigationBar: UIView {
     
     fileprivate func setupUI() {
         
+        NotificationCenter.default.addObserver(self, selector: #selector(statusBarOrientationChange(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
+        
         backgroundColor = .clear
         addSubview(_backgroundView)
         addSubview(_backgroundImageView)
@@ -270,8 +284,17 @@ open class HZCustomNavigationBar: UIView {
         self.constrainSubview(_backgroundView)
         self.constrainSubview(_backgroundImageView)
         self.constrainSubviewHeight(_titleView, height: HZTitleViewFrame.size.height)
-        self.constrainSubviewHeight(_titleLabel, left: (HZScreenWidth - HZTitleLabelMaxWidth) / 2.0, right:  -(HZScreenWidth - HZTitleLabelMaxWidth) / 2.0, height: HZNavigationBarHeight)
+        self.constrainSubviewWidthHeight(_titleLabel, width: HZTitleLabelMaxWidth, height: HZNavigationBarHeight)
+        self.constrainTitleLabel(_titleLabel, width: HZTitleLabelMaxWidth, height: HZNavigationBarHeight)
         self.constrainSubviewHeight(_bottomLine, height: 0.5)
+    }
+    
+    @objc fileprivate func statusBarOrientationChange(_ notification: Notification) {
+        HZScreenWidth = UIScreen.main.bounds.width
+        let oldFrame = self.frame
+        if oldFrame.size.width != UIScreen.main.bounds.width {
+            self.frame = CGRect(x: oldFrame.origin.x, y: oldFrame.origin.y, width: UIScreen.main.bounds.width, height: oldFrame.size.height)
+        }
     }
     
 }

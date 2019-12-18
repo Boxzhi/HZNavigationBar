@@ -450,6 +450,55 @@ extension UIView {
         
     }
     
+    /// titleLabel的约束
+    func constrainTitleLabel(_ subview: UIView, width: CGFloat, height: CGFloat) {
+        
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        
+        let centerXContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .centerX,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .centerX,
+            multiplier: 1.0,
+            constant: 0)
+        
+        let bottomContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .bottom,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .bottom,
+            multiplier: 1.0,
+            constant: 0)
+        
+        let widthContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .width,
+            relatedBy: .equal,
+            toItem: nil,
+            attribute: .notAnAttribute,
+            multiplier: 1.0,
+            constant: width)
+        
+        let heightContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .height,
+            relatedBy: .equal,
+            toItem: nil,
+            attribute: .notAnAttribute,
+            multiplier: 1.0,
+            constant: height)
+        
+        addConstraints([
+            centerXContraint,
+            bottomContraint,
+            widthContraint,
+            heightContraint])
+        
+    }
+    
     /// badgeView的约束
     func constrainBadgeView(_ subview: UIView, targetView: HZNavigationBarItem, size: CGSize, offset: CGPoint) {
         
