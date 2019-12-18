@@ -1,7 +1,7 @@
 ![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/logo.png)
 
 
-[![Version](https://img.shields.io/badge/pod-1.2.3-blue.svg)](https://github.com/CoderZZHe/HZNavigationBar) [![Build Status](https://img.shields.io/badge/build-passing-green.svg)]() ![](https://img.shields.io/badge/platform-iOS%2010.0%2B-yellowgreen.svg) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/CoderZZHe/HZNavigationBar/blob/master/LICENSE)
+[![Version](https://img.shields.io/badge/pod-1.2.5-blue.svg)](https://github.com/CoderZZHe/HZNavigationBar) [![Build Status](https://img.shields.io/badge/build-passing-green.svg)]() ![](https://img.shields.io/badge/platform-iOS%2010.0%2B-yellowgreen.svg) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/CoderZZHe/HZNavigationBar/blob/master/LICENSE)
 
 
 
@@ -37,10 +37,10 @@ pod install
 
 
 # 用法
+具体用法可参考HZNavigationBarExample文件的Demo
  - 通过`let nav = HZCustomNavigationBar.customNavigationBar()`创建，可放在在baseViewController
  - 添加到UI的最上层
  - 每个VC都有个独立的自定义navigationBar，可在对应的VC中设置所需属性
-具体用法可参考HZNavigationBarExample文件的Demo
 
 
 ### 基础属性设置.
