@@ -17,8 +17,7 @@ class CViewController: BaseViewController {
         nav.titleView = UIImageView(image: UIImage(named: "titleViewImage"))
         nav.shadowImageHidden = true
 
-        let btn = UIButton.setJumpButton(self, action: #selector(jumpToNext(_:)))
-        view.addSubview(btn)
+        UIButton.setJumpButton(self, action: #selector(jumpToNext(_:)))
     }
     
     @objc func jumpToNext(_ sender: UIButton) {

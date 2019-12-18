@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 extension UITabBarController {
     
@@ -46,15 +47,21 @@ extension CGFloat {
 
 extension UIButton {
     
-    class func setJumpButton(_ target: Any?, action: Selector) -> UIButton {
+    class func setJumpButton(_ target: Any?, action: Selector) {
         let btn = UIButton(type: .custom)
-        btn.frame = CGRect(x: (UIScreen.main.bounds.size.width - 100) / 2, y: UIScreen.main.bounds.size.height / 2, width: 100, height: 50)
         btn.backgroundColor = .gray
         btn.setTitle("跳转", for: .normal)
         btn.setTitleColor(.white, for: .normal)
         btn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         btn.addTarget(target, action: action, for: .touchUpInside)
-        return btn
+        if let _target = target as? UIViewController {
+            _target.view.addSubview(btn)
+            btn.snp.makeConstraints { (make) in
+                make.width.equalTo(100.0)
+                make.height.equalTo(50.0)
+                make.center.equalToSuperview()
+            }
+        }
     }
     
 }

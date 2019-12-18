@@ -17,8 +17,7 @@ class AViewController: BaseViewController {
         nav.title = "A控制器"
         
         //
-        let btn = UIButton.setJumpButton(self, action: #selector(jumpToNext(_:)))
-        view.addSubview(btn)
+        UIButton.setJumpButton(self, action: #selector(jumpToNext(_:)))
     }
     
     @objc func jumpToNext(_ sender: UIButton) {

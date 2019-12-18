@@ -22,8 +22,7 @@ class DViewController: BaseViewController {
         })])
         
 
-        let btn = UIButton.setJumpButton(self, action: #selector(jumpToNext(_:)))
-        view.addSubview(btn)
+        UIButton.setJumpButton(self, action: #selector(jumpToNext(_:)))
     }
     
     @objc func jumpToNext(_ sender: UIButton) {

@@ -22,7 +22,6 @@
 		E4E74EDF23A9E3F000BC5A37 /* DViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E74ECD23A9E3F000BC5A37 /* DViewController.swift */; };
 		E4E74EE023A9E3F000BC5A37 /* BViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E74ECE23A9E3F000BC5A37 /* BViewController.swift */; };
 		E4E74EE123A9E3F000BC5A37 /* CViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E74ECF23A9E3F000BC5A37 /* CViewController.swift */; };
-		E4E74EE223A9E3F000BC5A37 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4E74ED023A9E3F000BC5A37 /* Info.plist */; };
 		E4E74EE323A9E3F000BC5A37 /* UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E74ED123A9E3F000BC5A37 /* UINavigationController.swift */; };
 		E4E74EE423A9E3F000BC5A37 /* GCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E74ED223A9E3F000BC5A37 /* GCollectionViewCell.swift */; };
 		E4E74EE523A9E3F000BC5A37 /* AViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E74ED323A9E3F000BC5A37 /* AViewController.swift */; };
@@ -107,24 +106,24 @@
 		E4E74EBF23A9E3F000BC5A37 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E4E74EC023A9E3F000BC5A37 /* BaseViewController.swift */,
-				E4E74EC123A9E3F000BC5A37 /* Assets.xcassets */,
-				E4E74EC223A9E3F000BC5A37 /* GCollectionViewCell.xib */,
-				E4E74EC323A9E3F000BC5A37 /* LaunchScreen.storyboard */,
-				E4E74EC523A9E3F000BC5A37 /* Main.storyboard */,
-				E4E74EC723A9E3F000BC5A37 /* Extension.swift */,
-				E4E74EC823A9E3F000BC5A37 /* GViewController.swift */,
 				E4E74EC923A9E3F000BC5A37 /* AppDelegate.swift */,
-				E4E74ECA23A9E3F000BC5A37 /* FViewController.swift */,
+				E4E74ED123A9E3F000BC5A37 /* UINavigationController.swift */,
+				E4E74EC023A9E3F000BC5A37 /* BaseViewController.swift */,
 				E4E74ECB23A9E3F000BC5A37 /* BaseNavigationController.swift */,
-				E4E74ECC23A9E3F000BC5A37 /* EViewController.swift */,
-				E4E74ECD23A9E3F000BC5A37 /* DViewController.swift */,
+				E4E74ED323A9E3F000BC5A37 /* AViewController.swift */,
 				E4E74ECE23A9E3F000BC5A37 /* BViewController.swift */,
 				E4E74ECF23A9E3F000BC5A37 /* CViewController.swift */,
-				E4E74ED023A9E3F000BC5A37 /* Info.plist */,
-				E4E74ED123A9E3F000BC5A37 /* UINavigationController.swift */,
+				E4E74ECD23A9E3F000BC5A37 /* DViewController.swift */,
+				E4E74ECC23A9E3F000BC5A37 /* EViewController.swift */,
+				E4E74ECA23A9E3F000BC5A37 /* FViewController.swift */,
+				E4E74EC823A9E3F000BC5A37 /* GViewController.swift */,
 				E4E74ED223A9E3F000BC5A37 /* GCollectionViewCell.swift */,
-				E4E74ED323A9E3F000BC5A37 /* AViewController.swift */,
+				E4E74EC223A9E3F000BC5A37 /* GCollectionViewCell.xib */,
+				E4E74EC723A9E3F000BC5A37 /* Extension.swift */,
+				E4E74EC323A9E3F000BC5A37 /* LaunchScreen.storyboard */,
+				E4E74EC523A9E3F000BC5A37 /* Main.storyboard */,
+				E4E74ED023A9E3F000BC5A37 /* Info.plist */,
+				E4E74EC123A9E3F000BC5A37 /* Assets.xcassets */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -193,7 +192,6 @@
 				E4E74ED723A9E3F000BC5A37 /* LaunchScreen.storyboard in Resources */,
 				E4E74ED623A9E3F000BC5A37 /* GCollectionViewCell.xib in Resources */,
 				E4E74ED523A9E3F000BC5A37 /* Assets.xcassets in Resources */,
-				E4E74EE223A9E3F000BC5A37 /* Info.plist in Resources */,
 				E4E74ED823A9E3F000BC5A37 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

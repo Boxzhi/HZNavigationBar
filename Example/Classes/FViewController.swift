@@ -19,11 +19,6 @@ class FViewController: BaseViewController {
        let _playerView = UIView()
         _playerView.backgroundColor = .red
         
-//        if #available(iOS 11.0, *) {
-//            _playerView.frame = CGRect(x: 0, y: self.view.safeAreaInsets.top, width: self.view.bounds.width, height: self.view.bounds.height * 9 / 16)
-//        }else {
-//            _playerView.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.view.bounds.height * 9 / 16)
-//        }
         _playerView.frame = CGRect(x: 0, y: 44 + UIApplication.shared.statusBarFrame.size.height, width: self.view.bounds.width, height: self.view.bounds.height * 9 / 16)
         return _playerView
     }()

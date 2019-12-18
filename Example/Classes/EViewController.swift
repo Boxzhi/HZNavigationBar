@@ -26,8 +26,7 @@ class EViewController: BaseViewController {
         let rightButtons = [rightFirst, rightSecond]
         nav.hz.setItemsToRight(rightButtons)
 
-        let btn = UIButton.setJumpButton(self, action: #selector(jumpToNext(_:)))
-        view.addSubview(btn)
+        UIButton.setJumpButton(self, action: #selector(jumpToNext(_:)))
     }
     
     @objc func jumpToNext(_ sender: UIButton) {
