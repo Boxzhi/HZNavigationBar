@@ -72,7 +72,7 @@ public extension UIViewController {
     
 }
 
-public struct HZCustomNavigationBarWrapper<Base> {
+public struct HZNavigationBarWrapper<Base> {
     public let base: Base
     public init(_ base: Base) {
         self.base = base
@@ -83,8 +83,8 @@ public protocol HZCustomNavigationBarCompatible: AnyObject { }
 
 extension HZCustomNavigationBarCompatible {
     /// Gets a namespace holder for Kingfisher compatible types.
-    public var hz: HZCustomNavigationBarWrapper<Self> {
-        get { return HZCustomNavigationBarWrapper(self) }
+    public var hz: HZNavigationBarWrapper<Self> {
+        get { return HZNavigationBarWrapper(self) }
         set { }
     }
 }
@@ -284,7 +284,6 @@ open class HZCustomNavigationBar: UIView {
         self.constrainSubview(_backgroundView)
         self.constrainSubview(_backgroundImageView)
         self.constrainSubviewHeight(_titleView, height: HZTitleViewFrame.size.height)
-        self.constrainSubviewWidthHeight(_titleLabel, width: HZTitleLabelMaxWidth, height: HZNavigationBarHeight)
         self.constrainTitleLabel(_titleLabel, width: HZTitleLabelMaxWidth, height: HZNavigationBarHeight)
         self.constrainSubviewHeight(_bottomLine, height: 0.5)
     }
@@ -782,7 +781,7 @@ public extension HZCustomNavigationBar {
 }
 
 //MARK: - 外部可调用方法来设置一些属性
-public extension HZCustomNavigationBarWrapper where Base: HZCustomNavigationBar {
+public extension HZNavigationBarWrapper where Base: HZCustomNavigationBar {
     
     /// 设置NavigationBar的titleView.
     /// - view: titleView.
@@ -810,7 +809,7 @@ public extension HZCustomNavigationBarWrapper where Base: HZCustomNavigationBar 
 }
 
 //MARK: - 供外部对BarItem设置调用的方法
-public extension HZCustomNavigationBarWrapper where Base: HZCustomNavigationBar {
+public extension HZNavigationBarWrapper where Base: HZCustomNavigationBar {
     
     /// 设置LeftBarItem，若之前已存在barItem，则会先移除后设置.
     /// - leftItems: barItem的数组.
