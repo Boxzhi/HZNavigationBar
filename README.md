@@ -1,7 +1,7 @@
 ![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/logo.png)
 
 
-[![Version](https://img.shields.io/badge/pod-1.2.6-blue.svg)](https://github.com/CoderZZHe/HZNavigationBar) [![Build Status](https://img.shields.io/badge/build-passing-green.svg)]() ![](https://img.shields.io/badge/platform-iOS%2010.0%2B-yellowgreen.svg) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/CoderZZHe/HZNavigationBar/blob/master/LICENSE)
+[![Version](https://img.shields.io/badge/pod-1.3.0-blue.svg)](https://github.com/CoderZZHe/HZNavigationBar) [![Build Status](https://img.shields.io/badge/build-passing-green.svg)]() ![](https://img.shields.io/badge/platform-iOS%2010.0%2B-yellowgreen.svg) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/CoderZZHe/HZNavigationBar/blob/master/LICENSE)
 
 
 
@@ -52,6 +52,11 @@ nav.title = "主页"
 /* 注意：背景颜色和背景图片互斥，以最后的设置为准 */
 nav.barBackgroundColor = .white
 nav.barBackgroundImage = UIImage(named: "updateIcon")
+
+// 设置导航栏背景色
+nav.barBackgroundColor = .red
+// 设置状态栏背景色   不设置或设置为nil默认不显示
+nav.statusBarColor = .green
 
 // 设置导航栏title的颜色
 nav.titleColor = .red
