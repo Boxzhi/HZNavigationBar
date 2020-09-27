@@ -19,13 +19,25 @@ fileprivate var HZScreenWidth: CGFloat = UIScreen.main.bounds.size.width
 fileprivate var HZStatusBarHeight: CGFloat {
     /// UIApplication.shared.isStatusBarHidden = true时获取的状态栏高度为0
     if #available(iOS 13.0, *) {
-        return UIApplication.shared.isStatusBarHidden ? (HZIsIphoneX ? 44.0 : 20.0) : (UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame.size.height)!
+        return UIApplication.shared.isStatusBarHidden ? (HZIsIpad ? 24.0 : (HZIsIphoneX ? 44.0 : 20.0)) : (UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame.size.height)!
     }else {
-        return UIApplication.shared.isStatusBarHidden ? (HZIsIphoneX ? 44.0 : 20.0) : UIApplication.shared.statusBarFrame.size.height
+        return UIApplication.shared.isStatusBarHidden ? (HZIsIpad ? 24.0 : (HZIsIphoneX ? 44.0 : 20.0)) : UIApplication.shared.statusBarFrame.size.height
     }
 }
-fileprivate let HZNavigationBarHeight: CGFloat = 44.0
-fileprivate let HZBarItemWidth: CGFloat = 44.0
+fileprivate var HZNavigationBarHeight: CGFloat {
+    if HZIsIpad {
+        return 50.0
+    }else {
+        return 44.0
+    }
+}
+fileprivate var HZBarItemWidth: CGFloat {
+    if HZIsIpad {
+        return 50.0
+    }else {
+        return 44.0
+    }
+}
 fileprivate let isFullScreen: Bool = (UIApplication.shared.statusBarOrientation == .landscapeLeft || UIApplication.shared.statusBarOrientation == .landscapeRight)
 fileprivate var HZIsIphoneX: Bool {
     var tmp = false
@@ -33,6 +45,13 @@ fileprivate var HZIsIphoneX: Bool {
         tmp = true
     }
     return tmp
+}
+fileprivate var HZIsIpad: Bool {
+    if UIDevice.current.userInterfaceIdiom == .pad {
+        return true
+    }else {
+        return false
+    }
 }
 fileprivate let HZTitleViewFrame: CGRect = CGRect(x: 0, y: HZStatusBarHeight, width: HZScreenWidth, height: HZNavigationBarHeight)   // titleView初始默认高度
 
@@ -140,6 +159,13 @@ open class HZCustomNavigationBar: UIView {
         }
     }
     
+    /// statusBar背景颜色
+    public var statusBarColor: UIColor? {
+        willSet {
+            hz_setStatusBarBackground(color: newValue)
+        }
+    }
+    
     /// navigationBar背景图片
     public var barBackgroundImage: UIImage? {
         willSet {
@@ -224,6 +250,14 @@ open class HZCustomNavigationBar: UIView {
         return backgroundView
     }()
     
+    ///  statusBar
+    fileprivate lazy var _statusBar: UIView = {
+        let statusBar: UIView = UIView()
+        statusBar.backgroundColor = .clear
+        statusBar.isHidden = true
+        return statusBar
+    }()
+    
     ///  背景图片
     fileprivate lazy var _backgroundImageView: UIImageView = {
         let backgroundImageView: UIImageView = UIImageView()
@@ -271,6 +305,7 @@ open class HZCustomNavigationBar: UIView {
         
         backgroundColor = .clear
         addSubview(_backgroundView)
+        addSubview(_statusBar)
         addSubview(_backgroundImageView)
         addSubview(_titleView)
         addSubview(_titleLabel)
@@ -282,10 +317,11 @@ open class HZCustomNavigationBar: UIView {
     fileprivate func updateFrame() {
         
         self.constrainSubview(_backgroundView)
+        self.constrainSubviewTopHeight(_statusBar, height: HZStatusBarHeight)
         self.constrainSubview(_backgroundImageView)
-        self.constrainSubviewHeight(_titleView, height: HZTitleViewFrame.size.height)
+        self.constrainSubviewBottomHeight(_titleView, height: HZTitleViewFrame.size.height)
         self.constrainTitleLabel(_titleLabel, width: HZTitleLabelMaxWidth, height: HZNavigationBarHeight)
-        self.constrainSubviewHeight(_bottomLine, height: 0.5)
+        self.constrainSubviewBottomHeight(_bottomLine, height: 0.5)
     }
     
     @objc fileprivate func statusBarOrientationChange(_ notification: Notification) {
@@ -318,6 +354,17 @@ private extension HZCustomNavigationBar {
             _backgroundView.isHidden = true
             _backgroundImageView.isHidden = false
             _backgroundImageView.image = _image
+        }
+    }
+    
+    /// 设置statusBar背景色
+    func hz_setStatusBarBackground(color: UIColor?) {
+        if let _color = color {
+            _statusBar.isHidden = false
+            _statusBar.backgroundColor = _color
+        }else {
+            _statusBar.isHidden = true
+            _statusBar.backgroundColor = .clear
         }
     }
     
@@ -767,6 +814,7 @@ private extension HZCustomNavigationBar {
     /// 设置背景透明度
     func hz_setBackgroundAlpha(alpha: CGFloat) {
         _backgroundView.alpha = alpha
+        _statusBar.alpha = alpha
         _backgroundImageView.alpha = alpha
         _bottomLine.alpha = alpha
     }

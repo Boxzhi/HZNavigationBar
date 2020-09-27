@@ -305,7 +305,7 @@ extension UIView {
     }
     
     /// 左右下高约束
-    func constrainSubviewHeight(_ subview: UIView, left: CGFloat = 0, right: CGFloat = 0, bottom: CGFloat = 0, height: CGFloat) {
+    func constrainSubviewBottomHeight(_ subview: UIView, left: CGFloat = 0, right: CGFloat = 0, bottom: CGFloat = 0, height: CGFloat) {
         subview.translatesAutoresizingMaskIntoConstraints = false
         
         let leftContraint = NSLayoutConstraint(
@@ -345,6 +345,50 @@ extension UIView {
             constant: height)
         
         addConstraints([leftContraint, rightContraint, bottomContraint, heightContraint])
+        
+    }
+    
+    /// 左右上高约束
+    func constrainSubviewTopHeight(_ subview: UIView, left: CGFloat = 0, right: CGFloat = 0, top: CGFloat = 0, height: CGFloat) {
+        subview.translatesAutoresizingMaskIntoConstraints = false
+        
+        let leftContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .left,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .left,
+            multiplier: 1.0,
+            constant: left)
+        
+        let rightContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .right,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .right,
+            multiplier: 1.0,
+            constant: right)
+        
+        let topContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .top,
+            relatedBy: .equal,
+            toItem: self,
+            attribute: .top,
+            multiplier: 1.0,
+            constant: top)
+        
+        let heightContraint = NSLayoutConstraint(
+            item: subview,
+            attribute: .height,
+            relatedBy: .equal,
+            toItem: nil,
+            attribute: .notAnAttribute,
+            multiplier: 1.0,
+            constant: height)
+        
+        addConstraints([leftContraint, rightContraint, topContraint, heightContraint])
         
     }
     
