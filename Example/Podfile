@@ -4,6 +4,7 @@ target 'HZNavigationBar_Example' do
   use_frameworks!
 
   pod 'HZNavigationBar', :path => '../'
+#  pod 'HZNavigationBar'
   pod 'SnapKit'
 
 end
