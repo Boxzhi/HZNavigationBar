@@ -14,7 +14,13 @@ class CViewController: BaseViewController {
         super.viewDidLoad()
 
         nav.title = "C控制器"
-        nav.titleView = UIImageView(image: UIImage(named: "titleViewImage"))
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            nav.titleView = UIImageView(image: UIImage(named: "titleViewImage"))
+        }else {
+            let imageView = UIImageView(image: UIImage(named: "titleViewImage"))
+            imageView.frame = CGRect(x: 0, y: 0, width: 216.667, height: 100)
+            nav.titleView = imageView
+        }
         nav.shadowImageHidden = true
 
         UIButton.setJumpButton(self, action: #selector(jumpToNext(_:)))

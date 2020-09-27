@@ -33,7 +33,7 @@ class BaseViewController: UIViewController {
 
         if self.navigationController?.children.count != 1,
             self.navigationController != nil {
-            let left = HZNavigationBarItem.create( normalImage: #imageLiteral(resourceName: "back")) { (btn) in
+            let left = HZNavigationBarItem.create(normalImage: "back") { (btn) in
                 let currentVc = UIViewController.hz_currentViewController()
                 currentVc?.hz_toLastViewController(animated: true)
             }

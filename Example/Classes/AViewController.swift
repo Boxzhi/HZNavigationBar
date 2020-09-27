@@ -15,7 +15,6 @@ class AViewController: BaseViewController {
         
         view.backgroundColor = UIColor.random()
         nav.title = "A控制器"
-        
         //
         UIButton.setJumpButton(self, action: #selector(jumpToNext(_:)))
     }
