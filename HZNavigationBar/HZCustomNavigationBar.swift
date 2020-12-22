@@ -235,7 +235,7 @@ open class HZCustomNavigationBar: UIView {
     fileprivate lazy var rightBarItemBadgeDic: [Int: UIView] = [:]
     
     /// 导航栏整体高度
-    fileprivate static var statusNavigationBarHeight: CGFloat {
+    public static var statusNavigationBarHeight: CGFloat {
         get {
             return HZStatusBarHeight + HZNavigationBarHeight
         }
