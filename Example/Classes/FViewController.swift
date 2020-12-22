@@ -11,7 +11,6 @@ import UIKit
 class FViewController: BaseViewController {
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
         UIDevice.current.endGeneratingDeviceOrientationNotifications()
     }
     
@@ -60,10 +59,15 @@ class FViewController: BaseViewController {
             UIDevice.current.beginGeneratingDeviceOrientationNotifications()
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleDeviceOrientationChange), name: UIDevice.orientationDidChangeNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(handleDeviceOrientationChange), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
-    @objc func handleDeviceOrientationChange(notification: Notification) {
+    override func orientationDidChange(_ notification: Notification) {
+        super.orientationDidChange(notification)
+        self.handleDeviceOrientationChange(notification)
+    }
+    
+    func handleDeviceOrientationChange(_ notification: Notification) {
         let deviceOrientation = UIDevice.current.orientation
         switch deviceOrientation {
         case .faceUp:
@@ -121,6 +125,10 @@ class FViewController: BaseViewController {
 //        if isFullScreen {
 //            return
 //        }
+        
+        guard let lastVc = self.navigationController?.children.last, lastVc.isKind(of: FViewController.self) else {
+            return
+        }
         
         if !isFullScreen {
             self.playerSuperView = self.playerView.superview

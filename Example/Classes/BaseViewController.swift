@@ -26,8 +26,12 @@ class BaseViewController: UIViewController {
         view.addSubview(nav)
         nav.barBackgroundColor = .white
         nav.shadowImageHidden = false
+        nav.snp.makeConstraints { (make) in
+            make.left.right.top.equalToSuperview()
+            make.height.equalTo(HZCustomNavigationBar.statusNavigationBarHeight)
+        }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(statusBarOrientationChange(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
         
 //        nav.isShowBottomShadow = true
 
@@ -42,21 +46,24 @@ class BaseViewController: UIViewController {
         
     }
     
-    @objc fileprivate func statusBarOrientationChange(_ notification: Notification) {
+    @objc public func orientationDidChange(_ notification: Notification) {
         statusBarHidden()
     }
     
     /// 解决刘海屏手机在横屏后状态栏消失问题
     fileprivate func statusBarHidden() {
-        var statusBar: UIView?
-        if #available(iOS 13.0, *) {
-            statusBar = UIView(frame: UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame ?? .zero)
-            UIApplication.shared.keyWindow?.addSubview(statusBar!)
-        } else {
-            statusBar = UIApplication.shared.value(forKey: "statusBar") as? UIView
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            var statusBar: UIView?
+            if #available(iOS 13.0, *) {
+                statusBar = UIView(frame: UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame ?? .zero)
+                UIApplication.shared.keyWindow?.addSubview(statusBar!)
+            } else {
+                statusBar = UIApplication.shared.value(forKey: "statusBar") as? UIView
+            }
+            statusBar?.isHidden = false
+            statusBar?.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44.0)
         }
-        statusBar?.isHidden = false
-        statusBar?.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44.0)
     }
 
     override func didReceiveMemoryWarning() {
