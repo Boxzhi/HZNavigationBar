@@ -19,7 +19,7 @@ fileprivate var HZScreenWidth: CGFloat = UIScreen.main.bounds.size.width
 fileprivate var HZStatusBarHeight: CGFloat {
     /// UIApplication.shared.isStatusBarHidden = true时获取的状态栏高度为0
     if #available(iOS 13.0, *) {
-        return UIApplication.shared.isStatusBarHidden ? (HZIsIpad ? 24.0 : (HZIsIphoneX ? 44.0 : 20.0)) : (UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame.size.height)!
+        return UIApplication.shared.isStatusBarHidden ? (HZIsIpad ? 24.0 : (HZIsIphoneX ? 44.0 : 20.0)) : (UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.size.height)!
     }else {
         return UIApplication.shared.isStatusBarHidden ? (HZIsIpad ? 24.0 : (HZIsIphoneX ? 44.0 : 20.0)) : UIApplication.shared.statusBarFrame.size.height
     }
@@ -41,7 +41,7 @@ fileprivate var HZBarItemWidth: CGFloat {
 fileprivate let isFullScreen: Bool = (UIApplication.shared.statusBarOrientation == .landscapeLeft || UIApplication.shared.statusBarOrientation == .landscapeRight)
 fileprivate var HZIsIphoneX: Bool {
     var tmp = false
-    if #available(iOS 11.0, *), let safeBottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom, safeBottom > 0 {
+    if #available(iOS 11.0, *), let safeBottom = UIApplication.shared.windows.first?.safeAreaInsets.bottom, safeBottom > 0 {
         tmp = true
     }
     return tmp
