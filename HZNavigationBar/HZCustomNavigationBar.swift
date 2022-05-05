@@ -18,11 +18,15 @@ fileprivate let HZTitleLabelMaxWidth: CGFloat = 180.0
 fileprivate var HZScreenWidth: CGFloat = UIScreen.main.bounds.size.width
 fileprivate var HZStatusBarHeight: CGFloat {
     /// UIApplication.shared.isStatusBarHidden = true时获取的状态栏高度为0
+    var _height: CGFloat = HZIsIpad ? 24.0 : (HZIsIphoneX ? 44.0 : 20.0)
     if #available(iOS 13.0, *) {
-        return UIApplication.shared.isStatusBarHidden ? (HZIsIpad ? 24.0 : (HZIsIphoneX ? 44.0 : 20.0)) : (UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.size.height)!
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene, let statusBarManager = scene.statusBarManager, !(statusBarManager.isStatusBarHidden) {
+            _height = statusBarManager.statusBarFrame.size.height
+        }
     }else {
-        return UIApplication.shared.isStatusBarHidden ? (HZIsIpad ? 24.0 : (HZIsIphoneX ? 44.0 : 20.0)) : UIApplication.shared.statusBarFrame.size.height
+        _height = UIApplication.shared.statusBarFrame.size.height
     }
+    return _height
 }
 fileprivate var HZNavigationBarHeight: CGFloat {
     if HZIsIpad {
