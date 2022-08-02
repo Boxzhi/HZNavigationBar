@@ -28,12 +28,12 @@ pod install
 
 
 # Demo图片
-
-![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_1.png)![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_2.png)
-![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_3.png)![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_4.png)
-![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_5.png)![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_6.png)
-![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_7.png)![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_8.png)
-![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_9.png)![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_10.jpeg)
+<img width="400" src="https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_11.png"/>    <img width="400" src="https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_12.png"/>
+<img width="400" src="https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_1.png"/>    <img width="400" src="https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_2.png"/>
+<img width="400" src="https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_3.png"/>    <img width="400" src="https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_4.png"/>
+<img width="400" src="https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_5.png"/>    <img width="400" src="https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_6.png"/>
+<img width="400" src="https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_7.png"/>    <img width="400" src="https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_8.png"/>
+<img width="400" src="https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_9.png"/>    <img width="400" src="https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_10.png"/>
 
 
 # 用法
