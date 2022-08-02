@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension UINavigationBar: HZAwakeProtocol {
+extension UINavigationBar {
     fileprivate struct AssociatedKeys {
         static var backgroundView: UIView = UIView()
         static var backgroundImageView: UIImageView = UIImageView()
@@ -132,22 +132,22 @@ extension UINavigationBar: HZAwakeProtocol {
     }
     
     // call swizzling methods active 主动调用交换方法
-    private static let onceToken = UUID().uuidString
-    public static func hzAwake() {
-        DispatchQueue.once(token: onceToken) {
-            let needSwizzleSelectorArr = [
-                #selector(setter: titleTextAttributes)
-            ]
-            
-            for selector in needSwizzleSelectorArr {
-                let str = ("hz_" + selector.description)
-                if let originalMethod = class_getInstanceMethod(self, selector),
-                    let swizzledMethod = class_getInstanceMethod(self, Selector(str)) {
-                    method_exchangeImplementations(originalMethod, swizzledMethod)
-                }
-            }
-        }
-    }
+//    private static let onceToken = UUID().uuidString
+//    public static func hzAwake() {
+//        DispatchQueue.once(token: onceToken) {
+//            let needSwizzleSelectorArr = [
+//                #selector(setter: titleTextAttributes)
+//            ]
+//
+//            for selector in needSwizzleSelectorArr {
+//                let str = ("hz_" + selector.description)
+//                if let originalMethod = class_getInstanceMethod(self, selector),
+//                    let swizzledMethod = class_getInstanceMethod(self, Selector(str)) {
+//                    method_exchangeImplementations(originalMethod, swizzledMethod)
+//                }
+//            }
+//        }
+//    }
     
     //==========================================================================
     // MARK: swizzling pop
@@ -185,7 +185,7 @@ extension UINavigationBar: HZAwakeProtocol {
 //==========================================================================
 // MARK: - UINavigationController
 //==========================================================================
-extension UINavigationController: HZFatherAwakeProtocol {
+extension UINavigationController {
     override open var preferredStatusBarStyle: UIStatusBarStyle {
         return topViewController?.statusBarStyle ?? HZNavigationBar.defaultStatusBarStyle
     }
@@ -248,27 +248,27 @@ extension UINavigationController: HZFatherAwakeProtocol {
     }
     
     // call swizzling methods active 主动调用交换方法
-    private static let onceToken = UUID().uuidString
-    public static func fatherAwake() {
-        DispatchQueue.once(token: onceToken)
-        {
-            let needSwizzleSelectorArr = [
-                NSSelectorFromString("_updateInteractiveTransition:"),
-                #selector(popToViewController),
-                #selector(popToRootViewController),
-                #selector(pushViewController)
-            ]
-            
-            for selector in needSwizzleSelectorArr {
-                // _updateInteractiveTransition:  =>  hz_updateInteractiveTransition:
-                let str = ("hz_" + selector.description).replacingOccurrences(of: "__", with: "_")
-                if let originalMethod = class_getInstanceMethod(self, selector),
-                    let swizzledMethod = class_getInstanceMethod(self, Selector(str)) {
-                    method_exchangeImplementations(originalMethod, swizzledMethod)
-                }
-            }
-        }
-    }
+//    private static let onceToken = UUID().uuidString
+//    public static func fatherAwake() {
+//        DispatchQueue.once(token: onceToken)
+//        {
+//            let needSwizzleSelectorArr = [
+//                NSSelectorFromString("_updateInteractiveTransition:"),
+//                #selector(popToViewController),
+//                #selector(popToRootViewController),
+//                #selector(pushViewController)
+//            ]
+//
+//            for selector in needSwizzleSelectorArr {
+//                // _updateInteractiveTransition:  =>  hz_updateInteractiveTransition:
+//                let str = ("hz_" + selector.description).replacingOccurrences(of: "__", with: "_")
+//                if let originalMethod = class_getInstanceMethod(self, selector),
+//                    let swizzledMethod = class_getInstanceMethod(self, Selector(str)) {
+//                    method_exchangeImplementations(originalMethod, swizzledMethod)
+//                }
+//            }
+//        }
+//    }
     
     //==========================================================================
     // MARK: swizzling pop
@@ -450,7 +450,7 @@ extension UINavigationController {
 //=============================================================================
 // MARK: - store navigationBar barTintColor and tintColor every viewController
 //=============================================================================
-extension UIViewController: HZAwakeProtocol {
+extension UIViewController {
     fileprivate struct AssociatedKeys {
         static var pushToCurrentVCFinished: Bool = false
         static var pushToNextVCFinished:Bool = false
@@ -652,26 +652,26 @@ extension UIViewController: HZAwakeProtocol {
     }
     
     // swizzling two system methods: viewWillAppear(_:) and viewWillDisappear(_:)
-    private static let onceToken = UUID().uuidString
-    @objc public static func hzAwake() {
-        DispatchQueue.once(token: onceToken)
-        {
-            let needSwizzleSelectors = [
-                #selector(viewWillAppear(_:)),
-                #selector(viewWillDisappear(_:)),
-                #selector(viewDidAppear(_:))
-            ]
-            
-            for selector in needSwizzleSelectors
-            {
-                let newSelectorStr = "hz_" + selector.description
-                if let originalMethod = class_getInstanceMethod(self, selector),
-                    let swizzledMethod = class_getInstanceMethod(self, Selector(newSelectorStr)) {
-                    method_exchangeImplementations(originalMethod, swizzledMethod)
-                }
-            }
-        }
-    }
+//    private static let onceToken = UUID().uuidString
+//    @objc public static func hzAwake() {
+//        DispatchQueue.once(token: onceToken)
+//        {
+//            let needSwizzleSelectors = [
+//                #selector(viewWillAppear(_:)),
+//                #selector(viewWillDisappear(_:)),
+//                #selector(viewDidAppear(_:))
+//            ]
+//
+//            for selector in needSwizzleSelectors
+//            {
+//                let newSelectorStr = "hz_" + selector.description
+//                if let originalMethod = class_getInstanceMethod(self, selector),
+//                    let swizzledMethod = class_getInstanceMethod(self, Selector(newSelectorStr)) {
+//                    method_exchangeImplementations(originalMethod, swizzledMethod)
+//                }
+//            }
+//        }
+//    }
     
     @objc func hz_viewWillAppear(_ animated: Bool) {
         if canUpdateNavigationBar() == true {
@@ -898,29 +898,29 @@ public extension HZNavigationBar {
 }
 
 // 1. 定义 HZAwakeProtocol 协议
-public protocol HZAwakeProtocol: class {
-    static func hzAwake()
-}
-public protocol HZFatherAwakeProtocol: class {   // 1.1 定义 HZFatherAwakeProtocol ()
-    static func fatherAwake()
-}
-
-class NothingToSeeHere {
-    static func harmlessFunction() {
-        UINavigationBar.hzAwake()
-        UIViewController.hzAwake()
-        UINavigationController.fatherAwake()
-    }
-}
-
-// 2. 让APP启动时只执行一次 harmlessFunction 方法
-extension UIApplication {
-    private static let runOnce:Void = { //使用静态属性以保证只调用一次(该属性是个方法)
-        NothingToSeeHere.harmlessFunction()
-    }()
-    
-    open override var next: UIResponder?{ //重写next属性
-        UIApplication.runOnce
-        return super.next
-    }
-}
+//public protocol HZAwakeProtocol: class {
+//    static func hzAwake()
+//}
+//public protocol HZFatherAwakeProtocol: class {   // 1.1 定义 HZFatherAwakeProtocol ()
+//    static func fatherAwake()
+//}
+//
+//class NothingToSeeHere {
+//    static func harmlessFunction() {
+//        UINavigationBar.hzAwake()
+//        UIViewController.hzAwake()
+//        UINavigationController.fatherAwake()
+//    }
+//}
+//
+//// 2. 让APP启动时只执行一次 harmlessFunction 方法
+//extension UIApplication {
+//    private static let runOnce:Void = { //使用静态属性以保证只调用一次(该属性是个方法)
+//        NothingToSeeHere.harmlessFunction()
+//    }()
+//
+//    open override var next: UIResponder?{ //重写next属性
+//        UIApplication.runOnce
+//        return super.next
+//    }
+//}

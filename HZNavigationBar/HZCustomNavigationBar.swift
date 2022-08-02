@@ -198,6 +198,12 @@ open class HZCustomNavigationBar: UIView {
         }
     }
     
+    public var titleAttributedString: NSAttributedString? {
+        willSet {
+            hz_setTitleLabel(textColor: titleColor, font: titleFont, titleAttributedString: newValue)
+        }
+    }
+    
     /// navigationBar的titleView
     public var titleView: UIView? {
         willSet {
@@ -373,19 +379,22 @@ private extension HZCustomNavigationBar {
     }
     
     /// 设置titleLabel属性
-    func hz_setTitleLabel(_ text: String?, textColor: UIColor, font: UIFont) {
+    func hz_setTitleLabel(_ text: String? = nil, textColor: UIColor, font: UIFont, titleAttributedString: NSAttributedString? = nil) {
         
-        guard let _text = text else {
+        if let _text = text {
+            _titleLabel.text = _text
+            _titleLabel.textColor = textColor
+            _titleLabel.font = font
+            _titleLabel.isHidden = false
+            _titleView.isHidden = true
+        }else if let _titleAttributedString = titleAttributedString {
+            _titleLabel.attributedText = _titleAttributedString
+            _titleLabel.isHidden = false
+            _titleView.isHidden = true
+        }else {
             _titleLabel.isHidden = true
-            return
         }
         
-        _titleLabel.isHidden = false
-        _titleView.isHidden = true
-        
-        _titleLabel.text = _text
-        _titleLabel.textColor = textColor
-        _titleLabel.font = font
     }
     
     /// 隐藏底部细线条
