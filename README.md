@@ -1,7 +1,7 @@
 ![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/logo.png)
 
 
-[![Version](https://img.shields.io/badge/pod-1.3.3-blue.svg)](https://github.com/CoderZZHe/HZNavigationBar) [![Build Status](https://img.shields.io/badge/build-passing-green.svg)]() ![](https://img.shields.io/badge/platform-iOS%2010.0%2B-yellowgreen.svg) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/CoderZZHe/HZNavigationBar/blob/master/LICENSE)
+[![Version](https://img.shields.io/badge/pod-1.3.4-blue.svg)](https://github.com/CoderZZHe/HZNavigationBar) [![Build Status](https://img.shields.io/badge/build-passing-green.svg)]() ![](https://img.shields.io/badge/platform-iOS%2010.0%2B-yellowgreen.svg) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/CoderZZHe/HZNavigationBar/blob/master/LICENSE)
 
 
 
@@ -59,10 +59,13 @@ nav.barBackgroundColor = .red
 // 设置状态栏背景色   不设置或设置为nil默认不显示
 nav.statusBarColor = .green
 
+// 设置导航栏title富文本
+nav.titleAttributedString = NSAttributedString()
 // 设置导航栏title的颜色
 nav.titleColor = .red
 // 设置导航栏title的字体
 nav.titleFont = UIFont.systemFont(ofSize: 15)
+
 // 设置导航栏主题颜色（含title和barItem的文字颜色）
 nav.themeTextColor = .white
 // 是否隐藏导航栏下划线
