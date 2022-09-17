@@ -13,16 +13,17 @@ class CViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        nav.title = "C控制器"
+        nav?.title = "C控制器"
+        nav?.titleViewIsCenter = false
         if UIDevice.current.userInterfaceIdiom == .phone {
-            nav.titleView = UIImageView(image: UIImage(named: "titleViewImage"))
+            nav?.titleView = UIImageView(image: UIImage(named: "titleViewImage"))
         }else {
             let imageView = UIImageView(image: UIImage(named: "titleViewImage"))
             imageView.frame = CGRect(x: 0, y: 0, width: 216.667, height: 100)
-            nav.titleView = imageView
+            nav?.titleView = imageView
         }
-        nav.shadowImageHidden = true
-
+        nav?.shadowImageHidden = true
+        
         UIButton.setJumpButton(self, action: #selector(jumpToNext(_:)))
     }
     

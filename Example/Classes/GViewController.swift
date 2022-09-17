@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HZNavigationBar
 
 class GViewController: BaseViewController {
     
@@ -29,7 +30,7 @@ class GViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        nav.title = "GViewController"
+        nav?.title = "GViewController"
         view.backgroundColor = .white
         view.addSubview(collectionView)
         collectionView.dataSource = self

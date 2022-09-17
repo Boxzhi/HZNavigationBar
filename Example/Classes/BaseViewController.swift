@@ -15,7 +15,7 @@ class BaseViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
 
-    lazy var nav = HZCustomNavigationBar.customNavigationBar()
+    var nav: HZCustomNavigationBar?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,25 +23,20 @@ class BaseViewController: UIViewController {
         statusBarHidden()
         navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .white
-        view.addSubview(nav)
-        nav.barBackgroundColor = .white
-        nav.shadowImageHidden = false
-        nav.snp.makeConstraints { (make) in
-            make.left.right.top.equalToSuperview()
-            make.height.equalTo(HZCustomNavigationBar.statusNavigationBarHeight)
-        }
+        nav = HZCustomNavigationBar.create(to: view)
+        nav?.bgColor = .white
+        nav?.shadowImageHidden = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
         
 //        nav.isShowBottomShadow = true
-
         if self.navigationController?.children.count != 1,
             self.navigationController != nil {
-            let left = HZNavigationBarItem.create(normalImage: "back") { (btn) in
-                let currentVc = UIViewController.hz_currentViewController()
-                currentVc?.hz_toLastViewController(animated: true)
+            let left = HZNavigationBarItem("back") { item in
+                let currentVc = UIViewController.currentViewController()
+                currentVc?.backLastViewController(animated: true)
             }
-            nav.hz.addItemsToLeft([left])
+            nav?.hz.addItemsToLeft([left])
         }
         
     }

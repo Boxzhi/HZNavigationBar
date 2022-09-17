@@ -14,7 +14,7 @@ class BViewController: BaseViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.random()
-        nav.title = "B控制器"
+        nav?.title = "B控制器"
         
         // Do any additional setup after loading the view.
     }
