@@ -9,8 +9,8 @@
 import UIKit
 
 public enum HZNavigationBarItemType: Int {
-    case left = 0     // 左侧
-    case right = 1     // 右侧
+    case left = 0 // 左侧
+    case right = 1 // 右侧
 }
 
 public enum HZBarItemEdgeInsetsStyle: Int {
@@ -24,142 +24,145 @@ public class HZNavigationBarItem: UIButton {
     
     public var titleColor: UIColor? {
         willSet {
-            self._titleColor = newValue
+            self.normalColor = newValue
             self.setTitleColor(newValue, for: .normal)
         }
     }
     
-    public var barItemNewClickHandler: HZNavigationBarItemClickHandler?
-
     fileprivate var normalTitle: String?
-    fileprivate var normalImage: UIImage?
+    fileprivate var normalColor: UIColor?
     fileprivate var selectedTitle: String?
+    fileprivate var selectedColor: UIColor?
+    fileprivate var font: UIFont = UIFont.systemFont(ofSize: 15)
+    fileprivate var normalImage: UIImage?
     fileprivate var selectedImage: UIImage?
-    fileprivate var _titleColor: UIColor?
-    fileprivate var titleFont: UIFont?
-    private(set) var style: HZBarItemEdgeInsetsStyle!
-    private(set) var space: CGFloat!
+    private(set) var style: HZBarItemEdgeInsetsStyle = .left
+    private(set) var space: CGFloat = 5.0
     private(set) var barItemWidth: CGFloat?
-    fileprivate var barItemClickHandler: HZNavigationBarItemClickHandler?
+    var clickHandler: HZNavigationBarItemClickHandler?
     
-    /// 快速创建：title
-    public class func create(normalTitle: String, selectedTitle: String? = nil, titleColor: UIColor = .black, titleFont: UIFont = UIFont.systemFont(ofSize: 15), barItemWidth: CGFloat? = nil, barItemClickHandler: @escaping HZNavigationBarItemClickHandler) -> HZNavigationBarItem? {
-        return HZNavigationBarItem.create(normalImage: nil, selectedImage: nil, normalTitle: normalTitle, selectedTitle: selectedTitle, titleColor: titleColor, titleFont: titleFont, style: .left, space: 5, barItemWidth: barItemWidth, barItemClickHandler: barItemClickHandler)
-    }
-    
-    /// 快速创建：title、titleColor
-    public class func create(normalTitle: String, titleColor: UIColor, barItemWidth: CGFloat? = nil, barItemClickHandler: @escaping HZNavigationBarItemClickHandler) -> HZNavigationBarItem? {
-        return HZNavigationBarItem.create(normalImage: nil, selectedImage: nil, normalTitle: normalTitle, selectedTitle: nil, titleColor: titleColor, titleFont: UIFont.systemFont(ofSize: 15), style: .left, space: 5, barItemWidth: barItemWidth, barItemClickHandler: barItemClickHandler)
-    }
-    
-    /// 快速创建：image
-    public class func create(normalImage: Any?, selectedImage: Any? = nil, barItemClickHandler: @escaping HZNavigationBarItemClickHandler) -> HZNavigationBarItem? {
-        guard let _normalImage = normalImage else { return nil }
-        var norImage: UIImage? = nil
-        var selelmage: UIImage? = nil
-        if let selectedImage_ = selectedImage as? UIImage {
-            selelmage = selectedImage_
-        }else if let selectedString = selectedImage as? String {
-            selelmage = UIImage(named: selectedString)
-        }
-        if let normalImage_ = _normalImage as? UIImage {
-            norImage = normalImage_
-        }else if let normalString = _normalImage as? String {
-            norImage = UIImage(named: normalString)
-        }else {
-            return nil
-        }
-        return HZNavigationBarItem(normalImage: norImage, selectedImage: selelmage, normalTitle: nil, selectedTitle: nil, titleColor: nil, titleFont: nil, style: .left, space: 5, barItemWidth: nil, barItemClickHandler: barItemClickHandler)
-    }
-    
-    /// 快速创建
-    public class func create(normalImage: Any? = nil, selectedImage: Any? = nil, normalTitle: String? = nil, selectedTitle: String? = nil, titleColor: UIColor? = .black, titleFont: UIFont? = UIFont.systemFont(ofSize: 15), style: HZBarItemEdgeInsetsStyle = .left, space: CGFloat = 5, barItemWidth: CGFloat? = nil, barItemClickHandler: @escaping HZNavigationBarItemClickHandler) -> HZNavigationBarItem? {
-        if normalTitle == nil, normalImage == nil {
-            return nil
-        }else {
-            var norImage: UIImage? = nil
-            var selelmage: UIImage? = nil
-            if let selectedImage_ = selectedImage as? UIImage {
-                selelmage = selectedImage_
-            }else if let selectedString = selectedImage as? String {
-                selelmage = UIImage(named: selectedString)
-            }
-            if let normalImage_ = normalImage as? UIImage {
-                norImage = normalImage_
-            }else if let normalString = normalImage as? String {
-                norImage = UIImage(named: normalString)
-            }
-            return HZNavigationBarItem(normalImage: norImage, selectedImage: selelmage, normalTitle: normalTitle, selectedTitle: selectedTitle, titleColor: titleColor, titleFont: titleFont, style: style, space: space, barItemWidth: barItemWidth, barItemClickHandler: barItemClickHandler)
-        }
-    }
-    
-    /**
-     初始化创建
-     
-     - parameter frame:        默认不填（填了也几乎没用）
-     - parameter normalTitle:        normal状态显示的文字
-     - parameter normalImage:        normal状态显示的图片
-     - parameter selectedTitle:        selected状态显示的文字
-     - parameter selectedImage:        selected状态显示的图片
-     - parameter titleColor:        文字颜色
-     - parameter titleFont:        文字字号大小
-     - parameter style:        图片文字排列方式
-     - parameter space:        图片文字之间间隙
-     - parameter barItemWidth:        设置固定宽度
-     - parameter barItemClickHandler:        点击回调
-     */
-     fileprivate init(normalImage: UIImage?, selectedImage: UIImage?, normalTitle: String?, selectedTitle: String?, titleColor: UIColor?, titleFont: UIFont?, style: HZBarItemEdgeInsetsStyle, space: CGFloat, barItemWidth: CGFloat?, barItemClickHandler: @escaping HZNavigationBarItemClickHandler) {
+    /// 创建文字版HZNavigationBarItem
+    /// - Parameters:
+    ///   - normalTitle: 默认文字
+    ///   - normalColor: 默认文字颜色
+    ///   - selectedTitle: 选中文字
+    ///   - selectedColor: 选中文字颜色
+    ///   - font: 字号
+    ///   - style: 类型
+    ///   - space: 文字图标间距
+    ///   - barItemWidth: 宽度
+    ///   - clickHandler: 点击回调
+    public init(_ normalTitle: String, normalColor: UIColor, selectedTitle: String? = nil, selectedColor: UIColor? = nil, font: UIFont = UIFont.systemFont(ofSize: 15), style: HZBarItemEdgeInsetsStyle = .left, space: CGFloat = 5.0, barItemWidth: CGFloat? = nil, clickHandler: @escaping HZNavigationBarItemClickHandler) {
         super.init(frame: .zero)
-        
         self.normalTitle = normalTitle
-        self.normalImage = normalImage
+        self.normalColor = normalColor
         self.selectedTitle = selectedTitle
-        self.selectedImage = selectedImage
-        self._titleColor = titleColor
-        self.titleFont = titleFont
+        self.selectedColor = selectedColor
+        self.font = font
         self.style = style
         self.space = space
         self.barItemWidth = barItemWidth
-        self.barItemClickHandler = barItemClickHandler
-        
-        setupUI()
+        self.clickHandler = clickHandler
+        setBaseUI()
+    }
+    
+    /// 创建图片版HZNavigationBarItem
+    /// - Parameters:
+    ///   - normalImage: 默认image
+    ///   - selectedImage: 选中image
+    ///   - barItemWidth: 宽度
+    ///   - clickHandler: 点击回调
+    public init(_ normalImage: Any, selectedImage: Any? = nil, barItemWidth: CGFloat? = nil, clickHandler: @escaping HZNavigationBarItemClickHandler) {
+        super.init(frame: .zero)
+        if let _normalImage = normalImage as? UIImage {
+            self.normalImage = _normalImage
+        }else if let _normalImageString = normalImage as? String {
+            self.normalImage = UIImage(named: _normalImageString)
+        }
+        if let _selectedImage = selectedImage as? UIImage {
+            self.selectedImage = _selectedImage
+        }else if let _selectedImageString = selectedImage as? String {
+            self.selectedImage = UIImage(named: _selectedImageString)
+        }
+        self.barItemWidth = barItemWidth
+        self.clickHandler = clickHandler
+        setBaseUI()
+    }
+    
+    /// 创建文字图片版HZNavigationBarItem
+    /// - Parameters:
+    ///   - normalTitle: 默认文字
+    ///   - normalColor: 默认颜色
+    ///   - selectedTitle: 选中文字
+    ///   - selectedColor: 选中颜色
+    ///   - normalImage: 默认图片
+    ///   - selectedImage: 选中图片
+    ///   - font: 字号
+    ///   - style: 类型
+    ///   - space: 文字图片间距
+    ///   - barItemWidth: 宽度
+    ///   - clickHandler: 点击回调
+    public init(_ normalTitle: String, normalColor: UIColor, selectedTitle: String? = nil, selectedColor: UIColor? = nil, normalImage: Any, selectedImage: Any? = nil, font: UIFont = UIFont.systemFont(ofSize: 15), style: HZBarItemEdgeInsetsStyle = .left, space: CGFloat = 5.0, barItemWidth: CGFloat? = nil, clickHandler: @escaping HZNavigationBarItemClickHandler) {
+        super.init(frame: .zero)
+        self.normalTitle = normalTitle
+        self.normalColor = normalColor
+        self.selectedTitle = selectedTitle
+        self.selectedColor = selectedColor
+        if let _normalImage = normalImage as? UIImage {
+            self.normalImage = _normalImage
+        }else if let _normalImageString = normalImage as? String {
+            self.normalImage = UIImage(named: _normalImageString)
+        }
+        if let _selectedImage = selectedImage as? UIImage {
+            self.selectedImage = _selectedImage
+        }else if let _selectedImageString = selectedImage as? String {
+            self.selectedImage = UIImage(named: _selectedImageString)
+        }
+        self.font = font
+        self.style = style
+        self.space = space
+        self.barItemWidth = barItemWidth
+        self.clickHandler = clickHandler
+        setBaseUI()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setupUI()
+        setBaseUI()
     }
     
-    fileprivate func setupUI() {
+    fileprivate func setBaseUI() {
         
-        self.titleLabel?.font = titleFont
         self.contentMode = .center
-        if normalTitle != nil {
-            self.setTitleColor(_titleColor, for: .normal)
-            self.setTitle(normalTitle, for: .normal)
+        if let _normalTitle = self.normalTitle {
+            self.titleLabel?.font = self.font
+            self.setTitle(_normalTitle, for: .normal)
         }
-        if normalImage != nil {
-            self.setImage(normalImage, for: .normal)
+        if let _selectedTitle = self.selectedTitle {
+            self.setTitle(_selectedTitle, for: .selected)
         }
-        if selectedTitle != nil {
-            self.setTitle(selectedTitle, for: .selected)
+        if let _normalColor = self.normalColor {
+            self.setTitleColor(_normalColor, for: .normal)
         }
-        if selectedImage != nil {
-            self.setImage(selectedImage, for: .selected)
+        if let _selectedColor = self.selectedColor {
+            self.setTitleColor(_selectedColor, for: .selected)
+        }
+        if let _normalImage = self.normalImage {
+            self.setImage(_normalImage, for: .normal)
+        }
+        if let _selectedImage = self.selectedImage {
+            self.setImage(_selectedImage, for: .selected)
+        }
+        if normalTitle != nil, normalImage != nil {
+            self.barItemButtonLayoutButtonWithEdgeInsetsStyle(style: self.style, space: self.space)
         }
         self.addTarget(self, action: #selector(clickBarItemAction(_:)), for: .touchUpInside)
         
-        if normalTitle != nil && normalImage != nil {
-            self.barItemButtonLayoutButtonWithEdgeInsetsStyle(style: self.style, space: self.space)
-        }
     }
     
     @objc fileprivate func clickBarItemAction(_ sender: HZNavigationBarItem) {
-        
-        if let _block = barItemNewClickHandler {
-            _block(sender)
-        }else if let _block = self.barItemClickHandler {
-            _block(sender)
+        if let _clickHandler = self.clickHandler {
+            _clickHandler(sender)
         }
     }
 }
