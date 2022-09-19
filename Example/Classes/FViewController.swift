@@ -42,7 +42,7 @@ class FViewController: BaseViewController {
         nav?.title = "FViewController"
         view.backgroundColor = .green
         
-        nav?.hz.setItemsToLeft([HZNavigationBarItem("返回", normalColor: .black) { item in
+        nav?.hz.setBarItems(.left, items: [HZNavigationBarItem("返回", normalColor: .black) { item in
             
         }, HZNavigationBarItem("addIcon", clickHandler: { item in
             
@@ -50,7 +50,7 @@ class FViewController: BaseViewController {
             
         }])
         
-        nav?.hz.setItemsToRight([HZNavigationBarItem("跳转", normalColor: .black) { item in
+        nav?.hz.setBarItems(.right, items: [HZNavigationBarItem("跳转", normalColor: .black) { item in
             self.navigationController?.pushViewController(GViewController(), animated: true)
         }])
         self.playerView.addSubview(self.btn)
@@ -100,11 +100,11 @@ class FViewController: BaseViewController {
     }
     
     @objc fileprivate func clickFullBtn(_ sender: UIButton) {
-        if isFullScreen {
-            self.changeToOriginalFrame()
-        }else {
-            self.changeToFullScreen()
-        }
+//        if isFullScreen {
+//            self.changeToOriginalFrame()
+//        }else {
+//            self.changeToFullScreen()
+//        }
     }
     
     func changeToOriginalFrame() {   // 变为小屏

@@ -17,20 +17,20 @@ class DViewController: BaseViewController {
         nav?.title = "D控制器"
         nav?.bgColor = .orange
         nav?.statusBarColor = .green
+        nav?.navigationBarBackgroundColor = .yellow
 //        statusBarStyle = .lightContent
-        nav?.hz.hiddenItemWithLeft(hidden: true)
-        
-        nav?.hz.setItemsToRight([HZNavigationBarItem("releaseIcon") { item in
+        nav?.hz.hiddenBarItem(.left, hidden: true)
+        nav?.hz.setBarItems(.right, items: [HZNavigationBarItem("releaseIcon") { item in
             
         }])
 
-        nav?.bgAlpha = 0.1
+        nav?.bgAlpha = 0.5
         UIButton.setJumpButton(self, action: #selector(jumpToNext(_:)))
     }
     
     @objc func jumpToNext(_ sender: UIButton) {
-//        self.navigationController?.pushViewController(EViewController(), animated: true)
-        nav?.bgColor = .yellow
+        self.navigationController?.pushViewController(EViewController(), animated: true)
+//        nav?.bgColor = .yellow
     }
         
 }

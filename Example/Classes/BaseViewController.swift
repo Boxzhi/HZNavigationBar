@@ -36,7 +36,7 @@ class BaseViewController: UIViewController {
                 let currentVc = UIViewController.currentViewController()
                 currentVc?.backLastViewController(animated: true)
             }
-            nav?.hz.addItemsToLeft([left])
+            nav?.hz.addBarItems(.left, items: [left])
         }
         
     }
