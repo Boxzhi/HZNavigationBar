@@ -148,21 +148,21 @@ open class HZCustomNavigationBar: UIView {
         }
     }
     
-    /// 大背景颜色
+    /// 整体背景颜色
     public var bgColor: UIColor? {
         willSet {
             hz_setBackground(color: newValue)
         }
     }
     
-    /// 大背景图
+    /// 整体背景图
     public var bgImage: UIImage? {
         willSet {
             hz_setBackground(image: newValue)
         }
     }
     
-    /// 大背景透明度
+    /// 整体背景透明度
     public var bgAlpha: CGFloat? {
         willSet {
             hz_setBackground(alpha: newValue)
@@ -296,6 +296,13 @@ open class HZCustomNavigationBar: UIView {
         return _navigationBarView
     }()
     
+    /// 导航栏背景View
+    fileprivate lazy var navigationBarBackgroundView: UIView = {
+        let _navigationBarBackgroundView = UIView()
+        _navigationBarBackgroundView.backgroundColor = .clear
+        return _navigationBarBackgroundView
+    }()
+    
     /// 导航栏背景ImageView
     fileprivate lazy var navigationBarBackgroundImageView: UIImageView = {
         let _navigationBarBackgroundImageView = UIImageView()
@@ -350,31 +357,33 @@ open class HZCustomNavigationBar: UIView {
         addSubview(backgroundImageView)
         addSubview(statusBarView)
         addSubview(navigationBarView)
+        addSubview(shadowLine)
+        navigationBarView.addSubview(navigationBarBackgroundView)
         navigationBarView.addSubview(navigationBarBackgroundImageView)
         navigationBarView.addSubview(_titleView)
         navigationBarView.addSubview(titleLabel)
-        navigationBarView.addSubview(shadowLine)
     }
     
     open override func updateConstraints() {
         super.updateConstraints()
         
-        addConstraints(with: backgroundView, top: 0, bottom: 0, left: 0, right: 0)
-        addConstraints(with: backgroundImageView, top: 0, bottom: 0, left: 0, right: 0)
-        addConstraints(with: statusBarView, top: 0, left: 0, right: 0, height: HZCustomNavigationBar.statusBarHeight)
-        addConstraints(with: navigationBarView, bottom: 0, left: 0, right: 0, height: HZCustomNavigationBar.navigationBarHeight)
-        navigationBarView.addConstraints(with: navigationBarBackgroundImageView, top: 0, bottom: 0, left: 0, right: 0)
+        makeConstraints(with: backgroundView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
+        makeConstraints(with: backgroundImageView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
+        makeConstraints(with: statusBarView, constants: [.top: 0, .left: 0, .right: 0, .height: HZCustomNavigationBar.statusBarHeight])
+        makeConstraints(with: navigationBarView, constants: [.bottom: 0, .left: 0, .right: 0, .height: HZCustomNavigationBar.statusBarHeight])
+        makeConstraints(with: shadowLine, constants: [.bottom: 0, .left: 0, .right: 0, .height: 0.5])
+        navigationBarView.makeConstraints(with: navigationBarBackgroundView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
+        navigationBarView.makeConstraints(with: navigationBarBackgroundImageView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
         updateTitleConstraints()
-        navigationBarView.addConstraints(with: shadowLine, bottom: 0, left: 0, right: 0, height: 0.5)
     }
     
     fileprivate func updateTitleConstraints() {
         if titleViewIsCenter {
-            navigationBarView.addConstraints(with: _titleView, top: 0, bottom: 0, left: max(leftTitleViewMargin + leftBarItemTotalWidth, rightTitleViewMargin + rightBarItemTotalWidth), right: -max(leftTitleViewMargin + leftBarItemTotalWidth, rightTitleViewMargin + rightBarItemTotalWidth), prioritys: [.left: 900.0, .right: 900.0])
+            navigationBarView.remakeConstraints(with: _titleView, constants: [.top: 0, .bottom: 0, .left: max(leftTitleViewMargin + leftBarItemTotalWidth, rightTitleViewMargin + rightBarItemTotalWidth), .right: -max(leftTitleViewMargin + leftBarItemTotalWidth, rightTitleViewMargin + rightBarItemTotalWidth)], prioritys: [.left: 900.0, .right: 900.0])
         }else {
-            navigationBarView.addConstraints(with: _titleView, top: 0, bottom: 0, left: leftTitleViewMargin, right: -rightTitleViewMargin, toItems: [.left: leftBarItems?.last, .right: rightBarItems?.last], itemAttributes: [.left: leftBarItems?.last == nil ? .left : .right, .right: rightBarItems?.last == nil ? .right : .left], prioritys: [.left: 900.0, .right: 900.0])
+            navigationBarView.remakeConstraints(with: _titleView, constants: [.top: 0, .bottom: 0, .left: leftTitleViewMargin, .right: -rightTitleViewMargin], toItems: [.left: leftBarItems?.last, .right: rightBarItems?.last], attributes: [.left: leftBarItems?.last == nil ? .left : .right, .right: rightBarItems?.last == nil ? .right : .left], prioritys: [.left: 900.0, .right: 900.0])
         }
-        navigationBarView.addConstraints(with: titleLabel, top: 0, bottom: 0, width: min(HZCustomNavigationBar.screenWidth / 2.0, HZCustomNavigationBar.screenWidth - max(leftBarItemTotalWidth, rightBarItemTotalWidth) * 2.0 - leftTitleViewMargin - rightTitleViewMargin), centerX: 0, prioritys: [.width: 850])
+        navigationBarView.remakeConstraints(with: titleLabel, constants: [.top: 0, .bottom: 0, .width: min(HZCustomNavigationBar.screenWidth / 2.0, HZCustomNavigationBar.screenWidth - max(leftBarItemTotalWidth, rightBarItemTotalWidth) * 2.0 - leftTitleViewMargin - rightTitleViewMargin), .centerX: 0], prioritys: [.width: 850])
     }
     
 }
@@ -390,25 +399,27 @@ private extension HZCustomNavigationBar {
         }
     }
     
-    /// 设置大背景色或背景图
+    /// 设置整体背景色或背景图
     func hz_setBackground(color: UIColor? = nil, image: UIImage? = nil, alpha: CGFloat? = nil) {
         if let _color = color {
             self.statusBarView.backgroundColor = .clear
-            self.navigationBarView.backgroundColor = .clear
+            self.navigationBarBackgroundView.backgroundColor = .clear
             self.navigationBarBackgroundImageView.isHidden = true
-            self.titleLabel.backgroundColor = .clear
             self.backgroundImageView.isHidden = true
             self.backgroundView.backgroundColor = _color
         }else if let _image = image {
             self.statusBarView.backgroundColor = .clear
-            self.navigationBarView.backgroundColor = .clear
+            self.navigationBarBackgroundView.backgroundColor = .clear
             self.navigationBarBackgroundImageView.isHidden = true
-            self.titleLabel.backgroundColor = .clear
             self.backgroundImageView.isHidden = false
             self.backgroundImageView.image = _image
         }
         if let _alpha = alpha {
             self.backgroundView.alpha = _alpha
+            self.backgroundImageView.alpha = _alpha
+            self.statusBarView.alpha = _alpha
+            self.navigationBarBackgroundView.alpha = _alpha
+            self.navigationBarBackgroundImageView.alpha = _alpha
             self.shadowLine.alpha = _alpha
         }
     }
@@ -425,6 +436,7 @@ private extension HZCustomNavigationBar {
         if let _color = color {
             self.navigationBarBackgroundImageView.isHidden = true
             self.navigationBarView.backgroundColor = _color
+            self.navigationBarView.subviews.forEach({ $0.backgroundColor = _color })
         }else if let _image = image {
             self.navigationBarBackgroundImageView.isHidden = false
             self.navigationBarBackgroundImageView.image = _image
@@ -447,6 +459,7 @@ private extension HZCustomNavigationBar {
             titleLabel.font = _font
         }else if let _titleAttributedString = titleAttributedString {
             _titleView.isHidden = true
+            titleLabel.isHidden = false
             titleLabel.attributedText = _titleAttributedString
         }
     }
@@ -459,7 +472,7 @@ private extension HZCustomNavigationBar {
         self.titleLabel.isHidden = true
         if let _button = view as? UIButton {
             _button.contentMode = .center
-            self._titleView.addConstraints(with: _button, top: 0, bottom: 0, centerX: 0)
+            self._titleView.makeConstraints(with: _button, constants: [.top: 0, .bottom: 0, .centerX: 0])
         }else {
             if let _imageView = view as? UIImageView {
                 _imageView.contentMode = .scaleAspectFit
@@ -469,13 +482,13 @@ private extension HZCustomNavigationBar {
                 viewSize = _size
             }
             if viewSize.width == 0, viewSize.height == 0 {
-                self._titleView.addConstraints(with: view, top: 0, bottom: 0, left: 0, right: 0)
+                self._titleView.makeConstraints(with: view, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
             }else if viewSize.width != 0, viewSize.height != 0 {
-                self._titleView.addConstraints(with: view, width: min(viewSize.width, HZCustomNavigationBar.screenWidth - leftTitleViewMargin - rightTitleViewMargin - leftBarItemTotalWidth - rightBarItemTotalWidth), height: min(viewSize.height, HZCustomNavigationBar.navigationBarHeight), centerX: 0, centerY: 0)
+                self._titleView.makeConstraints(with: view, constants: [.width: min(viewSize.width, HZCustomNavigationBar.screenWidth - leftTitleViewMargin - rightTitleViewMargin - leftBarItemTotalWidth - rightBarItemTotalWidth), .height: min(viewSize.height, HZCustomNavigationBar.navigationBarHeight), .centerX: 0, .centerY: 0])
             }else if viewSize.width == 0 {
-                self._titleView.addConstraints(with: view, left: 0, right: 0, height: min(viewSize.height, HZCustomNavigationBar.navigationBarHeight), centerY: 0)
+                self._titleView.makeConstraints(with: view, constants: [.left: 0, .right: 0, .height: min(viewSize.height, HZCustomNavigationBar.navigationBarHeight), .centerY: 0])
             }else if viewSize.height == 0 {
-                self._titleView.addConstraints(with: view, top: 0, bottom: 0, width: min(viewSize.width, HZCustomNavigationBar.screenWidth - leftTitleViewMargin - rightTitleViewMargin - leftBarItemTotalWidth - rightBarItemTotalWidth), centerX: 0)
+                self._titleView.makeConstraints(with: view, constants: [.top: 0, .bottom: 0, .width: min(viewSize.width, HZCustomNavigationBar.screenWidth - leftTitleViewMargin - rightTitleViewMargin - leftBarItemTotalWidth - rightBarItemTotalWidth), .centerX: 0])
             }
         }
     }
@@ -522,26 +535,25 @@ private extension HZCustomNavigationBar {
         var totalWidth: CGFloat = barItemType == .left ? self.leftBarItemMargin : self.rightBarItemMargin
         barItems.enumerated().forEach { element in
             self.navigationBarView.addSubview(element.element)
-            var barItemWidth = element.element.barItemWidth
+            var barItemWidth: CGFloat = element.element.barItemWidth ?? max(element.element.sizeThatFits(.zero).width + 5.0, HZCustomNavigationBar.navigationBarHeight)
             if element.element.title(for: .normal) == nil {
                 barItemWidth = HZCustomNavigationBar.navigationBarHeight
-            }else if barItemWidth == nil {
-                barItemWidth = max(element.element.sizeThatFits(.zero).width + 5.0, HZCustomNavigationBar.navigationBarHeight)
             }
+        
             if barItemType == .left {
                 if element.offset == 0 {
-                    self.navigationBarView.addConstraints(with: element.element, top: 0, bottom: 0, left: self.leftBarItemMargin, width: barItemWidth, prioritys: [.left: Float(1000 - element.offset), .width: Float(1000 - element.offset)])
+                    self.navigationBarView.remakeConstraints(with: element.element, constants: [.top: 0, .bottom: 0, .left: self.leftBarItemMargin, .width: barItemWidth], prioritys: [.left: Float(1000 - element.offset), .width: Float(1000 - element.offset)])
                 }else {
-                    self.navigationBarView.addConstraints(with: element.element, top: 0, bottom: 0, left: 0, width: barItemWidth, toItems: [.left: lastItem], itemAttributes: [.left: .right], prioritys: [.left: Float(1000 - element.offset), .width: Float(1000 - element.offset)])
+                    self.navigationBarView.remakeConstraints(with: element.element, constants: [.top: 0, .bottom: 0, .left: 0, .width: barItemWidth], toItems: [.left: lastItem], attributes: [.left: .right], prioritys: [.left: Float(1000 - element.offset), .width: Float(1000 - element.offset)])
                 }
             }else if barItemType == .right {
                 if element.offset == 0 {
-                    self.navigationBarView.addConstraints(with: element.element, top: 0, bottom: 0, right: -rightBarItemMargin, width: barItemWidth, prioritys: [.right: Float(950 - element.offset), .width: Float(950 - element.offset)])
+                    self.navigationBarView.remakeConstraints(with: element.element, constants: [.top: 0, .bottom: 0, .right: -rightBarItemMargin, .width: barItemWidth], prioritys: [.right: Float(950 - element.offset), .width: Float(950 - element.offset)])
                 }else {
-                    self.navigationBarView.addConstraints(with: element.element, top: 0, bottom: 0, right: 0, width: barItemWidth, toItems: [.right: lastItem], itemAttributes: [.right: .left], prioritys: [.right: Float(950 - element.offset), .width: Float(950 - element.offset)])
+                    self.navigationBarView.remakeConstraints(with: element.element, constants: [.top: 0, .bottom: 0, .right: 0, .width: barItemWidth], toItems: [.right: lastItem], attributes: [.right: .left], prioritys: [.right: Float(950 - element.offset), .width: Float(950 - element.offset)])
                 }
             }
-            totalWidth += (barItemWidth ?? 0)
+            totalWidth += barItemWidth
             lastItem = element.element
             if let _themeColor = self.themeColor {
                 element.element.titleColor = _themeColor
@@ -643,7 +655,22 @@ private extension HZCustomNavigationBar {
                 if let _badgeView = barItemBadgeDic[index] {
                     _badgeView.removeFromSuperview()
                     barItemBadgeDic = barItemBadgeDic.filter({ $0.key != index })
+                }else if barItemBadgeDic.count > 0 {
+                    var temp: [Int: UIView] = [:]
+                    barItemBadgeDic.forEach { kv in
+                        if kv.key > index {
+                            temp[kv.key - 1] = kv.value
+                        }else {
+                            temp[kv.key] = kv.value
+                        }
+                    }
+                    barItemBadgeDic = temp
                 }
+            }
+            if barItemType == .left {
+                self.leftBarItemBadgeDic = barItemBadgeDic
+            }else {
+                self.rightBarItemBadgeDic = barItemBadgeDic
             }
             self.hz_setBarItemsWithLayout(_barItems, barItemType: barItemType)
         }else {
@@ -769,7 +796,11 @@ private extension HZCustomNavigationBar {
         }
         self.navigationBarView.addSubview(badgeView)
         let barItem = _barItems[atIndex]
-        self.navigationBarView.constrainBadgeView(badgeView, targetView: barItem, size: _size, offset: offset)
+        if let _imageWidth = barItem.imageView?.bounds.width, let _imageHeight = barItem.imageView?.bounds.height {
+            self.navigationBarView.makeConstraints(with: badgeView, constants: [.width: _size.width, .height: _size.height, .centerX: _imageWidth / 2.0 + offset.x, .centerY: -(_imageHeight / 2.0) + offset.y], toItems: [.centerX: barItem, .centerY: barItem])
+        }else {
+            self.navigationBarView.makeConstraints(with: badgeView, constants: [.top: -(_size.height / 2.0) + offset.y, .right: _size.width / 2.0 + offset.x, .width: _size.width, .height: _size.height], toItems: [.top: barItem, .right: barItem])
+        }
         if barItemType == .left {
             leftBarItemBadgeDic[atIndex] = badgeView
         }else {
@@ -810,7 +841,7 @@ public extension HZCustomNavigationBar {
     static func create(to view: UIView) -> HZCustomNavigationBar {
         let navigationBar = HZCustomNavigationBar(frame: .zero)
         view.addSubview(navigationBar)
-        view.addConstraints(with: navigationBar, top: 0, left: 0, right: 0, height: HZCustomNavigationBar.statusBarHeight + HZCustomNavigationBar.navigationBarHeight)
+        view.makeConstraints(with: navigationBar, constants: [.top: 0, .left: 0, .right: 0, .height: HZCustomNavigationBar.statusNavigationBarHeight])
         return navigationBar
     }
 }
@@ -831,7 +862,7 @@ public extension HZNavigationBarWrapper where Base: HZCustomNavigationBar {
         base.hz_setBottomShadow(isShow, shadowColor: shadowColor, shadowOffset: shadowOffset, shadowOpacity: shadowOpacity, shadowRadius: shadowRadius)
     }
     
-    /// 设置BarItem按钮颜色
+    /// 设置BarItem按钮文字颜色
     func setBarItemColor(_ color: UIColor) {
         base.hz_setBarItemColor(color)
     }
@@ -846,150 +877,105 @@ public extension HZNavigationBarWrapper where Base: HZCustomNavigationBar {
 //MARK: - 供外部对BarItem设置调用的方法
 public extension HZNavigationBarWrapper where Base: HZCustomNavigationBar {
     
-    /// 设置LeftBarItem，若之前已存在barItem，则会先移除后设置.
-    /// - leftItems: barItem的数组.
-    func setItemsToLeft(_ leftItems: [HZNavigationBarItem?]) {
-        base.hz_setBarItems(leftItems, barItemType: .left)
+    /// 获取已设置的NavigationBarItem数组
+    /// - Parameter type: 左边👈🏻👉🏻右边
+    /// - Returns: barItem数组
+    func getBarItems(_ type: HZNavigationBarItemType) -> [HZNavigationBarItem]? {
+        return type == .left ? base.leftBarItems : base.rightBarItems
     }
     
-    /// 设置RightBarItem，若之前已存在barItem，则会先移除后设置.
-    /// - rightItems: barItem的数组.
-    func setItemsToRight(_ rightItems: [HZNavigationBarItem?]) {
-        base.hz_setBarItems(rightItems, barItemType: .right)
-    }
-    
-    /// 新增设置LeftBarItem，若之前已存在barItem，则在其基础上新增（以增量方式进行）.
-    /// - leftItems: barItem的数组.
-    func addItemsToLeft(_ leftItems: [HZNavigationBarItem?]) {
-        base.hz_addBarItems(leftItems, barItemType: .left)
-    }
-    
-    /// 新增设置RightBarItem，若之前已存在barItem，则在其基础上新增（以增量方式进行）.
-    /// - rightItems: barItem的数组.
-    func addItemsToRight(_ rightItems: [HZNavigationBarItem?]) {
-        base.hz_addBarItems(rightItems, barItemType: .right)
-    }
-    
-    /// 左边插入item
+    /// 设置NavigationBarItem
     /// - Parameters:
-    ///   - leftItem: 要插入的item
-    ///   - at: 插入的位置
-    func insertItemToLeft(_ leftItem: HZNavigationBarItem, at: Int) {
-        base.hz_insertItem(leftItem, at: at, barItemType: .left)
+    ///   - type: 左边👈🏻👉🏻右边
+    ///   - leftItems: barItem数组
+    func setBarItems(_ type: HZNavigationBarItemType, items: [HZNavigationBarItem]) {
+        base.hz_setBarItems(items, barItemType: type)
     }
     
-    /// 右边插入item
+    /// 新增NavigationBarItem
     /// - Parameters:
-    ///   - leftItem: 要插入的item
-    ///   - at: 插入的位置
-    func insertItemToRight(_ rightItem: HZNavigationBarItem, at: Int) {
-        base.hz_insertItem(rightItem, at: at, barItemType: .right)
+    ///   - type: 左边👈🏻👉🏻右边
+    ///   - leftItems: barItem数组
+    func addBarItems(_ type: HZNavigationBarItemType, items: [HZNavigationBarItem]) {
+        base.hz_addBarItems(items, barItemType: type)
     }
     
-    /// 更新LeftBarItem.
-    /// - atIndex: 更新barItem的角标.
-    /// - normalTitle: item默认title.
-    /// - selectedTitle: item选中title.
-    /// - normalImage: item默认image.
-    /// - selectedImage: item选中image.
-    /// - barItemClickHandler: 替换barItem的点击方法 (可传nil).
-    func updateItemWithLeft(_ atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: Any? = nil, selectedImage: Any? = nil, barItemClickHandler: HZNavigationBarItemClickHandler? = nil) {
-        base.hz_updateBarItem(.left, atIndex: atIndex, normalTitle: normalTitle, selectedTitle: selectedTitle, normalImage: normalImage, selectedImage: selectedImage, barItemClickHandler: barItemClickHandler)
+    /// 插入NavigationBarItem
+    /// - Parameters:
+    ///   - type: 左边👈🏻👉🏻右边
+    ///   - item: 要插入的item
+    ///   - at: 插入位置
+    func insertBarItem(_ type: HZNavigationBarItemType, atIndex: Int, item: HZNavigationBarItem) {
+        base.hz_insertItem(item, at: atIndex, barItemType: type)
     }
     
-    /// 更新RightBarItem.
-    /// - atIndex: 更新barItem的角标.
-    /// - normalTitle: item默认title.
-    /// - selectedTitle: item选中title.
-    /// - normalImage: item默认image.
-    /// - selectedImage: item选中image.
-    /// - barItemClickHandler: 替换barItem的点击方法 (可传nil).
-    func updateItemWithRight(_ atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: Any? = nil, selectedImage: Any? = nil, barItemClickHandler: HZNavigationBarItemClickHandler? = nil) {
-        base.hz_updateBarItem(.right, atIndex: atIndex, normalTitle: normalTitle, selectedTitle: selectedTitle, normalImage: normalImage, selectedImage: selectedImage, barItemClickHandler: barItemClickHandler)
+    /// 更新NavigationBarItem
+    /// - Parameters:
+    ///   - type: 左边👈🏻👉🏻右边
+    ///   - atIndex: 更新位置
+    ///   - normalTitle: 默认文字
+    ///   - selectedTitle: 选中文字
+    ///   - normalImage: 默认图片
+    ///   - selectedImage: 选中图片
+    ///   - barItemClickHandler: 点击回调
+    func updateBarItem(_ type: HZNavigationBarItemType, atIndex: Int = 0, normalTitle: String? = nil, selectedTitle: String? = nil, normalImage: Any? = nil, selectedImage: Any? = nil, barItemClickHandler: HZNavigationBarItemClickHandler? = nil) {
+        base.hz_updateBarItem(type, atIndex: atIndex, normalTitle: normalTitle, selectedTitle: selectedTitle, normalImage: normalImage, selectedImage: selectedImage, barItemClickHandler: barItemClickHandler)
     }
     
-    /// 移除LeftBarItem.
-    /// - indexs: barItem的角标(从左到右)数组，不传默认全移除.
-    func removeItemsWithLeft(_ indexs: [Int]? = nil) {
-        base.hz_removeBarItems(.left, barItemIndexs: indexs)
+    /// 移除NavigationBarItem
+    /// - Parameters:
+    ///   - type: 左边👈🏻👉🏻右边
+    ///   - indexs: 移除位置
+    func removeBarItems(_ type: HZNavigationBarItemType, indexs: [Int]? = nil) {
+        base.hz_removeBarItems(type, barItemIndexs: indexs)
     }
     
-    /// 移除RightBarItem.
-    /// - indexs: barItem的角标(从右到左)数组，不传默认全移除.
-    func removeItemsWithRight(_ indexs: [Int]? = nil) {
-        base.hz_removeBarItems(.right, barItemIndexs: indexs)
+    /// 隐藏NavigationBarItem
+    /// - Parameters:
+    ///   - type: 左边👈🏻👉🏻右边
+    ///   - atIndex: 隐藏位置
+    ///   - hidden: 是否隐藏
+    func hiddenBarItem(_ type: HZNavigationBarItemType, atIndex: Int? = nil, hidden: Bool) {
+        base.hz_hiddenBarItem(type, atIndex: atIndex, hidden: hidden)
     }
     
-    /// 隐藏LeftBarItem.
-    /// - atIndex: 需要隐藏的barItem角标，不传默认全隐藏.
-    /// - hidden: 隐藏还是显示.
-    func hiddenItemWithLeft(_ atIndex: Int? = nil, hidden: Bool) {
-        base.hz_hiddenBarItem(.left, atIndex: atIndex, hidden: hidden)
+    /// 更新点击事件回调
+    /// - Parameters:
+    ///   - type: 左边👈🏻👉🏻右边
+    ///   - atIndex: 位置
+    ///   - barItemClickHandler: 点击回调
+    func barItemClickHandler(_ type: HZNavigationBarItemType, atIndex: Int = 0, barItemClickHandler: @escaping HZNavigationBarItemClickHandler) {
+        base.hz_clickBarItem(type, atIndex: atIndex, barItemClickHandler: barItemClickHandler)
     }
     
-    /// 隐藏RightBarItem.
-    /// - atIndex: 需要隐藏的barItem角标，不传默认全隐藏.
-    /// - hidden: 隐藏还是显示.
-    func hiddenItemWithRight(_ atIndex: Int? = nil, hidden: Bool) {
-        base.hz_hiddenBarItem(.right, atIndex: atIndex, hidden: hidden)
+    /// NavigationBarItem显示小圆点颜色badge
+    /// - Parameters:
+    ///   - type: 左边👈🏻👉🏻右边
+    ///   - atIndex: 位置
+    ///   - size: badge大小
+    ///   - color: badge颜色
+    ///   - offset: badge偏移量
+    func barItemShowColorBadge(_ type: HZNavigationBarItemType, atIndex: Int, badgeSize: CGSize? = nil, color: UIColor? = nil, offset: CGPoint = .zero) {
+        base.hz_showBarItemBadge(type, atIndex: atIndex, color: color, size: badgeSize, offset: offset)
     }
     
-    /// 更新LeftBarItem点击事件方法.
-    /// - atIndex: 点击barItem的角标.
-    /// - barItemClickHandler: 点击的block回调.
-    func clickLeftBarItem(_ atIndex: Int = 0, barItemClickHandler: @escaping HZNavigationBarItemClickHandler) {
-        base.hz_clickBarItem(.left, atIndex: atIndex, barItemClickHandler: barItemClickHandler)
+    /// NavigationBarItem显示图片badge
+    /// - Parameters:
+    ///   - type: 左边👈🏻👉🏻右边
+    ///   - atIndex: 位置
+    ///   - size: badge大小
+    ///   - image: badge图片
+    ///   - offset: badge偏移量
+    func barItemShowImageBadge(_ type: HZNavigationBarItemType, atIndex: Int, badgeSize: CGSize? = nil, image: Any, offset: CGPoint = .zero) {
+        base.hz_showBarItemBadge(type, atIndex: atIndex, badgeImage: image, size: badgeSize, offset: offset)
     }
     
-    /// 更新RightBarItem点击事件方法.
-    /// - atIndex: 点击barItem的角标.
-    /// - barItemClickHandler: 点击的block回调.
-    func clickRightBarItem(_ atIndex: Int = 0, barItemClickHandler: @escaping HZNavigationBarItemClickHandler) {
-        base.hz_clickBarItem(.right, atIndex: atIndex, barItemClickHandler: barItemClickHandler)
-    }
-    
-    /// 设置LeftBarItem的badge (自定义颜色).
-    /// - atIndex: barItem的角标.
-    /// - size: badge的尺寸 (默认为CGSize(width: 8.0, height: 8.0)).
-    /// - color: badge的颜色.
-    func showLeftBarItemBadge(_ atIndex: Int, size: CGSize? = nil, color: UIColor? = nil, offset: CGPoint = .zero) {
-        base.hz_showBarItemBadge(.left, atIndex: atIndex, color: color, size: size, offset: offset)
-    }
-    
-    /// 设置RightBarItem的badge (自定义颜色).
-    /// - atIndex: barItem的角标.
-    /// - size: badge的尺寸 (默认为CGSize(width: 8.0, height: 8.0)).
-    /// - color: badge的颜色.
-    func showRightBarItemBadge(_ atIndex: Int, size: CGSize? = nil, color: UIColor? = nil, offset: CGPoint = .zero) {
-        base.hz_showBarItemBadge(.right, atIndex: atIndex, color: color, size: size, offset: offset)
-    }
-    
-    /// 设置LeftBarItem的badge (自定义图片).
-    /// - atIndex: barItem的角标.
-    /// - size: badge的尺寸 (默认为CGSize(width: 8.0, height: 8.0)).
-    /// - image: badge的图片.
-    func showLeftBarItemBadgeImage(_ atIndex: Int, size: CGSize? = nil, image: Any, offset: CGPoint = .zero) {
-        base.hz_showBarItemBadge(.left, atIndex: atIndex, badgeImage: image, size: size, offset: offset)
-    }
-    
-    /// 设置RightBarItem的badge (自定义图片).
-    /// - atIndex: barItem的角标.
-    /// - size: badge的尺寸 (默认为CGSize(width: 8.0, height: 8.0)).
-    /// - image: badge的图片.
-    func showRightBarItemBadgeImage(_ atIndex: Int, size: CGSize? = nil, image: Any, offset: CGPoint = .zero) {
-        base.hz_showBarItemBadge(.right, atIndex: atIndex, badgeImage: image, size: size, offset: offset)
-    }
-    
-    /// 隐藏（移除）LeftBarItem的badge.
-    /// - atIndex: barItem的角标 (不传默认左侧badge全隐藏).
-    func hiddenLeftBarItemBadge(_ atIndex: Int? = nil) {
-        base.hz_hiddenBarItemBadge(.left, atIndex: atIndex)
-    }
-    
-    /// 隐藏（移除）LeftBarItem的badge.
-    /// - atIndex: barItem的角标 (不传默认右侧badge全隐藏).
-    func hiddenRightBarItemBadge(_ atIndex: Int? = nil) {
-        base.hz_hiddenBarItemBadge(.right, atIndex: atIndex)
+    /// 移除NavigationBarItem的badge
+    /// - Parameters:
+    ///   - type: 左边👈🏻👉🏻右边
+    ///   - atIndex: 位置
+    func barItemRemoveBadge(_ type: HZNavigationBarItemType, atIndex: Int? = nil) {
+        base.hz_hiddenBarItemBadge(type, atIndex: atIndex)
     }
     
 }
