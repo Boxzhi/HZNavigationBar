@@ -756,7 +756,7 @@ private extension HZCustomNavigationBar {
             barItems = self.rightBarItems
         }
         
-        guard let _barItems = barItems, atIndex > _barItems.count else { return }
+        guard let _barItems = barItems, atIndex < _barItems.count else { return }
         let barItem = _barItems[atIndex]
         barItem.clickHandler = barItemClickHandler
     }
