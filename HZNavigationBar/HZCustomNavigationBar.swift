@@ -370,7 +370,7 @@ open class HZCustomNavigationBar: UIView {
         makeConstraints(with: backgroundView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
         makeConstraints(with: backgroundImageView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
         makeConstraints(with: statusBarView, constants: [.top: 0, .left: 0, .right: 0, .height: HZCustomNavigationBar.statusBarHeight])
-        makeConstraints(with: navigationBarView, constants: [.bottom: 0, .left: 0, .right: 0, .height: HZCustomNavigationBar.statusBarHeight])
+        makeConstraints(with: navigationBarView, constants: [.bottom: 0, .left: 0, .right: 0, .height: HZCustomNavigationBar.navigationBarHeight])
         makeConstraints(with: shadowLine, constants: [.bottom: 0, .left: 0, .right: 0, .height: 0.5])
         navigationBarView.makeConstraints(with: navigationBarBackgroundView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
         navigationBarView.makeConstraints(with: navigationBarBackgroundImageView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
