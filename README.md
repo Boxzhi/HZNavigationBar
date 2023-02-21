@@ -11,11 +11,17 @@
 - Swift 4.2+
 
 # 版本更新记录
+- v2.0.2 - 2023.01.07
+  - 修复非刘海屏机型导航栏中子控件未垂直居中问题.
+
+- v2.0.1 - 2022.10.09
+  - 修复barItemClickHandler方法无响应问题.
+
 - v2.0.0 - 2022.09.19
-  - 创建方法create更新，传入HZNavigationBar所在的父View即可添加并设置约束
-  - UI图层更新，可设置整体背景，也可单独设置状态栏或导航栏背景
-  - 设置BarItem方法大更新，通过type判断左或右
-  - titleView可居中或不居中
+  - 创建方法create更新，传入HZNavigationBar所在的父View即可添加并设置约束.
+  - UI图层更新，可设置整体背景，也可单独设置状态栏或导航栏背景.
+  - 设置BarItem方法大更新，通过type判断左或右.
+  - titleView可居中或不居中.
 
 # 安装
 打开 Podfile，在您项目的 target 下加入以下内容。（此处示例可能是旧版本，使用时请替换为最新版，最新版信息可以从这里获取：<a href="https://github.com/CoderZZHe/HZNavigationBar/blob/master/HZNavigationBar.podspec"><img src="https://img.shields.io/badge/pod-GetLatestVersion-blue.svg?style=flat"></a>）
