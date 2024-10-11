@@ -536,9 +536,9 @@ private extension HZCustomNavigationBar {
         barItems.enumerated().forEach { element in
             self.navigationBarView.addSubview(element.element)
             var barItemWidth: CGFloat = element.element.barItemWidth ?? max(element.element.sizeThatFits(.zero).width + 5.0, HZCustomNavigationBar.navigationBarHeight)
-            if element.element.title(for: .normal) == nil {
-                barItemWidth = HZCustomNavigationBar.navigationBarHeight
-            }
+//            if element.element.title(for: .normal) == nil {
+//                barItemWidth = HZCustomNavigationBar.navigationBarHeight
+//            }
         
             if barItemType == .left {
                 if element.offset == 0 {
