@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name = 'HZNavigationBar'
-  s.version = '2.0.3'
+  s.version = '2.0.4'
   s.summary = 'A very simple to use, can be completely customized navigation bar'
   s.homepage = 'https://github.com/Boxzhi/HZNavigationBar'
   s.author = { 'HeZhizhi' => 'coderhzz@163.com' }
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.source = { :git => "https://github.com/Boxzhi/HZNavigationBar.git", :tag => s.version }
 
   s.ios.deployment_target = '10.0'
-  s.source_files = 'HZNavigationBar/*.swift'
+  s.source_files = 'Sources/*.swift'
   s.framework = 'UIKit'
   s.swift_version = '5.0'
 

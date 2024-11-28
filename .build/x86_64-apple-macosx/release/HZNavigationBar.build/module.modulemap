@@ -1,0 +1,4 @@
+module HZNavigationBar {
+    header "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZNavigationBar-Swift.h"
+    requires objc
+}

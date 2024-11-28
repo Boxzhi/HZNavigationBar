@@ -6,6 +6,7 @@
 //  Copyright © 2019 何志志. All rights reserved.
 //
 
+#if canImport(UIKit)
 import UIKit
 
 extension UINavigationBar {
@@ -924,3 +925,4 @@ public extension HZNavigationBar {
 //        return super.next
 //    }
 //}
+#endif

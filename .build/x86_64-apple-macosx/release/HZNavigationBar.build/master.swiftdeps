@@ -1,0 +1,9 @@
+version: "Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)"
+options: "2fe4aa1e7650e7e2db3e1dbc8a8ccc6baf550b1401c6bdf04b0a4492533d494f"
+build_start_time: [1732789491, 545763000]
+build_end_time: [1732789491, 955512000]
+inputs:
+  "/Users/boxzhi/Desktop/HZNavigationBar/Sources/HZCustomNavigationBar.swift": [1732789441, 531556661]
+  "/Users/boxzhi/Desktop/HZNavigationBar/Sources/HZNavigationBar.swift": [1732789452, 643487211]
+  "/Users/boxzhi/Desktop/HZNavigationBar/Sources/HZNavigationBarItem.swift": [1732789460, 646299774]
+  "/Users/boxzhi/Desktop/HZNavigationBar/Sources/UIViewExtension.swift": [1732789475, 401223875]

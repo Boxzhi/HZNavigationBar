@@ -6,6 +6,7 @@
 //  Copyright © 2019 何志志. All rights reserved.
 //
 
+#if canImport(UIKit)
 import UIKit
 
 public typealias HZNavigationBarItemClickHandler = ((HZNavigationBarItem) -> Void)
@@ -979,3 +980,4 @@ public extension HZNavigationBarWrapper where Base: HZCustomNavigationBar {
     }
     
 }
+#endif

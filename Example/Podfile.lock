@@ -1,5 +1,5 @@
 PODS:
-  - HZNavigationBar (1.3.2)
+  - HZNavigationBar (2.0.4)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
@@ -15,9 +15,9 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  HZNavigationBar: f42a70ec99b5e10efa804b393b9306f4fd166b93
+  HZNavigationBar: 8891df6dd6c2cdb0f00009310fe79d5b6c0b4c9c
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
 PODFILE CHECKSUM: 255941b5bb29edabbbbf528b1c2c83d4dad7323b
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.16.2

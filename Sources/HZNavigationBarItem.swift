@@ -6,6 +6,7 @@
 //  Copyright © 2019 何志志. All rights reserved.
 //
 
+#if canImport(UIKit)
 import UIKit
 
 public enum HZNavigationBarItemType: Int {
@@ -225,4 +226,4 @@ extension HZNavigationBarItem {
         
     }
 }
-
+#endif

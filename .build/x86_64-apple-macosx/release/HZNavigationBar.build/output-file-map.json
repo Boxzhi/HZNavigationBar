@@ -1,0 +1,27 @@
+{
+  "": {
+    "dependencies": "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZNavigationBar.d",
+    "object": "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZNavigationBar.o",
+    "swift-dependencies": "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/master.swiftdeps"
+  },
+  "/Users/boxzhi/Desktop/HZNavigationBar/Sources/HZCustomNavigationBar.swift": {
+    "object": "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZCustomNavigationBar.swift.o",
+    "swiftmodule": "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZCustomNavigationBar~partial.swiftmodule",
+    "swift-dependencies": "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZCustomNavigationBar.swiftdeps"
+  },
+  "/Users/boxzhi/Desktop/HZNavigationBar/Sources/HZNavigationBar.swift": {
+    "object": "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZNavigationBar.swift.o",
+    "swiftmodule": "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZNavigationBar~partial.swiftmodule",
+    "swift-dependencies": "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZNavigationBar.swiftdeps"
+  },
+  "/Users/boxzhi/Desktop/HZNavigationBar/Sources/HZNavigationBarItem.swift": {
+    "object": "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZNavigationBarItem.swift.o",
+    "swiftmodule": "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZNavigationBarItem~partial.swiftmodule",
+    "swift-dependencies": "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZNavigationBarItem.swiftdeps"
+  },
+  "/Users/boxzhi/Desktop/HZNavigationBar/Sources/UIViewExtension.swift": {
+    "object": "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/UIViewExtension.swift.o",
+    "swiftmodule": "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/UIViewExtension~partial.swiftmodule",
+    "swift-dependencies": "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/UIViewExtension.swiftdeps"
+  }
+}

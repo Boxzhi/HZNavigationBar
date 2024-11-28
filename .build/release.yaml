@@ -1,0 +1,47 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "HZNavigationBar-release.module": ["<HZNavigationBar-release.module>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "main": ["<HZNavigationBar-release.module>"]
+  "test": ["<HZNavigationBar-release.module>"]
+default: "main"
+nodes:
+  "/Users/boxzhi/Desktop/HZNavigationBar/Sources/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+commands:
+  "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/boxzhi/Desktop/HZNavigationBar/Sources/HZCustomNavigationBar.swift","/Users/boxzhi/Desktop/HZNavigationBar/Sources/HZNavigationBar.swift","/Users/boxzhi/Desktop/HZNavigationBar/Sources/HZNavigationBarItem.swift","/Users/boxzhi/Desktop/HZNavigationBar/Sources/UIViewExtension.swift"]
+    outputs: ["/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/sources"]
+    description: "Write auxiliary file /Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/sources"
+
+  "/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/swift-version-56B340E3767E3D7C.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Applications/Xcode_15.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc"]
+    outputs: ["/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/swift-version-56B340E3767E3D7C.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/swift-version-56B340E3767E3D7C.txt"
+
+  "<HZNavigationBar-release.module>":
+    tool: phony
+    inputs: ["/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZCustomNavigationBar.swift.o","/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZNavigationBar.swift.o","/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZNavigationBarItem.swift.o","/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/UIViewExtension.swift.o","/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.swiftmodule"]
+    outputs: ["<HZNavigationBar-release.module>"]
+
+  "C.HZNavigationBar-release.module":
+    tool: shell
+    inputs: ["/Users/boxzhi/Desktop/HZNavigationBar/Sources/HZCustomNavigationBar.swift","/Users/boxzhi/Desktop/HZNavigationBar/Sources/HZNavigationBar.swift","/Users/boxzhi/Desktop/HZNavigationBar/Sources/HZNavigationBarItem.swift","/Users/boxzhi/Desktop/HZNavigationBar/Sources/UIViewExtension.swift","/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/swift-version-56B340E3767E3D7C.txt","/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/sources"]
+    outputs: ["/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZCustomNavigationBar.swift.o","/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZNavigationBar.swift.o","/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZNavigationBarItem.swift.o","/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/UIViewExtension.swift.o","/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.swiftmodule"]
+    description: "Compiling Swift Module 'HZNavigationBar' (4 sources)"
+    args: ["/Applications/Xcode_15.3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc","-module-name","HZNavigationBar","-emit-dependencies","-emit-module","-emit-module-path","/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.swiftmodule","-output-file-map","/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/output-file-map.json","-parse-as-library","-whole-module-optimization","-num-threads","8","-c","@/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/sources","-I","/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release","-target","x86_64-apple-macosx10.13","-swift-version","5","-O","-j8","-DSWIFT_PACKAGE","-module-cache-path","/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/boxzhi/Desktop/HZNavigationBar/.build/x86_64-apple-macosx/release/HZNavigationBar.build/HZNavigationBar-Swift.h","-color-diagnostics","-sdk","/Applications/Xcode_15.3.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk","-F","/Applications/Xcode_15.3.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-I","/Applications/Xcode_15.3.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-L","/Applications/Xcode_15.3.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib","-g","-Xcc","-isysroot","-Xcc","/Applications/Xcode_15.3.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.4.sdk","-Xcc","-F","-Xcc","/Applications/Xcode_15.3.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks","-Xcc","-fPIC","-Xcc","-g","-package-name","hznavigationbar"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/boxzhi/Desktop/HZNavigationBar/Sources/","/Users/boxzhi/Desktop/HZNavigationBar/Package.swift","/Users/boxzhi/Desktop/HZNavigationBar/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+
