@@ -72,7 +72,7 @@ open class HZCustomNavigationBar: UIView {
     }
     
     /// 是否刘海屏
-    public static var isNotch: Bool {
+    public static var isNotchScreen: Bool {
         return HZCustomNavigationBar.statusBarHeight > 20.0
     }
     
@@ -150,21 +150,21 @@ open class HZCustomNavigationBar: UIView {
     }
     
     /// 整体背景颜色
-    public var bgColor: UIColor? {
+    open override var backgroundColor: UIColor? {
         willSet {
             hz_setBackground(color: newValue)
         }
     }
     
     /// 整体背景图
-    public var bgImage: UIImage? {
+    public var backgroundImage: UIImage? {
         willSet {
             hz_setBackground(image: newValue)
         }
     }
     
     /// 整体背景透明度
-    public var bgAlpha: CGFloat? {
+    open override var alpha: CGFloat {
         willSet {
             hz_setBackground(alpha: newValue)
         }
@@ -180,14 +180,14 @@ open class HZCustomNavigationBar: UIView {
     /// navigationBar背景颜色
     public var navigationBarBackgroundColor: UIColor? {
         willSet {
-            hz_setNavigationBarBackground(color: newValue)
+            hz_setContent(color: newValue)
         }
     }
     
     /// navigationBar背景图片
     public var navigationBarBackgroundImage: UIImage? {
         willSet {
-            hz_setNavigationBarBackground(image: newValue)
+            hz_setContent(image: newValue)
         }
     }
     
@@ -201,7 +201,7 @@ open class HZCustomNavigationBar: UIView {
     /// navigationBar标题颜色
     public var titleColor: UIColor? {
         willSet {
-            hz_setTitleLabel(titleColor: newValue)
+            hz_setTitleLabel(textColor: newValue)
         }
     }
     
@@ -215,7 +215,7 @@ open class HZCustomNavigationBar: UIView {
     /// navigationBar标题富文本
     public var titleAttributedString: NSAttributedString? {
         willSet {
-            hz_setTitleLabel(titleAttributedString: newValue)
+            hz_setTitleLabel(attributedString: newValue)
         }
     }
     
@@ -268,13 +268,6 @@ open class HZCustomNavigationBar: UIView {
     fileprivate lazy var rightBarItemBadgeDic: [Int: UIView] = [:]
     
     //MARK: - 子View
-    /// 背景View
-    fileprivate lazy var backgroundView: UIView = {
-        let _backgroundView = UIView()
-        _backgroundView.backgroundColor = HZCustomNavigationBar.defaultBackgroundColor
-        return _backgroundView
-    }()
-    
     /// 背景ImageView
     fileprivate lazy var backgroundImageView: UIImageView = {
         let _backgroundImageView = UIImageView()
@@ -290,26 +283,19 @@ open class HZCustomNavigationBar: UIView {
         return _statusBarView
     }()
     
-    /// navigationBarView
-    fileprivate lazy var navigationBarView: UIView = {
-        let _navigationBarView = UIView()
-        _navigationBarView.backgroundColor = .clear
-        return _navigationBarView
-    }()
-    
-    /// 导航栏背景View
-    fileprivate lazy var navigationBarBackgroundView: UIView = {
-        let _navigationBarBackgroundView = UIView()
-        _navigationBarBackgroundView.backgroundColor = .clear
-        return _navigationBarBackgroundView
+    /// contentView
+    fileprivate lazy var contentView: UIView = {
+        let _contentView = UIView()
+        _contentView.backgroundColor = .clear
+        return _contentView
     }()
     
     /// 导航栏背景ImageView
-    fileprivate lazy var navigationBarBackgroundImageView: UIImageView = {
-        let _navigationBarBackgroundImageView = UIImageView()
-        _navigationBarBackgroundImageView.backgroundColor = .clear
-        _navigationBarBackgroundImageView.isHidden = true
-        return _navigationBarBackgroundImageView
+    fileprivate lazy var contentImageView: UIImageView = {
+        let _contentImageView = UIImageView()
+        _contentImageView.backgroundColor = .clear
+        _contentImageView.isHidden = true
+        return _contentImageView
     }()
     
     /// titleView
@@ -324,7 +310,6 @@ open class HZCustomNavigationBar: UIView {
     fileprivate lazy var titleLabel: UILabel = {
         let _titleLabel = UILabel()
         _titleLabel.backgroundColor = .clear
-        _titleLabel.text = ""
         _titleLabel.textColor = HZCustomNavigationBar.defaultTitleColor
         _titleLabel.font = UIFont.systemFont(ofSize: HZCustomNavigationBar.defaultTitleSize)
         _titleLabel.textAlignment = .center
@@ -351,40 +336,33 @@ open class HZCustomNavigationBar: UIView {
     }
     
     fileprivate func setBaseUI() {
-        
-//        NotificationCenter.default.addObserver(self, selector: #selector(statusBarOrientationChange(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
-        self.backgroundColor = .clear
-        addSubview(backgroundView)
+        self.backgroundColor = HZCustomNavigationBar.defaultBackgroundColor
         addSubview(backgroundImageView)
         addSubview(statusBarView)
-        addSubview(navigationBarView)
+        addSubview(contentView)
         addSubview(shadowLine)
-        navigationBarView.addSubview(navigationBarBackgroundView)
-        navigationBarView.addSubview(navigationBarBackgroundImageView)
-        navigationBarView.addSubview(_titleView)
-        navigationBarView.addSubview(titleLabel)
+        contentView.addSubview(contentImageView)
+        contentView.addSubview(_titleView)
+        contentView.addSubview(titleLabel)
     }
     
     open override func updateConstraints() {
         super.updateConstraints()
-        
-        makeConstraints(with: backgroundView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
         makeConstraints(with: backgroundImageView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
         makeConstraints(with: statusBarView, constants: [.top: 0, .left: 0, .right: 0, .height: HZCustomNavigationBar.statusBarHeight])
-        makeConstraints(with: navigationBarView, constants: [.bottom: 0, .left: 0, .right: 0, .height: HZCustomNavigationBar.navigationBarHeight])
+        makeConstraints(with: contentView, constants: [.bottom: 0, .left: 0, .right: 0, .height: HZCustomNavigationBar.navigationBarHeight])
         makeConstraints(with: shadowLine, constants: [.bottom: 0, .left: 0, .right: 0, .height: 0.5])
-        navigationBarView.makeConstraints(with: navigationBarBackgroundView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
-        navigationBarView.makeConstraints(with: navigationBarBackgroundImageView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
+        contentView.makeConstraints(with: contentImageView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
         updateTitleConstraints()
     }
     
     fileprivate func updateTitleConstraints() {
         if titleViewIsCenter {
-            navigationBarView.remakeConstraints(with: _titleView, constants: [.top: 0, .bottom: 0, .left: max(leftTitleViewMargin + leftBarItemTotalWidth, rightTitleViewMargin + rightBarItemTotalWidth), .right: -max(leftTitleViewMargin + leftBarItemTotalWidth, rightTitleViewMargin + rightBarItemTotalWidth)], prioritys: [.left: 900.0, .right: 900.0])
+            contentView.remakeConstraints(with: _titleView, constants: [.top: 0, .bottom: 0, .left: max(leftTitleViewMargin + leftBarItemTotalWidth, rightTitleViewMargin + rightBarItemTotalWidth), .right: -max(leftTitleViewMargin + leftBarItemTotalWidth, rightTitleViewMargin + rightBarItemTotalWidth)], prioritys: [.left: 900.0, .right: 900.0])
         }else {
-            navigationBarView.remakeConstraints(with: _titleView, constants: [.top: 0, .bottom: 0, .left: leftTitleViewMargin, .right: -rightTitleViewMargin], toItems: [.left: leftBarItems?.last, .right: rightBarItems?.last], attributes: [.left: leftBarItems?.last == nil ? .left : .right, .right: rightBarItems?.last == nil ? .right : .left], prioritys: [.left: 900.0, .right: 900.0])
+            contentView.remakeConstraints(with: _titleView, constants: [.top: 0, .bottom: 0, .left: leftTitleViewMargin, .right: -rightTitleViewMargin], toItems: [.left: leftBarItems?.last, .right: rightBarItems?.last], attributes: [.left: leftBarItems?.last == nil ? .left : .right, .right: rightBarItems?.last == nil ? .right : .left], prioritys: [.left: 900.0, .right: 900.0])
         }
-        navigationBarView.remakeConstraints(with: titleLabel, constants: [.top: 0, .bottom: 0, .width: min(HZCustomNavigationBar.screenWidth / 2.0, HZCustomNavigationBar.screenWidth - max(leftBarItemTotalWidth, rightBarItemTotalWidth) * 2.0 - leftTitleViewMargin - rightTitleViewMargin), .centerX: 0], prioritys: [.width: 850])
+        contentView.remakeConstraints(with: titleLabel, constants: [.top: 0, .bottom: 0, .width: min(HZCustomNavigationBar.screenWidth / 2.0, HZCustomNavigationBar.screenWidth - max(leftBarItemTotalWidth, rightBarItemTotalWidth) * 2.0 - leftTitleViewMargin - rightTitleViewMargin), .centerX: 0], prioritys: [.width: 850])
     }
     
 }
@@ -394,74 +372,65 @@ private extension HZCustomNavigationBar {
     
     /// 设置主题颜色（title和BarItem文字颜色）
     func hz_setThemeColor(_ color: UIColor?) {
-        if let _color = color {
-            self.titleColor = _color
-            hz_setBarItemColor(_color)
+        if let color {
+            self.titleColor = color
+            hz_setBarItemColor(color)
         }
     }
     
     /// 设置整体背景色或背景图
     func hz_setBackground(color: UIColor? = nil, image: UIImage? = nil, alpha: CGFloat? = nil) {
-        if let _color = color {
-            self.statusBarView.backgroundColor = .clear
-            self.navigationBarBackgroundView.backgroundColor = .clear
-            self.navigationBarBackgroundImageView.isHidden = true
-            self.backgroundImageView.isHidden = true
-            self.backgroundView.backgroundColor = _color
-        }else if let _image = image {
-            self.statusBarView.backgroundColor = .clear
-            self.navigationBarBackgroundView.backgroundColor = .clear
-            self.navigationBarBackgroundImageView.isHidden = true
-            self.backgroundImageView.isHidden = false
-            self.backgroundImageView.image = _image
+        if let _ = color {
+            backgroundImageView.isHidden = true
+//            statusBarView.backgroundColor = color
+//            contentView.backgroundColor = color
+        }else if let image {
+            backgroundImageView.isHidden = false
+            backgroundImageView.image = image
+            statusBarView.backgroundColor = .clear
+            contentView.backgroundColor = .clear
         }
-        if let _alpha = alpha {
-            self.backgroundView.alpha = _alpha
-            self.backgroundImageView.alpha = _alpha
-            self.statusBarView.alpha = _alpha
-            self.navigationBarBackgroundView.alpha = _alpha
-            self.navigationBarBackgroundImageView.alpha = _alpha
-            self.shadowLine.alpha = _alpha
+        if let alpha {
+            backgroundColor = backgroundColor?.withAlphaComponent(alpha)
+            backgroundImageView.alpha = alpha
+            statusBarView.alpha = alpha
+            contentView.alpha = alpha
+            shadowLine.alpha = alpha
         }
     }
     
     /// 设置statusBar背景色
     func hz_setStatusBarBackgroundColor(_ color: UIColor?) {
-        if let _color = color {
-            self.statusBarView.backgroundColor = _color
-        }
+        statusBarView.backgroundColor = color
     }
     
     /// 设置导航栏背景
-    func hz_setNavigationBarBackground(color: UIColor? = nil, image: UIImage? = nil) {
-        if let _color = color {
-            self.navigationBarBackgroundImageView.isHidden = true
-            self.navigationBarView.backgroundColor = _color
-            self.navigationBarView.subviews.forEach({ $0.backgroundColor = _color })
-        }else if let _image = image {
-            self.navigationBarBackgroundImageView.isHidden = false
-            self.navigationBarBackgroundImageView.image = _image
+    func hz_setContent(color: UIColor? = nil, image: UIImage? = nil) {
+        if let color {
+            contentImageView.isHidden = true
+            contentView.backgroundColor = color
+        }else if let image {
+            contentImageView.isHidden = false
+            contentImageView.image = image
         }
     }
     
     /// 设置titleLabel属性
-    func hz_setTitleLabel(_ text: String? = nil, titleColor: UIColor? = nil, font: UIFont? = nil, titleAttributedString: NSAttributedString? = nil) {
-        if let _text = text {
+    func hz_setTitleLabel(_ text: String? = nil, textColor: UIColor? = nil, font: UIFont? = nil, attributedString: NSAttributedString? = nil) {
+        if let textColor {
+            titleLabel.textColor = textColor
+        }
+        if let font {
+            titleLabel.font = font
+        }
+        if let text {
             _titleView.isHidden = true
             titleLabel.isHidden = false
-            titleLabel.text = _text
-        }else if let _titleColor = titleColor {
+            titleLabel.text = text
+        }else if let attributedString {
             _titleView.isHidden = true
             titleLabel.isHidden = false
-            titleLabel.textColor = _titleColor
-        }else if let _font = font {
-            _titleView.isHidden = true
-            titleLabel.isHidden = false
-            titleLabel.font = _font
-        }else if let _titleAttributedString = titleAttributedString {
-            _titleView.isHidden = true
-            titleLabel.isHidden = false
-            titleLabel.attributedText = _titleAttributedString
+            titleLabel.attributedText = attributedString
         }
     }
     
@@ -535,23 +504,23 @@ private extension HZCustomNavigationBar {
         var lastItem: HZNavigationBarItem?
         var totalWidth: CGFloat = barItemType == .left ? self.leftBarItemMargin : self.rightBarItemMargin
         barItems.enumerated().forEach { element in
-            self.navigationBarView.addSubview(element.element)
-            var barItemWidth: CGFloat = element.element.barItemWidth ?? max(element.element.sizeThatFits(.zero).width + 5.0, HZCustomNavigationBar.navigationBarHeight)
+            self.contentView.addSubview(element.element)
+            let barItemWidth: CGFloat = element.element.barItemWidth ?? max(element.element.sizeThatFits(.zero).width + 5.0, HZCustomNavigationBar.navigationBarHeight)
 //            if element.element.title(for: .normal) == nil {
 //                barItemWidth = HZCustomNavigationBar.navigationBarHeight
 //            }
         
             if barItemType == .left {
                 if element.offset == 0 {
-                    self.navigationBarView.remakeConstraints(with: element.element, constants: [.top: 0, .bottom: 0, .left: self.leftBarItemMargin, .width: barItemWidth], prioritys: [.left: Float(1000 - element.offset), .width: Float(1000 - element.offset)])
+                    self.contentView.remakeConstraints(with: element.element, constants: [.top: 0, .bottom: 0, .left: self.leftBarItemMargin, .width: barItemWidth], prioritys: [.left: Float(1000 - element.offset), .width: Float(1000 - element.offset)])
                 }else {
-                    self.navigationBarView.remakeConstraints(with: element.element, constants: [.top: 0, .bottom: 0, .left: 0, .width: barItemWidth], toItems: [.left: lastItem], attributes: [.left: .right], prioritys: [.left: Float(1000 - element.offset), .width: Float(1000 - element.offset)])
+                    self.contentView.remakeConstraints(with: element.element, constants: [.top: 0, .bottom: 0, .left: 0, .width: barItemWidth], toItems: [.left: lastItem], attributes: [.left: .right], prioritys: [.left: Float(1000 - element.offset), .width: Float(1000 - element.offset)])
                 }
             }else if barItemType == .right {
                 if element.offset == 0 {
-                    self.navigationBarView.remakeConstraints(with: element.element, constants: [.top: 0, .bottom: 0, .right: -rightBarItemMargin, .width: barItemWidth], prioritys: [.right: Float(950 - element.offset), .width: Float(950 - element.offset)])
+                    self.contentView.remakeConstraints(with: element.element, constants: [.top: 0, .bottom: 0, .right: -rightBarItemMargin, .width: barItemWidth], prioritys: [.right: Float(950 - element.offset), .width: Float(950 - element.offset)])
                 }else {
-                    self.navigationBarView.remakeConstraints(with: element.element, constants: [.top: 0, .bottom: 0, .right: 0, .width: barItemWidth], toItems: [.right: lastItem], attributes: [.right: .left], prioritys: [.right: Float(950 - element.offset), .width: Float(950 - element.offset)])
+                    self.contentView.remakeConstraints(with: element.element, constants: [.top: 0, .bottom: 0, .right: 0, .width: barItemWidth], toItems: [.right: lastItem], attributes: [.right: .left], prioritys: [.right: Float(950 - element.offset), .width: Float(950 - element.offset)])
                 }
             }
             totalWidth += barItemWidth
@@ -795,12 +764,12 @@ private extension HZCustomNavigationBar {
             badgeView.backgroundColor = color ?? UIColor(red: 245/255, green: 73/255, blue: 102/255, alpha: 1)
             badgeView.layer.cornerRadius = min(_size.width, _size.height) / 2.0
         }
-        self.navigationBarView.addSubview(badgeView)
+        self.contentView.addSubview(badgeView)
         let barItem = _barItems[atIndex]
         if let _imageWidth = barItem.imageView?.bounds.width, let _imageHeight = barItem.imageView?.bounds.height {
-            self.navigationBarView.makeConstraints(with: badgeView, constants: [.width: _size.width, .height: _size.height, .centerX: _imageWidth / 2.0 + offset.x, .centerY: -(_imageHeight / 2.0) + offset.y], toItems: [.centerX: barItem, .centerY: barItem])
+            self.contentView.makeConstraints(with: badgeView, constants: [.width: _size.width, .height: _size.height, .centerX: _imageWidth / 2.0 + offset.x, .centerY: -(_imageHeight / 2.0) + offset.y], toItems: [.centerX: barItem, .centerY: barItem])
         }else {
-            self.navigationBarView.makeConstraints(with: badgeView, constants: [.top: -(_size.height / 2.0) + offset.y, .right: _size.width / 2.0 + offset.x, .width: _size.width, .height: _size.height], toItems: [.top: barItem, .right: barItem])
+            self.contentView.makeConstraints(with: badgeView, constants: [.top: -(_size.height / 2.0) + offset.y, .right: _size.width / 2.0 + offset.x, .width: _size.width, .height: _size.height], toItems: [.top: barItem, .right: barItem])
         }
         if barItemType == .left {
             leftBarItemBadgeDic[atIndex] = badgeView
@@ -833,6 +802,28 @@ private extension HZCustomNavigationBar {
         }else {
             rightBarItemBadgeDic = barItemBadgeDic
         }
+    }
+    
+    func loadImage(_ imageView: UIImageView, from urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let _ = error {
+                return
+            }
+            
+            guard let data = data, let image = UIImage(data: data) else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+//                imageView.image = image
+                if imageView == self.backgroundImageView {
+                    self.hz_setBackground(image: image)
+                }else if imageView == self.contentImageView {
+                    self.hz_setContent(image: image)
+                }
+            }
+        }.resume()
     }
     
 }
@@ -869,8 +860,41 @@ public extension HZNavigationBarWrapper where Base: HZCustomNavigationBar {
     }
     
     /// 设置背景透明度
+    /// - Parameter alpha: 透明值
     func setBackgroundAlpha(_ alpha: CGFloat) {
         base.hz_setBackground(alpha: alpha)
+    }
+    
+    /// 设置背景图
+    /// - Parameters:
+    ///   - image: image资源
+    ///   - isNexwork: 是否网络图
+    func setBackgroundImage(_ image: Any?, isNexwork: Bool = false) {
+        if let _image = image as? UIImage {
+            base.hz_setBackground(image: _image)
+        }else if let _imageString = image as? String {
+            if isNexwork {
+                base.loadImage(base.backgroundImageView, from: _imageString)
+            }else {
+                base.hz_setBackground(image: UIImage(named: _imageString))
+            }
+        }
+    }
+    
+    /// 设置导航栏区域背景图
+    /// - Parameters:
+    ///   - image: image资源
+    ///   - isNexwork: 是否网络图
+    func setContentImage(_ image: Any?, isNexwork: Bool = false) {
+        if let _image = image as? UIImage {
+            base.hz_setContent(image: _image)
+        }else if let _imageString = image as? String {
+            if isNexwork {
+                base.loadImage(base.contentImageView, from: _imageString)
+            }else {
+                base.hz_setContent(image: UIImage(named: _imageString))
+            }
+        }
     }
     
 }

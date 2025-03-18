@@ -31,6 +31,7 @@ class GViewController: BaseViewController {
         super.viewDidLoad()
 
         nav?.title = "GViewController"
+        nav?.hz.setBackgroundImage("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.ivsky.com%2Fimg%2Ftupian%2Fpic%2F201707%2F17%2Fjinmendaqiao-009.jpg%3Fdownload&refer=http%3A%2F%2Fimg.ivsky.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1744870098&t=03c96106823506b17d85747b71e52a76", isNexwork: true)
         view.backgroundColor = .white
         view.addSubview(collectionView)
         collectionView.dataSource = self

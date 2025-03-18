@@ -15,16 +15,16 @@ class DViewController: BaseViewController {
         super.viewDidLoad()
         
         nav?.title = "D控制器"
-        nav?.bgColor = .orange
+        nav?.backgroundColor = .yellow
         nav?.statusBarColor = .green
-        nav?.navigationBarBackgroundColor = .yellow
+//        nav?.navigationBarBackgroundColor = .yellow
 //        statusBarStyle = .lightContent
         nav?.hz.hiddenBarItem(.left, hidden: true)
         nav?.hz.setBarItems(.right, items: [HZNavigationBarItem("releaseIcon") { item in
             
         }])
 
-        nav?.bgAlpha = 0.5
+        nav?.alpha = 0.5
         UIButton.setJumpButton(self, action: #selector(jumpToNext(_:)))
     }
     

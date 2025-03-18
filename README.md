@@ -68,11 +68,11 @@ pod install
     
     /*************************** 整体设置 ***************************/
     // 整体背景颜色
-    public var bgColor: UIColor?
+    public var backgroundColor: UIColor?
     // 整体背景图
-    public var bgImage: UIImage?
+    public var backgroundImage: UIImage?
     // 整体背景透明度
-    public var bgAlpha: CGFloat?
+    public var alpha: CGFloat?
     // 是否隐藏navigationBar底部的细横线
     public var shadowImageHidden: Bool = false
     // 设置主题颜色（title和BarItem文字颜色）
@@ -118,6 +118,10 @@ pod install
     func setBarItemColor(_ color: UIColor)
     /// 设置背景透明度
     func setBackgroundAlpha(_ alpha: CGFloat)
+    /// 设置背景图
+    func setBackgroundImage(_ image: Any?, isNexwork: Bool = false)
+    /// 设置导航栏区域背景图
+    func setContentImage(_ image: Any?, isNexwork: Bool = false)
     
 ```
 ------------------------------------------------------------

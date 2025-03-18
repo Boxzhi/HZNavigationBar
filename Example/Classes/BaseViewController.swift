@@ -24,7 +24,7 @@ class BaseViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         view.backgroundColor = .white
         nav = HZCustomNavigationBar.create(to: view)
-        nav?.bgColor = .white
+        nav?.backgroundColor = .white
         nav?.shadowImageHidden = false
         
         NotificationCenter.default.addObserver(self, selector: #selector(orientationDidChange(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
