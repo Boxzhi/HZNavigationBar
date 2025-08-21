@@ -16,6 +16,10 @@ let package = Package(
     targets: [
         .target(
             name: "HZNavigationBar",
-            path: "Sources")
-    ]
+            path: "Sources",
+            sources: ["."],
+            publicHeadersPath: nil
+        )
+    ],
+    swiftLanguageVersions: [.v5]
 )
