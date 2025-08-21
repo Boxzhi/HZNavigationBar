@@ -17,7 +17,7 @@ let package = Package(
         .target(
             name: "HZNavigationBar",
             path: "Sources",
-            exclude: ["../Example", "../Images"],
+            exclude: ["./Example", "./Images"],
             sources: ["."]
         )
     ],
