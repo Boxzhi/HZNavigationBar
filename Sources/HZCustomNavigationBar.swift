@@ -47,15 +47,16 @@ public extension UIViewController {
         }
     }
     
-    static func currentViewController(with baseVc: UIViewController? = UIApplication.shared.hz_activeKeyWindow?.rootViewController) -> UIViewController? {
-        if let nav = baseVc as? UINavigationController {
+    static func currentViewController(with baseVc: UIViewController? = nil) -> UIViewController? {
+        let resolvedBaseVc = baseVc ?? UIApplication.shared.hz_activeKeyWindow?.rootViewController
+        if let nav = resolvedBaseVc as? UINavigationController {
             return currentViewController(with: nav.visibleViewController)
-        }else if let tab = baseVc as? UITabBarController {
+        }else if let tab = resolvedBaseVc as? UITabBarController {
             return currentViewController(with: tab.selectedViewController)
-        }else if let presented = baseVc?.presentedViewController {
+        }else if let presented = resolvedBaseVc?.presentedViewController {
             return currentViewController(with: presented)
         }else {
-            return lastChildController(with: baseVc)
+            return lastChildController(with: resolvedBaseVc)
         }
     }
     
