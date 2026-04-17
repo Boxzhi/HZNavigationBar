@@ -12,7 +12,7 @@ import HZNavigationBar
 class GViewController: BaseViewController {
     
     fileprivate lazy var collectionView: UICollectionView = {
-        let rect = CGRect(x: 0, y: 44 + UIApplication.shared.statusBarFrame.size.height, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - 44 - UIApplication.shared.statusBarFrame.size.height)
+        let rect = CGRect(x: 0, y: HZCustomNavigationBar.statusNavigationBarHeight, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height - HZCustomNavigationBar.statusNavigationBarHeight)
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal

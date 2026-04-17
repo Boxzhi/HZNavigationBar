@@ -11,6 +11,8 @@ import HZNavigationBar
 
 class FViewController: BaseViewController {
     
+    private var currentInterfaceOrientation: UIInterfaceOrientation = .portrait
+    
     deinit {
         UIDevice.current.endGeneratingDeviceOrientationNotifications()
     }
@@ -19,7 +21,7 @@ class FViewController: BaseViewController {
        let _playerView = UIView()
         _playerView.backgroundColor = .red
         
-        _playerView.frame = CGRect(x: 0, y: 44 + UIApplication.shared.statusBarFrame.size.height, width: self.view.bounds.width, height: self.view.bounds.height * 9 / 16)
+        _playerView.frame = CGRect(x: 0, y: HZCustomNavigationBar.statusNavigationBarHeight, width: self.view.bounds.width, height: self.view.bounds.height * 9 / 16)
         return _playerView
     }()
     
@@ -78,12 +80,12 @@ class FViewController: BaseViewController {
         case .unknown:
             print("未知方向")
         case .landscapeLeft:
-            if !isFullScreen || UIApplication.shared.statusBarOrientation != .landscapeRight {
+            if !isFullScreen || currentInterfaceOrientation != .landscapeRight {
                 changeToFullScreen()
             }
             print("屏幕向左横置")
         case .landscapeRight:
-            if !isFullScreen || UIApplication.shared.statusBarOrientation != .landscapeLeft {
+            if !isFullScreen || currentInterfaceOrientation != .landscapeLeft {
                 changeToFullScreen()
             }
             print("屏幕向右横置")
@@ -136,10 +138,16 @@ class FViewController: BaseViewController {
             self.playerFrame = self.playerView.frame
         }
         
-        let rectInWindow = self.playerView.convert(self.playerView.bounds, to: UIApplication.shared.keyWindow)
+        guard let keyWindow = view.window ?? navigationController?.view.window ?? UIApplication.shared.connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .flatMap({ $0.windows })
+            .first(where: \.isKeyWindow) else {
+            return
+        }
+        let rectInWindow = self.playerView.convert(self.playerView.bounds, to: keyWindow)
         self.playerView.removeFromSuperview()
         self.playerView.frame = rectInWindow
-        UIApplication.shared.keyWindow?.addSubview(self.playerView)
+        keyWindow.addSubview(self.playerView)
         
         UIView.animate(withDuration: 0.3, animations: {
             let orientation = UIDevice.current.orientation
@@ -148,8 +156,11 @@ class FViewController: BaseViewController {
             }else {
                 self.interfaceOrientation(orientation: .landscapeRight)
             }
-            self.playerView.bounds = CGRect(x: 0, y: 0, width: (self.playerView.superview?.bounds.height)!, height: (self.playerView.superview?.bounds.width)!)
-            self.playerView.center = CGPoint(x: (self.playerView.superview?.bounds.midX)!, y: (self.playerView.superview?.bounds.midY)!)
+            guard let superviewBounds = self.playerView.superview?.bounds else {
+                return
+            }
+            self.playerView.bounds = CGRect(x: 0, y: 0, width: superviewBounds.height, height: superviewBounds.width)
+            self.playerView.center = CGPoint(x: superviewBounds.midX, y: superviewBounds.midY)
             
         }) { (finished) in
             self.isFullScreen = true
@@ -169,13 +180,11 @@ class FViewController: BaseViewController {
     }
     
     func toOrientation(orientation: UIInterfaceOrientation) {
-        let currentOrientation = UIApplication.shared.statusBarOrientation
-        
-        guard currentOrientation != orientation else {
+        guard currentInterfaceOrientation != orientation else {
             return
         }
         
-        UIApplication.shared.setStatusBarOrientation(orientation, animated: false)
+        currentInterfaceOrientation = orientation
         
         UIView.beginAnimations(nil, context: nil)
         UIView.setAnimationDuration(0.3)
@@ -185,12 +194,11 @@ class FViewController: BaseViewController {
     }
     
     func getTransformRotationAngle() -> CGAffineTransform {
-        let orientation = UIApplication.shared.statusBarOrientation
-        if orientation == UIInterfaceOrientation.portrait {
+        if currentInterfaceOrientation == UIInterfaceOrientation.portrait {
             return CGAffineTransform.identity
-        }else if orientation == UIInterfaceOrientation.landscapeLeft {
+        }else if currentInterfaceOrientation == UIInterfaceOrientation.landscapeLeft {
             return CGAffineTransform(rotationAngle: -.pi/2)
-        }else if orientation == UIInterfaceOrientation.landscapeRight {
+        }else if currentInterfaceOrientation == UIInterfaceOrientation.landscapeRight {
             return CGAffineTransform(rotationAngle: .pi/2)
         }
         return CGAffineTransform.identity

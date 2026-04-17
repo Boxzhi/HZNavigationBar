@@ -13,9 +13,11 @@ class BaseViewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+        statusBarOverlayView?.removeFromSuperview()
     }
 
     var nav: HZCustomNavigationBar?
+    private var statusBarOverlayView: UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,15 +51,29 @@ class BaseViewController: UIViewController {
     fileprivate func statusBarHidden() {
         
         if UIDevice.current.userInterfaceIdiom == .phone {
-            var statusBar: UIView?
-            if #available(iOS 13.0, *) {
-                statusBar = UIView(frame: UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame ?? .zero)
-                UIApplication.shared.keyWindow?.addSubview(statusBar!)
-            } else {
-                statusBar = UIApplication.shared.value(forKey: "statusBar") as? UIView
+            guard let window = currentKeyWindow() else { return }
+            let overlayView: UIView
+            if let statusBarOverlayView {
+                overlayView = statusBarOverlayView
+            }else {
+                overlayView = UIView()
+                overlayView.isUserInteractionEnabled = false
+                window.addSubview(overlayView)
+                statusBarOverlayView = overlayView
             }
-            statusBar?.isHidden = false
-            statusBar?.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44.0)
+            overlayView.isHidden = false
+            overlayView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44.0)
+        }
+    }
+    
+    private func currentKeyWindow() -> UIWindow? {
+        if #available(iOS 13.0, *) {
+            return UIApplication.shared.connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .first(where: \.isKeyWindow)
+        } else {
+            return UIApplication.shared.keyWindow
         }
     }
 

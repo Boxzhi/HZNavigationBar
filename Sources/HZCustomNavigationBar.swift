@@ -11,6 +11,27 @@ import UIKit
 
 public typealias HZNavigationBarItemClickHandler = ((HZNavigationBarItem) -> Void)
 
+private extension UIApplication {
+    var hz_activeKeyWindow: UIWindow? {
+        if #available(iOS 13.0, *) {
+            return connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+                .first(where: \.isKeyWindow)
+        } else {
+            return keyWindow
+        }
+    }
+    
+    var hz_statusBarHeight: CGFloat {
+        if #available(iOS 13.0, *) {
+            return hz_activeKeyWindow?.windowScene?.statusBarManager?.statusBarFrame.height ?? 20.0
+        } else {
+            return statusBarFrame.size.height
+        }
+    }
+}
+
 public extension UIViewController {
     
     /// 返回上个页面
@@ -26,7 +47,7 @@ public extension UIViewController {
         }
     }
     
-    static func currentViewController(with baseVc: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+    static func currentViewController(with baseVc: UIViewController? = UIApplication.shared.hz_activeKeyWindow?.rootViewController) -> UIViewController? {
         if let nav = baseVc as? UINavigationController {
             return currentViewController(with: nav.visibleViewController)
         }else if let tab = baseVc as? UITabBarController {
@@ -84,13 +105,10 @@ open class HZCustomNavigationBar: UIView {
     /// 状态栏高度
     public static var statusBarHeight: CGFloat {
         if #available(iOS 13.0, *) {
-            let _statusBarHeight = HZCustomNavigationBar.isiPad ? 24.0 : 20.0
-            let scene = UIApplication.shared.connectedScenes.first
-            guard let windowScene = scene as? UIWindowScene else { return _statusBarHeight }
-            guard let statusBarManager = windowScene.statusBarManager else { return _statusBarHeight }
-            return statusBarManager.statusBarFrame.height
+            let fallbackHeight = HZCustomNavigationBar.isiPad ? 24.0 : 20.0
+            return UIApplication.shared.hz_statusBarHeight == 0 ? fallbackHeight : UIApplication.shared.hz_statusBarHeight
         }else {
-            return UIApplication.shared.statusBarFrame.size.height
+            return UIApplication.shared.hz_statusBarHeight
         }
     }
     
@@ -348,11 +366,11 @@ open class HZCustomNavigationBar: UIView {
     
     open override func updateConstraints() {
         super.updateConstraints()
-        makeConstraints(with: backgroundImageView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
-        makeConstraints(with: statusBarView, constants: [.top: 0, .left: 0, .right: 0, .height: HZCustomNavigationBar.statusBarHeight])
-        makeConstraints(with: contentView, constants: [.bottom: 0, .left: 0, .right: 0, .height: HZCustomNavigationBar.navigationBarHeight])
-        makeConstraints(with: shadowLine, constants: [.bottom: 0, .left: 0, .right: 0, .height: 0.5])
-        contentView.makeConstraints(with: contentImageView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
+        remakeConstraints(with: backgroundImageView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
+        remakeConstraints(with: statusBarView, constants: [.top: 0, .left: 0, .right: 0, .height: HZCustomNavigationBar.statusBarHeight])
+        remakeConstraints(with: contentView, constants: [.bottom: 0, .left: 0, .right: 0, .height: HZCustomNavigationBar.navigationBarHeight])
+        remakeConstraints(with: shadowLine, constants: [.bottom: 0, .left: 0, .right: 0, .height: 0.5])
+        contentView.remakeConstraints(with: contentImageView, constants: [.top: 0, .bottom: 0, .left: 0, .right: 0])
         updateTitleConstraints()
     }
     
@@ -617,7 +635,8 @@ private extension HZCustomNavigationBar {
         
         guard var _barItems = barItems else { return }
         if let _barItemIndexs = barItemIndexs {
-            _barItemIndexs.forEach { index in
+            let sortedIndexs = Array(Set(_barItemIndexs)).sorted(by: >)
+            sortedIndexs.forEach { index in
                 if index < _barItems.count {
                     _barItems[index].removeFromSuperview()
                     _barItems.remove(at: index)
@@ -687,7 +706,15 @@ private extension HZCustomNavigationBar {
         if let _handler = barItemClickHandler {
             item.clickHandler = _handler
         }
-        item.barItemButtonLayoutButtonWithEdgeInsetsStyle(style: item.style, space: item.space)
+        let hasTitle = ((item.title(for: .normal) ?? item.title(for: .selected))?.isEmpty == false)
+        let hasImage = (item.image(for: .normal) ?? item.image(for: .selected)) != nil
+        if hasTitle && hasImage {
+            item.barItemButtonLayoutButtonWithEdgeInsetsStyle(style: item.style, space: item.space)
+        } else {
+            item.titleEdgeInsets = .zero
+            item.imageEdgeInsets = .zero
+            item.contentEdgeInsets = .zero
+        }
     }
     
     /// 隐藏barItem

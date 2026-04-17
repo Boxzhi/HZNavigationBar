@@ -503,11 +503,9 @@ extension UIViewController {
             return bgImage
         }
         set {
-            if customNavBar.isKind(of: UINavigationBar.self) {
-                let navBar = customNavBar as! UINavigationBar
-                navBar.hz_setBackgroundImage(image: newValue!)
-            }
-            else {
+            if let navBar = customNavBar as? UINavigationBar, let newValue {
+                navBar.hz_setBackgroundImage(image: newValue)
+            } else {
                 objc_setAssociatedObject(self, &AssociatedKeys.navBarBackgroundImage, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
         }
@@ -524,8 +522,7 @@ extension UIViewController {
         set {
             objc_setAssociatedObject(self, &AssociatedKeys.navBarBarTintColor, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
-            if customNavBar.isKind(of: UINavigationBar.self) {
-                let navBar = customNavBar as! UINavigationBar
+            if let navBar = customNavBar as? UINavigationBar {
                 navBar.hz_setBackgroundColor(color: newValue)
             } else {
                 if canUpdateNavBarBarTintColorOrBackgroundAlpha == true {
@@ -546,8 +543,7 @@ extension UIViewController {
         set {
             objc_setAssociatedObject(self, &AssociatedKeys.navBarBackgroundAlpha, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
-            if customNavBar.isKind(of: UINavigationBar.self) {
-                let navBar = customNavBar as! UINavigationBar
+            if let navBar = customNavBar as? UINavigationBar {
                 navBar.hz_setBackgroundAlpha(alpha: newValue)
             } else {
                 if canUpdateNavBarBarTintColorOrBackgroundAlpha == true {
@@ -578,8 +574,7 @@ extension UIViewController {
         set {
             objc_setAssociatedObject(self, &AssociatedKeys.navBarTintColor, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
-            if customNavBar.isKind(of: UINavigationBar.self) {
-                let navBar = customNavBar as! UINavigationBar
+            if let navBar = customNavBar as? UINavigationBar {
                 navBar.tintColor = newValue
             } else {
                 if pushToNextVCFinished == false {
@@ -600,8 +595,7 @@ extension UIViewController {
         set {
             objc_setAssociatedObject(self, &AssociatedKeys.navBarTitleColor, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             
-            if customNavBar.isKind(of: UINavigationBar.self) {
-                let navBar = customNavBar as! UINavigationBar
+            if let navBar = customNavBar as? UINavigationBar {
                 navBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor:newValue]
             } else {
                 if pushToNextVCFinished == false {
@@ -879,7 +873,7 @@ public extension HZNavigationBar {
         return statusBarHeight() != 20
     }
     class func statusBarHeight() -> Int {
-        return Int(UIApplication.shared.statusBarFrame.size.height)
+        return Int(HZCustomNavigationBar.statusBarHeight)
     }
     class func navBarHeight() -> Int {
         return 44

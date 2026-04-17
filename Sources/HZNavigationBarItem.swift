@@ -175,22 +175,32 @@ extension HZNavigationBarItem {
      - parameter space: image与titleLabel的间距
      */
     public func barItemButtonLayoutButtonWithEdgeInsetsStyle(style: HZBarItemEdgeInsetsStyle, space: CGFloat) {
+        guard let imageView = self.imageView,
+              let titleLabel = self.titleLabel,
+              let titleText = titleLabel.text,
+              !titleText.isEmpty,
+              imageView.image != nil else {
+            self.titleEdgeInsets = .zero
+            self.imageEdgeInsets = .zero
+            self.contentEdgeInsets = .zero
+            return
+        }
         
         /**
          *  拿到imageView和titleLabel的宽、高
          */
-        let imageWidth: CGFloat = (self.imageView?.intrinsicContentSize.width)!
-        let imageHeight: CGFloat = (self.imageView?.intrinsicContentSize.height)!
+        let imageWidth: CGFloat = imageView.intrinsicContentSize.width
+        let imageHeight: CGFloat = imageView.intrinsicContentSize.height
         
         var labelWidth: CGFloat = 0.0
         var labelHeight: CGFloat = 0.0
         
         if #available(iOS 8.0, *) {
-            labelWidth = (self.titleLabel?.intrinsicContentSize.width)!
-            labelHeight = (self.titleLabel?.intrinsicContentSize.height)!
+            labelWidth = titleLabel.intrinsicContentSize.width
+            labelHeight = titleLabel.intrinsicContentSize.height
         }else{
-            labelWidth = (self.titleLabel?.frame.size.width)!
-            labelHeight = (self.titleLabel?.frame.size.height)!
+            labelWidth = titleLabel.frame.size.width
+            labelHeight = titleLabel.frame.size.height
         }
         
         /**
