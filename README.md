@@ -1,7 +1,7 @@
 ![](https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/logo.png)
 
 
-[![Version](https://img.shields.io/badge/pod-2.0.5-blue.svg)](https://github.com/CoderZZHe/HZNavigationBar) [![Build Status](https://img.shields.io/badge/build-passing-green.svg)]() ![](https://img.shields.io/badge/platform-iOS%2010.0%2B-yellowgreen.svg) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/CoderZZHe/HZNavigationBar/blob/master/LICENSE)
+[![Version](https://img.shields.io/badge/pod-2.0.6-blue.svg)](https://github.com/CoderZZHe/HZNavigationBar) [![Build Status](https://img.shields.io/badge/build-passing-green.svg)]() ![](https://img.shields.io/badge/platform-iOS%2010.0%2B-yellowgreen.svg) [![License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/CoderZZHe/HZNavigationBar/blob/master/LICENSE)
     [![SPM compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg?style=flat)](https://swift.org/package-manager/)
 
 
@@ -13,6 +13,12 @@
 - Swift 4.2+
 
 # 版本更新记录
+- v2.0.6 - 2026.04.17
+  - 修复 NavigationBarItem 更新和多项删除时的稳定性问题.
+  - 优化自定义导航栏约束更新逻辑.
+  - 改进 Example 工程的状态栏和横屏兼容性.
+  - 补充 Swift Package Manager 集成说明.
+
 - v2.0.5 - 2025.03.18
   - 层级优化, 背景支持网络图片.
 
