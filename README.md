@@ -40,6 +40,22 @@ pod 'HZNavigationBar'
 pod install
 ```
 
+## Swift Package Manager
+
+Xcode 集成步骤：
+1. 打开 `File -> Add Package Dependencies...`
+2. 输入仓库地址：`https://github.com/Boxzhi/HZNavigationBar.git`
+3. 选择需要的版本规则后，添加到目标 target
+
+代码中引入：
+```swift
+import HZNavigationBar
+```
+
+注意：
+- CocoaPods 方式当前支持 `iOS 10.0+`
+- Swift Package Manager 方式当前支持 `iOS 12.0+`，以 `Package.swift` 中的平台声明为准
+
 # Demo图片
 
 <img width="400" src="https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_1.png"/>    <img width="400" src="https://raw.githubusercontent.com/Boxzhi/HZNavigationBar/master/Images/demo_2.png"/>
